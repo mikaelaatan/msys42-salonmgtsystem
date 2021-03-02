@@ -36,3 +36,12 @@ class Appointment(models.Model):
     appointmenttime = models.TimeField(null=False)
     iscancelled = models.BooleanField(default='No', null=False)
     customerid = models.ForeignKey('Customer', on_delete=models.CASCADE)
+
+class User(models.Model):
+    userid = models.AutoField(db_column='UserID', primary_key = True)  # Field name made lowercase.
+    firstname = models.CharField(db_column='FirstName', max_length=24)  # Field name made lowercase.
+    lastname = models.CharField(db_column='LastName', max_length=12)  # Field name made lowercase.
+    emailaddress = models.CharField(db_column='EmailAddress', max_length=50)  # Field name made lowercase.
+    contactnumber = models.IntegerField(db_column='ContactNumber')  # Field name made lowercase.
+    username = models.CharField(db_column='Username', max_length=15)  # Field name made lowercase.
+    password = models.CharField(db_column='Password', max_length=20)  # Field name made lowercase.
