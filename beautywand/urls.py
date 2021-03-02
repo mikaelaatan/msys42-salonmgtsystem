@@ -21,5 +21,5 @@ from scheduling import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('scheduling.urls')),
-    path('', views.home_view, name='home'),
+#    path('', views.home_view, name='home'),
 ]
