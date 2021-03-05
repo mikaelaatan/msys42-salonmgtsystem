@@ -1,12 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-class Service(models.Model):
-    ServiceName = models.CharField(max_length=64)
-    ServiceType = models.CharField(max_length=32)
-    ServicePrice = models.DecimalField(decimal_places=2, max_digits=1000)
-    ServiceDescription = models.TextField(blank=True, null=True)
-    ServiceDuration = models.CharField(max_length=32)
 
 class Staff(models.Model):
     staffid = models.AutoField(db_column='StaffID', primary_key=True, null=False)
@@ -19,7 +13,7 @@ class ServiceRendered(models.Model):
     comment = models.TextField(db_column='Comment', blank=True, null=True)
     totalamount = models.DecimalField(db_column='TotalAmount', max_digits=10, decimal_places=2, blank=True, null=True)
     paymentmethod = models.CharField(max_length=64, db_column='PaymentMethod')
-    serviceid = models.ForeignKey(Service, db_column='ServiceID', on_delete=models.CASCADE)
+    serviceid = models.ForeignKey('services.Service', db_column='ServiceID', on_delete=models.CASCADE)
     staffid = models.ForeignKey('Staff', db_column='StaffID', on_delete=models.CASCADE)
 
 class Customer(models.Model):
@@ -41,7 +35,7 @@ class User(models.Model):
     userid = models.AutoField(db_column='UserID', primary_key = True)
     firstname = models.CharField(db_column='FirstName', max_length=24)
     lastname = models.CharField(db_column='LastName', max_length=12)
-    emailaddress = models.CharField(db_column='EmailAddress', max_length=50) 
+    emailaddress = models.CharField(db_column='EmailAddress', max_length=50)
     contactnumber = models.IntegerField(db_column='ContactNumber')
     username = models.CharField(db_column='Username', max_length=15)
     password = models.CharField(db_column='Password', max_length=20)
