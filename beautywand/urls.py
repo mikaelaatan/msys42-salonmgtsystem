@@ -20,6 +20,11 @@ from scheduling import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+<<<<<<< HEAD
     path('', include('scheduling.urls')),
 #    path('', views.home_view, name='home'),
+=======
+    path('', include('scheduling.urls'))
+    
+>>>>>>> f471d00 (added static and template docs)
 ]
