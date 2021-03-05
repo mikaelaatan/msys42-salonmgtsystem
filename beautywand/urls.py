@@ -17,8 +17,10 @@ from django.contrib import admin
 from django.urls import path, include
 
 from scheduling import views
+from services import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('scheduling.urls'),
+    path('', include('scheduling.urls')),
+    path('', include('services.urls')),
 ]
