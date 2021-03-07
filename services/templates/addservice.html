@@ -1,8 +1,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<form action="." method='POST'> {% csrf_token %}
-  {{ form.as_p }}
-  <input type = 'submit' value='Save' />
-</form>
-{% endblock %}
+<div class="col-md-12">
+       <div class="container">
+         <h1>BeautyWand Salon</h1>
+         <h3>Enter service details: </h3>
+         <form method="POST" class="post-form" action="/services/add/">
+            {% csrf_token %}
+         <br>
+      <div class="form-group row">
+      <label class="col-sm-1 col-form-label"></label>
+      <div class="col-sm-4">
+          {{ form.as_p }}
+      <input type = 'submit' value='Save' />
+          </form>
+         </div>
+{% endblock content %}
