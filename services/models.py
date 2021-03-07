@@ -9,8 +9,8 @@ class Service(models.Model):
     servicedescription = models.TextField(blank=True, null=True)
     serviceduration = models.CharField(max_length=32)
 
-    def __str__(self):
-        return str(self.id) + ": " + self.servicename + ", " + str(self.serviceprice)
+    # def __str__(self):
+    #     return str(self.id) + ": " + self.servicename + ", " + str(self.serviceprice)
 
     def get_absolute_url(self):
         return reverse("services:service-detail", kwargs={"id": self.id})
