@@ -1,35 +1,59 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from .models import Service
-from .forms import ServiceCreateForm
+from .forms import ServiceForm
+from django.views.generic import *
+from django.urls import reverse
 
-# def addnewservice_view(request):
-#     form = ServiceCreateForm(request.POST or None)
+# DETAILED VIEW
+def dynamic_lookup_view(request,id):
+    obj = get_object_or_404(Service, id=id)
+    context = {
+        "object": obj
+    }
+    return render(request, "service_detail.html", context)
+
+class ServiceListView(ListView):
+    model = Service
+    template_name = 'serviceslist.html'
+    queryset = Service.objects.all()
+
+class ServiceCreateView(CreateView):
+    template_name = 'addservice.html'
+    form_class = ServiceForm
+    queryset = Service.objects.all()
+
+class ServiceUpdateView(UpdateView):
+    template_name = 'addservice.html'
+    form_class = ServiceForm
+    queryset = Service.objects.all()
+
+    def get_object(self):
+        id_ = self.kwargs.get("id")
+        return get_object_or_404(Service, id=id_)
+
+class ServiceDeleteView(DeleteView):
+    template_name = 'deleteservice.html'
+
+    def get_object(self):
+        id_ = self.kwargs.get("id")
+        return get_object_or_404(Service, id=id_)
+
+    def get_success_url(self):
+        return reverse('services:service-list')
+
+# def serviceslist_view(request):
+#     obj = Service.objects.all()
+#     print(obj)
+#     context = {
+#         'serviceobj': obj
+#     }
+#     return render(request, 'serviceslist.html',context)
+#
+#
+# def addservice_view(request):
+#     form = ServiceForm(request.POST or None)
 #     if form.is_valid():
 #         form.save()
-#     context = {
-#         'form': form
-#     }
-#     return render(request, 'addservice.html',context)
-
-
-def addservice_view(request):
-    form = ServiceCreateForm()
-    if form.is_valid():
-        form.save()
-    context = {
-        'form': form
-    }
-    return render(request, 'addservice.html',context)
-
-# Create your views here.
-def listofservices_view(request):
-    obj = Service.objects.get(id=1)
-    # context = {
-    #     'Name': obj.servicename,
-    #     'Price': obj.ServicePrice
-    # }
-    context = {
-        'serviceobj': obj
-    }
-    return render(request, 'listofservices.html',context)
+#         form = ServiceForm()
+#     return render(request, 'addservice.html',{'form': form})
