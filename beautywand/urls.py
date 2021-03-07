@@ -22,5 +22,5 @@ from services import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('scheduling.urls')),
-    path('', include('services.urls')),
+    path('services/', include('services.urls')),
 ]
