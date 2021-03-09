@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="col-md-12">
+       <div class="container">
+         <h1>BeautyWand Salon</h1>
+         <h3>{{ object.servicename }} - Service Details</h3>
+         <p> Service Type: {{ object.servicetype }} </p>
+         <p> Price: {{ object.serviceprice }} </p>
+         <p> Description: {{ object.servicedescription }} </p>
+         <p> Duration: {{ object.serviceduration }} </p>
+       </div>
+
+    <!-- add a back to service list button -->
+{% endblock content %}
