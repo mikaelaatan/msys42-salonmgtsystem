@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 class Staff(models.Model):
     staffid = models.AutoField(db_column='StaffID', primary_key=True, null=False)
-    username = models.CharField(db_column='Username', max_length=15)
+    username = models.CharField(db_column='Username', max_length=15, null=True)
 
 class ServiceRendered(models.Model):
     servicerenderedid = models.AutoField(db_column='ServiceRenderedID', primary_key=True)
@@ -17,7 +17,7 @@ class ServiceRendered(models.Model):
 
 class Customer(models.Model):
     customerid = models.AutoField(db_column='CustomerID', primary_key=True)
-    username = models.CharField(db_column='Username', max_length=15)
+    username = models.CharField(db_column='Username', max_length=15, null=True)
     dateofbirth = models.DateField(null=False)
 
 class Appointment(models.Model):
