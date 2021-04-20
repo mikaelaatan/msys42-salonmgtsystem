@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'scheduling.apps.SchedulingConfig',
     'services.apps.ServicesConfig',
+    'employees.apps.EmployeesConfig'
 
 
 ]

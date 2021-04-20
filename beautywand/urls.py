@@ -18,9 +18,11 @@ from django.urls import path, include
 
 from scheduling import views
 from services import views
+from employees import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('scheduling.urls')),
     path('services/', include('services.urls')),
+    path('employees/', include('employees.urls')),
 ]

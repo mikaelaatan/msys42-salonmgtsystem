@@ -57,6 +57,36 @@ th {
     margin-bottom: 2rem;
 }
 
+.title-container {
+    margin-top: 1rem;
+}
+
+.title-container h1 {
+    font-weight: bold;
+}
+
+
+.form-group .submit__btn {
+    border-radius: 20px;
+	border: 1px solid #252525;
+	background-color: #252525;
+	color: #FFFFFF;
+	font-size: 12px;
+	font-weight: 300px;
+	padding: 12px 45px;
+	letter-spacing: 3px;
+	text-transform: uppercase;
+	margin: 10px 0px;
+}
+
+.form-group .submit__btn:active {
+	transform: scale(0.95);
+	background-color: #8956F8;
+}
+
+.form-group .submit__btn:focus {
+	outline: none;
+}
 
 
 tbody tr {
@@ -88,4 +118,5 @@ tbody tr td a {
     color: #8956F8;
     text-decoration: none
 }
+
 
