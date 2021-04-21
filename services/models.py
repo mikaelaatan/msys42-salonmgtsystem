@@ -1,18 +1,32 @@
 from django.db import models
 from django.urls import reverse
+from datetime import timedelta
+
+SERVICE_TYPE_CHOICES = [
+    ('Hair', 'Hair Service'),
+    ('Nails', 'Nail Service'),
+    ('Skin', 'Skin Service'),
+    ('Makeup', 'Semi-permanent Makeup'),
+    ('Face', 'Facial Service'),
+    ('Eyes', 'Eyebrow/Eyelash Service'),
+]
 
 # Create your models here.
 class Service(models.Model):
-    servicename = models.CharField(max_length=64)
-    servicetype = models.CharField(max_length=32)
-    serviceprice = models.DecimalField(decimal_places=2, max_digits=1000)
-    servicedescription = models.TextField(blank=True, null=True)
-    serviceduration = models.CharField(max_length=32)
+    servicename = models.CharField("Service Name", max_length=64, unique=True)
+    servicetype = models.CharField("Service Type", max_length=32,choices=SERVICE_TYPE_CHOICES, default="Hair Service")
+    serviceprice = models.DecimalField("Price", decimal_places=2, max_digits=20, default=99.00)
+    servicedescription = models.TextField("Description", blank=True, null=True)
+    serviceduration = models.DurationField("Duration",default=timedelta(minutes=20))
 
-    # def __str__(self):
-    #     return str(self.id) + ": " + self.servicename + ", " + str(self.serviceprice)
+    def __str__(self):
+        return str(self.id) + ": " + self.servicename + ", " + str(self.serviceprice)
 
     def get_absolute_url(self):
         return reverse("services:service-detail", kwargs={"id": self.id})
 
         # return f"/services/{self.id}"
+
+    def serviceduration_HHmm(self):
+        sec = self.serviceduration.total_seconds()
+        return '%02d:%02d' % (int((sec/3600)%3600), int((sec/60)%60))
