@@ -19,6 +19,11 @@ from django.urls import path, include
 from scheduling import views
 from services import views
 
+# ----- no sidebar admin page ---------
+admin.autodiscover()
+admin.site.enable_nav_sidebar = False
+# -------------------------------------
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('scheduling.urls')),
