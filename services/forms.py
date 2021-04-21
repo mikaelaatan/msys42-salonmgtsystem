@@ -28,12 +28,8 @@ class ServiceForm(forms.ModelForm):
 
     def clean_serviceduration(self):
         dur = self.cleaned_data['serviceduration']
-        # if isinstance(dur, datetime) == True:
         durstr = str(dur)
         dur_str = durstr[2:]
-        # dur_str = ''.join([dur_str,":00"])
         t = datetime.strptime(dur_str,'%H:%M')
         delta = timedelta(hours=t.hour, minutes=t.minute)
         return delta
-        # else:
-        #     return delta
