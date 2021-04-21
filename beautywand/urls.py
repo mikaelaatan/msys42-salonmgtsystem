@@ -20,6 +20,11 @@ from scheduling import views
 from services import views
 from employees import views
 
+# ----- no sidebar admin page ---------
+admin.autodiscover()
+admin.site.enable_nav_sidebar = False
+# -------------------------------------
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('scheduling.urls')),
