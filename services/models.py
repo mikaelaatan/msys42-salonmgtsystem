@@ -15,7 +15,7 @@ SERVICE_TYPE_CHOICES = [
 class Service(models.Model):
     servicename = models.CharField("Service Name", max_length=64, unique=True)
     servicetype = models.CharField("Service Type", max_length=32,choices=SERVICE_TYPE_CHOICES, default="Hair Service")
-    serviceprice = models.DecimalField("Price", decimal_places=2, max_digits=20, default=99.00)
+    serviceprice = models.PositiveIntegerField("Price")
     servicedescription = models.TextField("Description", blank=True, null=True)
     serviceduration = models.DurationField("Duration",default=timedelta(minutes=20))
 

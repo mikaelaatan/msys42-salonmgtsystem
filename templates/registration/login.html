@@ -2,6 +2,11 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<!--
+Redirection is in beautywand/settings.py
+LOGIN_REDIRECT_URL
+ -->
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -28,7 +33,8 @@
             </form>
         </div>
         <div class="form-container sign-in-container">
-            <form action="#">
+          <form id="login-form" method="post">
+              {% csrf_token %}
                 <h1>Sign in</h1>
                 <div class="social-container">
                     <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
@@ -36,10 +42,19 @@
                     <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
                 </div>
                 <span>or use your account</span>
-                <input type="email" placeholder="Email" />
-                <input type="password" placeholder="Password" />
+                <input id="id_username" name="username" type="text" class="form-control">
+                <input type="password" name="password" id="password" placeholder="Password" />
                 <a href="#">Forgot your password?</a>
-                <a href="/services"><button>Sign In</button></a>
+
+                {% if form.errors %}
+                    <p class=" label label-danger">
+                        Your username and password didn't match.
+                        Please try again.
+                    </p>
+                {% endif %}
+
+                  <!-- <a href="/services"><button>Sign In</button></a> -->
+                <button type="submit" value="login" class="btn btn-success"> Login </button>
             </form>
         </div>
         <div class="overlay-container">

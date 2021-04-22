@@ -30,4 +30,5 @@ urlpatterns = [
     path('', include('scheduling.urls')),
     path('services/', include('services.urls')),
     path('employees/', include('employees.urls')),
+    path('', include('django.contrib.auth.urls')),
 ]
