@@ -1,4 +1,6 @@
 {% load static %}
+{% load widget_tweaks %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,6 +20,8 @@ LOGIN_REDIRECT_URL
 <body>
     <div class="container" id="container">
         <div class="form-container sign-up-container">
+
+            <!--
             <form action="#">
                 <h1>Create Account</h1>
                 <div class="social-container">
@@ -26,10 +30,62 @@ LOGIN_REDIRECT_URL
                     <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
                 </div>
                 <span>or use your email for registration</span>
-                <input type="text" placeholder="Name" />
-                <input type="email" placeholder="Email" />
-                <input type="password" placeholder="Password" />
+                <input type="text" placeholder="First Name" />
+                <input type="text" placeholder="Last Name" />
+                <input type="email" class="form-control" id="id_email" name="email" />
+                <input type="password" class="form-control" id="id_password" name="password" />
                 <button>Sign Up</button>
+            </form>
+
+          -->
+
+          <form enctype="multipart/form-data" method='POST'>
+            <h1>Create Account</h1>
+            <div class="social-container">
+                <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            <span>or use your email for registration</span>
+
+            {% csrf_token %}
+              {% for field in profile_form %}
+              <div class="form-group">
+                  <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                  {{ field|add_class:"form-control" }}
+                  {% if field.errors %}
+                      <div class="alert alert-danger form-error">
+                      {% for error in field.errors %}
+                      <div style="margin:0;padding:0;"><small>{{ error }}</small></div>
+                      {% endfor %}
+                      </div>
+                  {% endif %}
+              </div>
+              {% endfor %}
+              {% for field in extended_profile_form %}
+              <div class="form-group">
+                  <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                  {% if field.label == 'Service type' %}
+                      <div class="form-group">
+                  {% for subfield in field %}
+                      {{ subfield }}<br>
+                  {% endfor %}
+                      </div>
+                  {% elif field.label == "Birthdate" %}
+                      {% include 'common/date_picker.html' %}
+                  {% else %}
+                  {{ field|add_class:"form-control" }}
+                  {% endif %}
+                  {% if field.errors %}
+                      <div class="alert alert-danger form-error">
+                      {% for error in field.errors %}
+                      <div style="margin:0;padding:0;"><small>{{ error }}</small></div>
+                      {% endfor %}
+                      </div>
+                  {% endif %}
+              </div>
+              {% endfor %}
+              <button type="submit" value="signup" class="btn btn-success"> Sign Up </button>
             </form>
         </div>
         <div class="form-container sign-in-container">
