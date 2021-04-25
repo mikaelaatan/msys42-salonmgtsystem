@@ -1,5 +1,5 @@
 from django import forms
-from .models import CustomerProfile
+from .models import Customer
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
@@ -19,4 +19,4 @@ class CustomerProfileForm(UserCreationForm):
 class ExtendedCustomerProfileForm(forms.ModelForm):
     class Meta:
         model = Customer
-        fields = ('city', 'country', 'birthdate', 'phone_number')
+        fields = ('birthdate', 'phone_number')

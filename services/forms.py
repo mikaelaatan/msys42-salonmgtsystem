@@ -12,6 +12,9 @@ SERVICE_TYPE_CHOICES = [
 ]
 
 class ServiceForm(forms.ModelForm):
+    required_css_class = 'required'
+
+
     servicename = forms.CharField(label='Name',error_messages = {
                  'unique':"This service already exists. Please try again."}, widget=forms.TextInput(attrs={'class': 'form-control'}))
     servicetype = forms.ChoiceField(label='Service Type',choices=SERVICE_TYPE_CHOICES, widget=forms.Select(attrs={'class': 'form-control'}))

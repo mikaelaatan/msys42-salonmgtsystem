@@ -4,7 +4,12 @@
 body {
     font-family: "Poppins", sans-serif;
     /* font-size: large; */
-    
+
+}
+
+label.required::after {
+    content: ' *';
+    color: red;
 }
 
 .col-md-12 {
@@ -42,13 +47,13 @@ body {
 h4 {
     margin: 2rem 0;
     font-weight: bold;
-    
+
 }
 
 h2 {
     margin: 2rem 0;
     font-weight: bold;
-    
+
 }
 
 th {
@@ -96,12 +101,12 @@ tbody tr {
 }
 
  td .btn {
-    
+
     background-color: transparent;
     border: 0.5px solid transparent;
     color: #252525;
     font-size:large;
-    
+
 }
 
 td .btn:hover {
@@ -118,5 +123,3 @@ tbody tr td a {
     color: #8956F8;
     text-decoration: none
 }
-
-

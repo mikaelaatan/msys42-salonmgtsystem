@@ -31,4 +31,8 @@ urlpatterns = [
     path('services/', include('services.urls')),
     path('employees/', include('employees.urls')),
     path('', include('django.contrib.auth.urls')),
+    path('', include('customers.urls')),
 ]
+
+# if settings.DEBUG:
+#     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
