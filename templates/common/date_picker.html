@@ -1,0 +1,19 @@
+{% load widget_tweaks %}
+{% load static %}
+<script src="{% static 'js/jquery-3.6.0.js' %}"></script>
+
+<div class="input-group date" id="datetimepicker2" data-target-input="nearest">
+  {{ field | add_class:'form-control datetimepicker-input' | attr:'data-target:"#datetimepicker2"'}}
+    <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
+        <div class="input-group-addon"><i class="fa fa-calendar-plus-o"></i></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    $("#datetimepicker2").datetimepicker({
+    format: 'MM/DD/YYYY',
+    viewMode: 'years'
+    });
+});
+</script>

@@ -10,9 +10,9 @@
            <p> Service Type: {{ object.servicetype }} </p>
            <p> Price: {{ object.serviceprice }} </p>
            <p> Description: {{ object.servicedescription }} </p>
-           <p> Duration: {{ object.serviceduration }} </p>
-           <p><input type="submit" name="Yes" value="Yes" onclick="alert('{{ object.servicename}} deleted successfully.');"> <a href='/services/' onclick="alert('Deletion aborted.');">Cancel</a></p>
+           <p> Duration: {{ object.serviceduration_HHmm }} </p>
+           <p><input type="submit" name="Yes" value="Yes" onclick="alert('{{ object.servicename}} deleted successfully.');">
+            <a href='/services/' onclick="alert('Deletion aborted.');">Cancel</a></p>
        </div>
-
     <!-- add a back to service list button -->
 {% endblock content %}

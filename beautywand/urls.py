@@ -18,9 +18,21 @@ from django.urls import path, include
 
 from scheduling import views
 from services import views
+from employees import views
+
+# ----- no sidebar admin page ---------
+admin.autodiscover()
+admin.site.enable_nav_sidebar = False
+# -------------------------------------
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('scheduling.urls')),
     path('services/', include('services.urls')),
+    path('employees/', include('employees.urls')),
+    path('', include('django.contrib.auth.urls')),
+    path('', include('customers.urls')),
 ]
+
+# if settings.DEBUG:
+#     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

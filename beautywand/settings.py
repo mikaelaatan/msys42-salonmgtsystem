@@ -39,9 +39,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'widget_tweaks',
+
     'scheduling.apps.SchedulingConfig',
     'services.apps.ServicesConfig',
-
+    'employees.apps.EmployeesConfig',
+    'customers.apps.CustomersConfig',
 
 ]
 
@@ -78,12 +82,24 @@ WSGI_APPLICATION = 'beautywand.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
+#
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'beautywand_DB',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+        'USER': 'root', # change this to your sql username
+        'PASSWORD': 'password', # change this to your sql password
     }
+
 }
 
 
@@ -111,7 +127,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'HongKong'
 
 USE_I18N = True
 
@@ -124,7 +140,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR,'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
-    "/beautywand/scheduling/static",
+    os.path.join(BASE_DIR, 'static'),
 ]
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = "/services"

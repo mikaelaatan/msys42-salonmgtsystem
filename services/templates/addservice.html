@@ -1,18 +1,30 @@
 {% extends 'base.html' %}
 
+{% block title %} Services {% endblock title %}
+
 {% block content %}
-<div class="col-md-12">
-       <div class="container">
-         <h1>BeautyWand Salon</h1>
-         <h3>Enter service details: </h3>
-         <form method="POST" class="post-form">
-            {% csrf_token %}
-         <br>
-      <div class="form-group row">
-      <label class="col-sm-1 col-form-label"></label>
-      <div class="col-sm-4">
-          {{ form.as_p }}
-      <input type = 'submit' value='Save'/>
-          </form>
-         </div>
+<div class="container">
+    <div class="title-container">
+        <h1>Add a service</h1>
+        <h3>BeautyWand Salon</h3>
+    </div>
+    <form method="POST" class="post-form">
+        {% csrf_token %}
+        <br>
+        <div class="form-group">
+            <!-- <label class="col-sm-1 col-form-label"></label> -->
+            <!-- <div class="form"> -->
+            {{ form.as_p }}
+            <div class="button-form">
+                <input type='submit' value='Save' class = 'submit__btn'/>
+                <a href='/services/'>
+                    <input type="button" value='Back' class="submit__btn"/>
+                </a>
+            </div>
+
+            <!-- </div> -->
+        </div>
+    </form>
+</div>
+
 {% endblock content %}
