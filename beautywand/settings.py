@@ -44,7 +44,7 @@ INSTALLED_APPS = [
 
     'scheduling.apps.SchedulingConfig',
     'services.apps.ServicesConfig',
-    'employees.apps.EmployeesConfig',
+    'staff.apps.StaffConfig',
     'customers.apps.CustomersConfig',
 
 ]

@@ -1,11 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-
-# class Staff(models.Model):
-#     staffid = models.AutoField(db_column='StaffID', primary_key=True, null=False)
-#     username = models.CharField(db_column='Username', max_length=15, null=True)
-#
 # class ServiceRendered(models.Model):
 #     servicerenderedid = models.AutoField(db_column='ServiceRenderedID', primary_key=True)
 #     rating = models.DecimalField(db_column='Rating', max_digits=2, decimal_places=2, blank=True, null=True)
@@ -21,12 +16,3 @@ from django.contrib.auth.models import User
 #     appointmenttime = models.TimeField(null=False)
 #     iscancelled = models.BooleanField(default='No', null=False)
 #     customerid = models.ForeignKey('Customer', on_delete=models.CASCADE)
-
-# class User(models.Model):
-#     userid = models.AutoField(db_column='UserID', primary_key = True)
-#     firstname = models.CharField(db_column='FirstName', max_length=24)
-#     lastname = models.CharField(db_column='LastName', max_length=12)
-#     emailaddress = models.CharField(db_column='EmailAddress', max_length=50)
-#     contactnumber = models.IntegerField(db_column='ContactNumber')
-#     username = models.CharField(db_column='Username', max_length=15)
-#     password = models.CharField(db_column='Password', max_length=20)

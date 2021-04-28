@@ -63,7 +63,7 @@ LOGIN_REDIRECT_URL
               {% for field in extended_profile_form %}
               <div class="form-group">
                   <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                  {% if field.label == 'Service type' %}
+                  {% if field.label == 'Services Perf' %}
                       <div class="form-group">
                   {% for subfield in field %}
                       {{ subfield }}<br>
@@ -88,7 +88,7 @@ LOGIN_REDIRECT_URL
         </div>
         <div class="form-container sign-in-container">
           <form id="login-form" method="post">
-              <!-- {% csrf_token %} -->
+              {% csrf_token %}
                 <h1>Sign in</h1>
                 <div class="social-container">
                     <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>

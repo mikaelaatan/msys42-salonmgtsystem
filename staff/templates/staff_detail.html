@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="col-md-12">
+       <div class="container">
+         <h1>BeautyWand Salon</h1>
+         <h3>Staff username: {{ object.user.username }}</h3>
+         <p> Full name: {{ object.user.first_name|add:' '|add:object.user.last_name }} </p>
+         <p> Email: {{ object.user.email }} </p>
+         <p> Description: {{ object.about }} </p>
+         <p> Service skills: {% for service in object.services.all %}
+                            <p class='m-0 p-0'>{{ service }}</p>
+                        {% endfor %} </p>
+       </div>
+
+    <!-- add a back to service list button -->
+    <span><a href="/staff/" class="btn btn-primary">Back to staff list</a></span><br>
+{% endblock content %}
