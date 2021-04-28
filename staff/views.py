@@ -29,7 +29,7 @@ def signup_staff_view(request):
     return render(request, 'registration/login.html', context)
 
 #=============== DELETE VIEW ====================
-
+### there's no delete. instead the admin can deactivate a user. ###
 
 #=============== DETAILED VIEW ==================
 def dynamic_lookup_view(request,id):
