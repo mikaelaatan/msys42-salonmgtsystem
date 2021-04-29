@@ -10,4 +10,4 @@ class Customer(models.Model):
     phone_number = models.CharField(max_length = 11)
 
     def __str__(self, *args, **kwargs):
-        return f'{self.user.first_name} {self.user.last_name}'
+        return f'{self.user.username} - {self.user.first_name} {self.user.last_name}'
