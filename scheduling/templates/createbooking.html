@@ -1,20 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="{% static 'css/booking.css' %}" />
-    <title>Create Booking</title>
-</head>
+{% extends 'common/base.html' %}
 
-<body>
-    <div class="container" id="container"></div>
-    <form action="#">
-        <div class="input-container">
-            <span>customer name</span>
-            
+{% block content %}
+
+<div class="container">
+    <div class="title-container">
+        <h1>Book an appointment</h1>
+    </div>
+    <form method="POST" class="post-form">
+        {% csrf_token %}
+        <br>
+        <div class="form-group">
+            <label class="col-sm-1 col-form-label"></label>
+            <div class="form">
+            {{ form.as_p }}
+            <div class="button-form">
+                <input type='submit' value='Save' class = 'submit__btn'/>
+                <a href='/services/'>
+                    <input type="button" value='Back' class="submit__btn"/>
+                </a>
+            </div>
         </div>
     </form>
-</body>
-</html>
+</div>
+
+{% endblock content %}
