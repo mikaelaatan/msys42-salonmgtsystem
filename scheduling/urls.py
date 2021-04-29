@@ -15,10 +15,14 @@ Including another URLconf
 """
 from django.urls import path
 from . import views
+from django.conf.urls import url
 from .views import *
 
 app_name = 'scheduling'
 urlpatterns = [
+    url(r'^index/$', views.index, name='index'),
+    url(r'^calendar/$', views.CalendarView.as_view(), name='calendar'),
+    path('index', views.index, name='index'),
     path('new/', AppointmentCreateView.as_view(), name='appointment-new'),
     path('', AppointmentListView.as_view(), name='appointment-list'),
     # path('<int:id>/', views.dynamic_lookup_view, name='staff-detail'),

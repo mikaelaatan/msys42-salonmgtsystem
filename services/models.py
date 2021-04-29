@@ -20,7 +20,7 @@ class Service(models.Model):
     serviceduration = models.DurationField("Duration",default=timedelta(minutes=20))
 
     def __str__(self):
-        return str(self.id) + ": " + self.servicename + ", " + str(self.serviceprice)
+        return self.servicename + ", " + str(self.serviceprice)
 
     def get_absolute_url(self):
         return reverse("services:service-detail", kwargs={"id": self.id})
