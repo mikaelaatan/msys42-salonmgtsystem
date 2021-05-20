@@ -1,30 +1,70 @@
-{% extends 'base.html' %}
+{% extends 'common/base.html' %}
 
 {% block title %} Staff details {% endblock title %}
 
 {% block content %}
 <div class="container">
     <div class="title-container">
-        <h1>Update staff information</h1>
-        <h3>  {{ object.user.first_name|add:' '|add:object.user.last_name }} </h3>
+        <h1> Update staff information </h1>
     </div>
     <form method="POST" class="post-form">
         {% csrf_token %}
         <br>
-        <div class="form-group">
-            <!-- <label class="col-sm-1 col-form-label"></label> -->
-            <!-- <div class="form"> -->
-            {{ form.as_p }}
-            <div class="button-form">
-                <input type='submit' value='Save' class = 'submit__btn'/>
-                <a href='/staff/'>
-                    <input type="button" value='Back'/>
-                </a>
-            </div>
+        <fieldset>
 
-            <!-- </div> -->
+        <!-- Text input-->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="staffname">Name:</label>
+          <div class="col-md-4">
+          <input id="staffname" name="staffname" type="text" class="form-control input-md" value="{{ object.user.first_name|add:' '|add:object.user.last_name }}" readonly>
+          </div>
+        </div>
+
+        <!-- Textarea -->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="textarea">About the Staff:</label>
+          <div class="col-md-4">
+            <textarea class="form-control" id="textarea" name="about" value="{{ object.about }}">Enter description</textarea>
+          </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="staffnumber">Phone Number: </label>
+          <div class="col-md-4">
+          <input id="staffnumber" name="phone_number" type="text" placeholder="09xxxxxxxxx" class="form-control input-md" value="{{ object.phone_number }}" required>
+          </div>
+        </div>
+
+        <!-- SERVICES Select Multiple -->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="staffservice">Services:</label>
+          <div class="col-md-4">
+            <select class="form-control" name="s_service">
+                <option selected>Select Services</option>
+                {% for s in s_service %}
+                <option value="{{ s.id }}">{{ s.servicename }}</option>
+                {% endfor %}
+              </select>
+          </div>
+        </div>
+
+        <!-- Multiple Checkboxes (inline) -->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="isactive">Currently Active?</label>
+          <div class="col-md-4">
+            <label class="checkbox-inline" for="isactive-0">
+              <input type="checkbox" name="isactive" id="isactive-0" value="{{ object.is_active }}"> Yes
+            </label>
+          </div>
+        </div>
+        </fieldset>
+        <div class="button-form">
+            <input type='submit' value='Save' class = 'submit__btn'/>
+            <a href='/staff/'>
+                <input type="button" value='Back'/>
+            </a>
         </div>
     </form>
 </div>
-
 {% endblock content %}

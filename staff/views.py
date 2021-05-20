@@ -53,6 +53,20 @@ class StaffUpdateView(UpdateView):
         id_ = self.kwargs.get("id")
         return get_object_or_404(StaffModel, id=id_)
 
+    # def service_details(request):
+    #     # selected_service = Service.objects.get(id=id)
+    #     selected_service = request.GET['selected_service']
+    #     return get_object_or_404(Service, pk=selected_service)
+
+    def service_list(request):
+        selected_service = Service.objects.all()
+        context = {
+            "s_service": selected_service
+        }
+        return render(request, context)
+
+
+
 # class StaffCreateView(CreateView):
 #     template_name = 'addstaff.html'
 #     form_class = StaffModelForm

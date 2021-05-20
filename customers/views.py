@@ -5,6 +5,8 @@ from .forms import CustomerProfileForm, ExtendedCustomerProfileForm
 from .models import Customer
 
 # Create your views here.
+def home(request):
+    return render(request, 'home.html',{})
 
 def signup_view(request):
     customer_profile_form = CustomerProfileForm(request.POST or None, request.FILES or None)
@@ -16,7 +18,7 @@ def signup_view(request):
         for field in ['birthdate', 'phone_number']:
             setattr(extended_customer, field, extended_customer_profile_form.cleaned_data.get(field))
         extended_customer.save()
-        return redirect('')
+        return redirect('/appointments')
     context = {
         'profile_form': customer_profile_form,
         'extended_profile_form': extended_customer_profile_form,

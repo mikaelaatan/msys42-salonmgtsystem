@@ -21,14 +21,14 @@ class StaffModelForm(UserCreationForm):
         return user
 
 class ExtendedStaffModelForm(forms.ModelForm):
-    services = forms.ModelMultipleChoiceField(Service.objects.all(), widget=forms.CheckboxSelectMultiple)
+    services = forms.ModelMultipleChoiceField(queryset=Service.objects.all(), widget=forms.CheckboxSelectMultiple)
 
     class Meta:
         model = StaffModel
         fields = ('phone_number', 'services')
 
 class StaffUpdateForm(forms.ModelForm):
-        services = forms.ModelMultipleChoiceField(Service.objects.all(), widget=forms.CheckboxSelectMultiple)
+        services = forms.ModelMultipleChoiceField(queryset=Service.objects.all(), widget=forms.CheckboxSelectMultiple, help_text = "Choose multiple.")
 
         class Meta:
             model = StaffModel

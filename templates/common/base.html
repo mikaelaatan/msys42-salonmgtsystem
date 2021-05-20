@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> -->
+  <title>{% block title %} Default Title {% endblock %}</title>
+
+  {% include 'common/links.html' %}
+
+</head>
+
+<body>
+
+  {% include 'common/sidebar.html' %}
+  <div class="container">
+    <div class="row">
+      {% block content %}{% endblock content %}
+    </div>
+  </div>
+
+
+
+
+
+  <!--===== MAIN JS =====-->
+  <!-- <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+  <script src="{% static 'boot/js/employees.js' %}"></script>
+  <script src="{% static 'js/sidebar.js' %}"></script>
+
+  <script src="{% static 'js/jquery-3.6.0.js' %}"></script>
+  <script src="{% static 'boot/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap-datepicker.min.js' %}"></script>
+  <script src="{% static 'js/main.js' %}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.23.0/moment.min.js" integrity="sha256-VBLiveTKyUZMEzJd6z2mhfxIqz3ZATCuVMawPZGzIfA=" crossorigin="anonymous"></script> -->
+  {% include 'common/scripts.html' %}
+
+{% block datatables %}
+
+{% endblock datatables %}
+
+</body>
+
+</html>

@@ -15,6 +15,8 @@ LOGIN_REDIRECT_URL
     <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
     <title>Login and Registration Page</title>
+
+    
 </head>
 
 <body>
@@ -63,7 +65,7 @@ LOGIN_REDIRECT_URL
               {% for field in extended_profile_form %}
               <div class="form-group">
                   <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                  {% if field.label == 'Services Perf' %}
+                  {% if field.label == 'Service type' %}
                       <div class="form-group">
                   {% for subfield in field %}
                       {{ subfield }}<br>
@@ -96,7 +98,7 @@ LOGIN_REDIRECT_URL
                     <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
                 </div>
                 <span>or use your account</span>
-                <input id="id_username" name="username" type="text" class="form-control">
+                <input id="id_username" name="username" type="text" class="form-control" placeholder="Username">
                 <input type="password" name="password" id="password" placeholder="Password" />
                 <a href="#">Forgot your password?</a>
 
@@ -126,6 +128,7 @@ LOGIN_REDIRECT_URL
             </div>
         </div>
     </div>
+
     <script src="{% static 'js/app.js' %}"></script>
     <script src="{% static 'js/bootstrap-datepicker.min.js' %}"></script>
 </body>
