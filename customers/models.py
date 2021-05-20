@@ -6,7 +6,7 @@ from django.db.models.signals import post_save
 class Customer(models.Model):
     customerid = models.AutoField(db_column='CustomerID', primary_key=True)
     user = models.OneToOneField(User, on_delete = models.CASCADE, related_name='user')
-    birthdate = models.DateField(null=True)
+    birthday = models.DateField(null=True)
     phone_number = models.CharField(max_length = 11)
 
     def __str__(self, *args, **kwargs):

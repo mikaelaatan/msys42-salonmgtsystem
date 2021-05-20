@@ -38,11 +38,12 @@ class UpdateAppointmentForm(forms.ModelForm):
          }
 
     def __init__(self, *args, **kwargs):
-        super(CreateAppointmentForm, self).__init__(*args, **kwargs)
+        super(UpdateAppointmentForm, self).__init__(*args, **kwargs)
         # input_formats to parse HTML5 datetime-local input to datetime field
         self.fields['appdatetime'].input_formats = ('%Y-%m-%dT%H:%M',)
 
-#
+    
+
 # class AppointmentReviewForm(forms.ModelForm):
 #     class Meta:
 #         model = Appointment

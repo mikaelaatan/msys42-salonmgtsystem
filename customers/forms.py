@@ -3,6 +3,7 @@ from django.forms import ModelForm, DateInput
 from .models import Customer
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from datetime import date
 
 class CustomerProfileForm(UserCreationForm):
     class Meta:
@@ -18,14 +19,15 @@ class CustomerProfileForm(UserCreationForm):
         return user
 
 class ExtendedCustomerProfileForm(forms.ModelForm):
+    birthday = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}, format='%m/%d/%Y'))
+
+    def clean_birthday(self):
+        dob = self.cleaned_data['birthday']
+        today = date.today()
+        if (dob.year + 18, dob.month, dob.day) > (today.year, today.month, today.day):
+            raise forms.ValidationError('You must be at least 18 years old to register')
+        return dob
+
     class Meta:
         model = Customer
-        fields = ('birthdate', 'phone_number')
-        widgets = {
-          'birthdate': DateInput(attrs={'type': 'date'}, format='%m/%d/%Y'),
-         }
-
-        def __init__(self, *args, **kwargs):
-            super(ExtendedCustomerProfileForm, self).__init__(*args, **kwargs)
-            # input_formats to parse HTML5 datetime-local input to datetime field
-            self.fields['birthdate'].input_formats = ('%m/%d/%Y')
+        fields = ('birthday', 'phone_number')
