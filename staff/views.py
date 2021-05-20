@@ -56,7 +56,7 @@ class StaffUpdateView(UpdateView):
 # class StaffCreateView(CreateView):
 #     template_name = 'addstaff.html'
 #     form_class = StaffModelForm
-#     queryset = Service.objects.all()
+#     queryset = StaffModel.objects.all()
 #
 # class ServiceDeleteView(DeleteView):
 #     template_name = 'deletestaff.html'
