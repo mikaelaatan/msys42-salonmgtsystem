@@ -3,8 +3,25 @@
 {% block title %} Employees {% endblock title %}
 
 {% block content %}
+<<<<<<< HEAD
+=======
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.14/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,300;0,400;0,500;0,600;0,700;1,800&display=swap" rel="stylesheet">
+>>>>>>> main
 
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.14/js/jquery.dataTables.min.js"></script>
+<script src="js/main.js"></script>
 
+<!-- <script>
+    $(document).ready( function () {
+        $('#filtertable').DataTable();
+    } );
+</script> -->
     <div class="container p-30">
         <div class="row">
             <div class="col-md-12 main-datatable">
@@ -54,11 +71,18 @@
                                     </td>   {% endif %}
                                     <td>
                                         <a href="edit/{{ staff.id }}" data-target="#edit">
-                                          <i class="fa fa-edit"></i> Edit </a> <!-- will change this to edit link -->
+                                          <i class="fa fa-edit"></i>  </a> <!-- will change this to edit link -->
 
+<<<<<<< HEAD
                                         <!-- <a href="#" target="_black">
                                             <i class="fa fa-trash"></i> Delete
                                         </a> -->
+=======
+                                        <!-- <a href="#" target="_black">  will change this to delete link -->
+                                            <!-- <i class="fa fa-trash"></i> -->
+                                            <!-- staff can't be deleted only deactivated? -->
+                                        </a>
+>>>>>>> main
                                     </td>
                                 </tr>
                             </tbody>
@@ -70,4 +94,10 @@
         </div>
     </div>
 
+
+
 {% endblock content %}
+<<<<<<< HEAD
+=======
+
+>>>>>>> main

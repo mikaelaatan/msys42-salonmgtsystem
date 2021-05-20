@@ -32,4 +32,5 @@ urlpatterns = [
     path('staff/', include('staff.urls')),
     path('', include('django.contrib.auth.urls')),
     path('', include('customers.urls')), ### i might need to change this into profile or account for clarity
+    path('', include('Calendar.urls')),
 ]
