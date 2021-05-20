@@ -97,7 +97,7 @@ DATABASES = {
         'HOST': '127.0.0.1',
         'PORT': '3306',
         'USER': 'root', # change this to your sql username
-        'PASSWORD': 'password', # change this to your sql password
+        'PASSWORD': 'Lazy@$$1', # change this to your sql password
     }
 
 }
