@@ -30,4 +30,16 @@ class ExtendedCustomerProfileForm(forms.ModelForm):
 
     class Meta:
         model = Customer
+<<<<<<< HEAD
         fields = ('birthday', 'phone_number')
+=======
+        fields = ('birthdate', 'phone_number')
+        widgets = {
+          'birthdate': DateInput(attrs={'type': 'date'}, format='%m/%d/%Y'),
+         }
+
+        def __init__(self, *args, **kwargs):
+            super(ExtendedCustomerProfileForm, self).__init__(*args, **kwargs)
+            # input_formats to parse HTML5 datetime-local input to datetime field
+            self.fields['birthdate'].input_formats = ('%m/%d/%Y')
+>>>>>>> 08d63756320583424d9edbcd0240e4f03147dcfe
