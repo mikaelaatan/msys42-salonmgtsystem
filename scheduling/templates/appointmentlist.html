@@ -21,7 +21,6 @@
         <th>ID</th>
         <th>Customer</th>
         <th>Date</th>
-        <th>Time</th>
         <th>Service</th>
         <th>Staff</th>
         <th>Status</th>
@@ -33,11 +32,10 @@
         <tr>
           <!-- <td><input type="checkbox" class="checkthis" /></td> -->
           <td>{{ instance.id }}</td>
-          <td>{{ instance.customers }}</td>
-          <td>{{ instance.datetime }}</td>
-          <td>{{ instance.datetime }}</td>
-          <td>{{ instance.services }}</td>
-          <td>{{ instance.staffs }}</td>
+          <td>{{ instance.customer.user.first_name|add:' '|add:instance.customer.user.last_name }}</td>
+          <td>{{ instance.appdatetime }}</td>
+          <td>{{ instance.service.servicename }}</td>
+          <td>{{ instance.staff.user.first_name|add:' '|add:instance.staff.user.last_name }}</td>
           <td>
             {% if instance.iscancelled == False %}
               <span class="mode mode_on">Confirmed</span>
@@ -45,6 +43,7 @@
               <span class="mode mode_off">Cancelled</span>
           </td>
           {% endif %}
+          <td>
             <p data-placement="top" data-toggle="tooltip" title="Edit"><a href="edit/{{ instance.id }}"
                 button class="btn btn-default btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit">
                 <i class="bi bi-three-dots"></i></a></p>

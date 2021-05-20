@@ -25,6 +25,6 @@ urlpatterns = [
     path('index', views.index, name='index'),
     path('new/', AppointmentCreateView.as_view(), name='appointment-new'),
     path('', AppointmentListView.as_view(), name='appointment-list'),
-    # path('<int:id>/', views.dynamic_lookup_view, name='staff-detail'),
+    path('<int:id>/', views.dynamic_lookup_view, name='booking-details'),
     # path('edit/<int:id>/', StaffUpdateView.as_view(), name='staff-edit'),
 ]

@@ -1,4 +1,5 @@
 from django import forms
+from django.forms import ModelForm, DateInput
 from .models import Customer
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
@@ -20,3 +21,11 @@ class ExtendedCustomerProfileForm(forms.ModelForm):
     class Meta:
         model = Customer
         fields = ('birthdate', 'phone_number')
+        widgets = {
+          'birthdate': DateInput(attrs={'type': 'date'}, format='%m/%d/%Y'),
+         }
+
+        def __init__(self, *args, **kwargs):
+            super(ExtendedCustomerProfileForm, self).__init__(*args, **kwargs)
+            # input_formats to parse HTML5 datetime-local input to datetime field
+            self.fields['birthdate'].input_formats = ('%m/%d/%Y')

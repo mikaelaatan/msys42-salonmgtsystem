@@ -1,8 +1,9 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
-from .forms import AppointmentForm
+from .forms import CreateAppointmentForm
 from django.views.generic import *
 from django.urls import reverse
+from datetime import datetime, timedelta
 
 from django.utils.safestring import mark_safe
 
@@ -71,9 +72,16 @@ def event(request, event_id=None):
 
 
 ####################################################
+def dynamic_lookup_view(request,id):
+    obj = get_object_or_404(Appointment, id=id)
+    context = {
+        "object": obj
+    }
+    return render(request, "booking_details.html", context)
+
 class AppointmentCreateView(CreateView):
     template_name = 'createbooking.html'
-    form_class = AppointmentForm
+    form_class = CreateAppointmentForm
     queryset = Appointment.objects.all()
 
 class AppointmentListView(ListView):
