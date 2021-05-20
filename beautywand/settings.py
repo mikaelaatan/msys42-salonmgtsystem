@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 
     'widget_tweaks',
 
+    'Calendar.apps.CalendarConfig',
     'scheduling.apps.SchedulingConfig',
     'services.apps.ServicesConfig',
     'staff.apps.StaffConfig',
@@ -97,7 +98,7 @@ DATABASES = {
         'HOST': '127.0.0.1',
         'PORT': '3306',
         'USER': 'root', # change this to your sql username
-        'PASSWORD': 'Lazy@$$1', # change this to your sql password
+        'PASSWORD': 'password', # change this to your sql password
     }
 
 }
@@ -147,4 +148,4 @@ STATICFILES_DIRS = [
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
-LOGIN_REDIRECT_URL = "/services"
+LOGIN_REDIRECT_URL = "/home"

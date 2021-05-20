@@ -8,7 +8,6 @@ class StaffModel(models.Model):
     about = models.TextField("About", max_length=300, null=True, blank=True)
     phone_number = models.CharField(max_length=20)
     services = models.ManyToManyField(Service)
-    average_rating = models.IntegerField(null=True, blank=True)
     is_active = models.BooleanField(null=False, default=True)
 
     def __str__(self, *args, **kwargs):

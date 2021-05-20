@@ -28,7 +28,7 @@ class ExtendedStaffModelForm(forms.ModelForm):
         fields = ('phone_number', 'services')
 
 class StaffUpdateForm(forms.ModelForm):
-        services = forms.ModelMultipleChoiceField(Service.objects.all(), widget=forms.CheckboxSelectMultiple)
+        services = forms.ModelMultipleChoiceField(Service.objects.all(), widget=forms.SelectMultiple, help_text = "Choose multiple.")
 
         class Meta:
             model = StaffModel

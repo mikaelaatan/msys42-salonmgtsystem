@@ -70,7 +70,7 @@ LOGIN_REDIRECT_URL
                   {% endfor %}
                       </div>
                   {% elif field.label == "Birthdate" %}
-                      {% include 'common/date_picker.html' %}
+                      <!-- {% include 'common/date_picker.html' %} -->
                   {% else %}
                   {{ field|add_class:"form-control" }}
                   {% endif %}
