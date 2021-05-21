@@ -40,7 +40,12 @@
         <div class="form-group">
           <label class="col-md-4 control-label" for="staffservice">Services:</label>
           <div class="col-md-4">
-            {{ form.services }}
+            <select class="form-control" name="s_service">
+                <option selected>Select Services</option>
+                {% for s in s_service %}
+                <option value="{{ s.id }}">{{ s.servicename }}</option>
+                {% endfor %}
+              </select>
           </div>
         </div>
 

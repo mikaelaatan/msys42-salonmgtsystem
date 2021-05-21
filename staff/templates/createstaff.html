@@ -1,0 +1,81 @@
+{% extends 'common/base.html' %}
+
+{% block content %}
+<form class=staff-form>
+  <div class="title-container">
+    <h1>Add a staff</h1>
+  </div>
+  <div class="form-row">
+    <div class="col-md-4 mb-4">
+      <label for="form-fname">First name</label>
+      <input type="text" class="form-control" id="validationDefault01" placeholder="First name" required>
+    </div>
+
+    <div class="col-md-4 mb-4">
+      <label for="form-lname">Last name</label>
+      <input type="text" class="form-control" id="validationDefault02" placeholder="Last name" required>
+    </div>
+
+    <div class="col-sm-8 mb-4">
+      <label for="form-username">Username</label>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroupPrepend2">@</span>
+        </div>
+        <input type="text" class="form-control" id="validationDefaultUsername" placeholder="Username"
+          aria-describedby="inputGroupPrepend2" required>
+      </div>
+    </div>
+
+    <div class="col-sm-8 mb-4">
+      <label for="validationDefault03">Password</label>
+      <input type="text" class="form-control" id="validationDefault03" placeholder="Password" required>
+    </div>
+
+    <div class="col-sm-8 mb-4">
+      <label for="validationDefault04">Confirm Password</label>
+      <input type="text" class="form-control" id="validationDefault04" placeholder="Confirm Password" required>
+    </div>
+
+    <div class="col-sm-8 mb-4">
+      <label for="phone-number">Phone Number</label>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <i class="fa fa-mobile-phone"></i>
+          </div>
+        </div>
+        <input id="phone-number" name="phone-number" placeholder="0911-123-4567" type="text" class="form-control"
+          required="required">
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="form-row"> -->
+    <div class="title-container">
+      <h1>Services</h1>
+    </div>
+  <div class="form-col">
+    <div class="card" id="form-card">
+      <div class="card-body">
+        <h5 class="card-title">Service 1</h5>
+        <p class="card-text">Service details.</p>
+        <a href="#" class="btn btn-primary">Select</a>
+      </div>
+    </div>
+    <div class="card" id="form-card">
+      <div class="card-body">
+        <h5 class="card-title">Service 2</h5>
+        <p class="card-text">Service details.</p>
+        <a href="#" class="btn btn-primary">Select</a>
+      </div>
+    </div>
+
+  </div>
+
+  
+
+
+  <button class="submit__btn" type="submit">Submit form</button>
+</form>
+{% endblock content %}
