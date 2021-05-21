@@ -8,7 +8,7 @@ class StaffModel(models.Model):
     about = models.TextField("About", max_length=300, null=True, blank=True)
     phone_number = models.CharField(max_length=20)
     services = models.ManyToManyField(Service)
-    is_active = models.BooleanField(null=False, default=True)
+    is_active = models.BooleanField(default=True)
 
     def __str__(self, *args, **kwargs):
             return f'{self.user.first_name} {self.user.last_name}'

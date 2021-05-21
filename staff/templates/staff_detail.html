@@ -2,17 +2,27 @@
 
 {% block content %}
 <div class="col-md-12">
-       <div class="container">
-         <h1>BeautyWand Salon</h1>
-         <h3>Staff username: {{ object.user.username }}</h3>
-         <p> Full name: {{ object.user.first_name|add:' '|add:object.user.last_name }} </p>
-         <p> Email: {{ object.user.email }} </p>
-         <p> Description: {{ object.about }} </p>
-         <p> Service skills: {% for service in object.services.all %}
-                            <p class='m-0 p-0'>{{ service }}</p>
-                        {% endfor %} </p>
-       </div>
-
-    <!-- add a back to service list button -->
-    <span><a href="/staff/" class="btn btn-primary">Back to staff list</a></span><br>
-{% endblock content %}
+  <div class="container">
+    <div class="title-container">
+      <h1>Staff Details</h1>
+    </div>
+    <div class="card" id="service-card">
+      <div class="card-body">
+        <h4 class="card-title">{{ object.user.first_name|add:' '|add:object.user.last_name }}</h4>
+        <p class="card-text">Username: <b>{{ object.user.username }}</b></p>
+        <p class="card-text">Email: <b>{{ object.user.email }}</b></p>
+        <p class="card-text">Description: {{ object.about }}</p>
+        <p class="card-text">Service skills: {% for service in object.services.all %} <b>{{ service }}; </b> {% endfor %}</p>
+        <p class="card-text">Status: {% if object.is_active == True %}
+          <span class="mode mode_on">Active</span>
+        {% else %}
+          <span class="mode mode_off">Inactive</span>
+        {% endif %}</p>
+      </div>
+    </div>
+  </div>
+<br>
+<br>
+  <!-- add a back to service list button -->
+  <span><a href="/staff/" class="btn btn-primary">Back to staff list</a></span><br>
+  {% endblock content %}
