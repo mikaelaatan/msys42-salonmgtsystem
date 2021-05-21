@@ -29,11 +29,7 @@ class ExtendedStaffModelForm(forms.ModelForm):
 
 class StaffUpdateForm(forms.ModelForm):
         services = forms.ModelMultipleChoiceField(queryset=Service.objects.all(), widget=forms.SelectMultiple, help_text = "Choose multiple.")
-<<<<<<< HEAD
         is_active = forms.BooleanField(widget=forms.CheckboxInput, required=False)
-=======
-        is_active = forms.BooleanField(widget=forms.CheckboxInput)
->>>>>>> main
 
         class Meta:
             model = StaffModel

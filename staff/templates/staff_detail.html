@@ -13,11 +13,7 @@
         <p class="card-text">Email: <b>{{ object.user.email }}</b></p>
         <p class="card-text">Description: {{ object.about }}</p>
         <p class="card-text">Service skills: {% for service in object.services.all %} <b>{{ service }}; </b> {% endfor %}</p>
-<<<<<<< HEAD
         <p class="card-text">Status: {% if object.is_active == True %}
-=======
-        <p class="card-text">Status: {% if staff.is_active == True %}
->>>>>>> main
           <span class="mode mode_on">Active</span>
         {% else %}
           <span class="mode mode_off">Inactive</span>
