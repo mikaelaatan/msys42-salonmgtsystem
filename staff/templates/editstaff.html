@@ -40,22 +40,26 @@
         <div class="form-group">
           <label class="col-md-4 control-label" for="staffservice">Services:</label>
           <div class="col-md-4">
-            <select class="form-control" name="s_service">
-                <option selected>Select Services</option>
-                {% for s in s_service %}
-                <option value="{{ s.id }}">{{ s.servicename }}</option>
-                {% endfor %}
-              </select>
+            {{ form.services }}
           </div>
+          <!-- <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton">
+              Select Service/s
+            </button>
+            <div class="dropdown-menu" aria-labelledBy="dropdownMenuButton">
+              {{ form.services }}
+            </div>
+          </div> -->
         </div>
 
         <!-- Multiple Checkboxes (inline) -->
         <div class="form-group">
           <label class="col-md-4 control-label" for="isactive">Currently Active?</label>
           <div class="col-md-4">
-            <label class="checkbox-inline" for="isactive-0">
+            {{ form.is_active }}
+            <!-- <label class="checkbox-inline" for="isactive-0">
               <input type="checkbox" name="isactive" id="isactive-0" value="{{ object.is_active }}"> Yes
-            </label>
+            </label> -->
           </div>
         </div>
         </fieldset>
