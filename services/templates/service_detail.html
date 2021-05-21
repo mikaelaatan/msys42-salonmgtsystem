@@ -2,15 +2,26 @@
 
 {% block content %}
 <div class="col-md-12">
-       <div class="container">
-         <h1>BeautyWand Salon</h1>
-         <h3>{{ object.servicename }} - Service Details</h3>
-         <p> Service Type: {{ object.servicetype }} </p>
-         <p> Price: Php{{ object.serviceprice }} </p>
-         <p> Description: {{ object.servicedescription }} </p>
-         <p> Duration: {{ object.serviceduration_HHmm }} </p>
-       </div>
+  <div class="container">
+    <div class="title-container">
+      <h1>Service Details</h1>
+    </div>
+    <!-- <h3>{{ object.servicename }}</h3>
+    <p> Service Type: {{ object.servicetype }} </p>
+    <p> Price: Php{{ object.serviceprice }} </p>
+    <p> Description: {{ object.servicedescription }} </p>
+    <p> Duration: {{ object.serviceduration_HHmm }} </p> -->
+    <div class="card" id="service-card">
+      <div class="card-body">
+        <h4 class="card-title">{{ object.servicename }}</h4>
+        <p class="card-text">Service Type: <b>{{ object.servicetype }}</b></p>
+        <p class="card-text">Price: <b>Php{{ object.serviceprice }}</b></p>
+        <p class="card-text">Description: {{ object.servicedescription }}</p>
+        <p class="card-text">Duration: <b>{{ object.serviceduration_HHmm }}</b></p>
+      </div>
+    </div>
+  </div>
 
-    <!-- add a back to service list button -->
-    <span><a href="/services/" class="btn btn-primary">Back to service list</a></span><br>
-{% endblock content %}
+  <!-- add a back to service list button -->
+  <span><a href="/services/" class="btn btn-primary">Back to service list</a></span><br>
+  {% endblock content %}
