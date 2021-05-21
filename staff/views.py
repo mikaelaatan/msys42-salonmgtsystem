@@ -39,6 +39,9 @@ def dynamic_lookup_view(request,id):
     }
     return render(request, "staff_detail.html", context)
 
+def create_staff(request):
+    return render(request, 'createstaff.html')
+
 class StaffListView(ListView):
     model = StaffModel
     template_name = 'staff_list.html'

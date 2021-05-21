@@ -9,4 +9,5 @@ urlpatterns = [
     path('', StaffListView.as_view(), name='staff-list'),
     path('<int:id>/', views.dynamic_lookup_view, name='staff-detail'),
     path('edit/<int:id>/', StaffUpdateView.as_view(), name='staff-edit'),
+    path('create/', create_staff, name='create-staff'),
 ]
