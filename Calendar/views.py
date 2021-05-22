@@ -1,8 +1,8 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from datetime import datetime, date, timedelta
 from django.views import generic
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.utils.safestring import mark_safe
 import calendar
 
@@ -65,3 +65,40 @@ def event(request, event_id=None):
         form.save()
         return HttpResponseRedirect(reverse('Calendar:calendar'))
     return render(request, 'Calendar/event.html', {'form': form})
+
+def create_event(request):    
+    form = EventForm(request.POST or None)
+    if request.POST and form.is_valid():
+        servicename = form.cleaned_data['servicename']
+        clientname = form.cleaned_data['clientname']
+        staffname = form.cleaned_data['staffname']
+        start_time = form.cleaned_data['start_time']
+        end_time = form.cleaned_data['end_time']
+        Event.objects.get_or_create(
+            servicename=servicename,
+            clientname=clientname,
+            staffname=staffname,
+            start_time=start_time,
+            end_time=end_time
+        )
+        return HttpResponseRedirect(reverse('Calendar:calendar'))
+    return render(request, 'event.html', {'form': form})
+
+class EventEdit(generic.UpdateView):
+    model = Event
+    fields = ['servicename', 'clientname', 'staffname', 'start_time', 'end_time']
+    template_name = 'event1.html'
+
+def event_details(request, event_id):
+    event = Event.objects.get(id=event_id)
+    eventmember = EventMember.objects.filter(event=event)
+    context = {
+        'event': event,
+        'eventmember': eventmember
+    }
+    return render(request, 'event-details.html', context)
+
+class EventMemberDeleteView(generic.DeleteView):
+    model = EventMember
+    template_name = 'event-delete.html'
+    success_url = reverse_lazy('Calendar:calendar')
