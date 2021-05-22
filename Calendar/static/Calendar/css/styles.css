@@ -36,11 +36,6 @@ body {
 }
   
 /* App styles */
-.title {
-    text-align: center;
-    margin: 10px;
-}
-
 .calendar {
     width: 98%;
     margin: auto;
