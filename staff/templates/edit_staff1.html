@@ -1,0 +1,141 @@
+{% extends 'common/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %} Staff details {% endblock title %}
+
+
+
+{% block content %}
+<div class="container-xl">
+    <div class="title-container">
+        <h1> Update staff information </h1>
+    </div>
+    <form method="POST" class="post-form">
+        {% csrf_token %}
+        <br>
+      <div class="form-group row">
+        <div class="col">
+          <!-- name -->
+            <label class="form-label required" for="staffname">Name:</label>
+            <input id="staffname" name="staffname" type="text" class="form-control input-md" value="{{ object.user.first_name|add:' '|add:object.user.last_name }}" readonly>
+          </div>
+
+          <!-- username -->
+          <div class="col">
+            <label class="form-label required" for="staffusername">Username: </label>
+            <input id="username" name="username" type="text" max_digits=11 class="form-control input-md" value="{{ object.user.username }}" readonly>
+          </div>
+        </div>
+
+        <!-- about -->
+        <div class="form-group row">
+          <div class=col>
+          <label class="form-label" for="textarea">About the Staff:</label>
+          <textarea class="form-control" id="about_staff" name="about_staff" value="{{ object.about }}" placeholder="Enter description"></textarea>
+          </div>
+        </div>
+
+        <!-- number, email -->
+        <div class="form-group row">
+          <div class="col">
+          <label class="form-label required" for="staffnumber">Phone Number: </label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <i class="fa fa-mobile-phone"></i>
+              </div>
+            </div>
+            {{ form.phone_number|add_class:"form-control input-md" }}
+          </div>
+          {% if form.errors %}
+              <div class="alert alert-danger form-error">
+              {% for error in form.phone_number.errors %}
+              <div style="margin:0;padding:0;"><small>{{ error }}</small></div>
+              {% endfor %}
+              </div>
+          {% endif %}
+          </div>
+          <div class="col">
+          <label class="form-label required" for="staffemail">Email: </label>
+          <input id="staff_email" name="email" type="text" class="form-control input-md" value="{{ object.user.email }}" readonly>
+          </div>
+        </div>
+
+          <!-- SERVICES Select Multiple -->
+          <div class="form-group row">
+            <div class="col">
+              <div class="dropdown">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                    Select Service(s)
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    {% for s in s_obj %}
+                      <input type="checkbox" class="chkvalues" value="{{ s.servicename }}"> {{ s }} </input><br/>
+                    {% endfor %}
+                  </div>
+                </div>
+                  <input type="text" id="txtdisplay" name="service_list" readonly>
+                  {% if form.errors %}
+                      <div class="alert alert-danger form-error">
+                      {% for error in form.errors %}
+                      <div style="margin:0;padding:0;"><small>{{ error }}</small></div>
+                      {% endfor %}
+                      </div>
+                  {% endif %}
+                </div>
+              </div>
+
+          <!-- Multiple Checkboxes (inline) -->
+          <div class="form-group row">
+              <!-- <label for="id_is_active" class="required">Staff Status: Is the Staff Active/Currently Working?</label> -->
+              {{ form.is_active|add_class:"form-control input-md"}}
+            </div>
+
+          <div class="form-group row">
+            <div class="button-form">
+                <input type='submit' value='Save' class='submit__btn'/>
+                <a href='/staff/'>
+                    <input type="button" value='Back' class="back__btn"/>
+                </a>
+            </div>
+          </div>
+    </form>
+</div>
+{% endblock content %}
+
+{% block datatables %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+
+</script>
+
+<script>
+  $(document).ready(function()
+  {
+    $('.chkvalues').click(function()
+    {
+      var txt=""
+      $('.chkvalues:checked').each(function()
+      {
+        txt+=$(this).val()+", "
+      })
+        txt=txt.substring(0,txt.length-1)
+        $('#txtdisplay').val(txt)
+    });
+    // $('.submit__btn').click(function() {
+    //   var status = $("input[name='options-outlined']:checked").val();
+    //   var p_number = document.getElementById("staff_number");.val();
+    //   if (p_number.length > 11) {
+    //     alert('ERROR: Cannot add 0 order quantity.');
+    //     return false;
+    //   } else
+    //     { $('#radiodisplay').val(status)
+    //     alert('Thank you. Order Successful.');
+    //   }
+    // });
+  });
+</script>
+
+{% endblock datatables %}

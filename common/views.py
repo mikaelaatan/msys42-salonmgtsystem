@@ -6,3 +6,6 @@ def unauthorized_view(request):
 
 def login_required_view(request):
     return render(request, 'login_required.html')
+
+def home_view(request):
+    return render(request, 'scheduling/templates/appointmentlist.html',{})

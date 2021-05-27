@@ -6,9 +6,6 @@ from .forms import CustomerProfileForm, ExtendedCustomerProfileForm
 from .models import Customer
 
 # Create your views here.
-def home(request):
-    return render(request, 'home.html',{})
-
 def signup_view(request):
     customer_profile_form = CustomerProfileForm(request.POST or None, request.FILES or None)
     extended_customer_profile_form = ExtendedCustomerProfileForm(request.POST or None, request.FILES or None)
@@ -26,4 +23,4 @@ def signup_view(request):
         'profile_form': customer_profile_form,
         'extended_profile_form': extended_customer_profile_form,
     }
-    return render(request, 'registration/login.html', context)
+    return render(request, 'registration/register.html', context)

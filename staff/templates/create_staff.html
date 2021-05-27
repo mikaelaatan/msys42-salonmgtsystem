@@ -1,0 +1,88 @@
+{% extends 'common/base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+<form method="POST" class="staff-form">
+    {% csrf_token %}
+    <div class="title-container">
+      <h1>Add a staff</h1>
+    </div>
+    <div class="form-row">
+      <div class="col-md-4 mb-4">
+        <label for="form-fname" class="required">First name</label>
+        {{ profile_form.first_name|add_class:"form-control input-md" }}
+      </div>
+
+      <div class="col-md-4 mb-4">
+        <label for="form-lname" class="required">Last name</label>
+        {{ profile_form.last_name|add_class:"form-control input-md" }}
+      </div>
+
+    <div class="col-sm-8 mb-4">
+      <label for="form-username" class="required">Username</label>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroupPrepend2">@</span>
+        </div>
+        {{ profile_form.username|add_class:"form-control input-md" }}
+      </div>
+    </div>
+
+    <div class="col-sm-8 mb-4">
+      <label for="validationDefault03" class="required">Password</label>
+      {{ profile_form.password1|add_class:"form-control input-md" }}
+    </div>
+
+    <div class="col-sm-8 mb-4">
+      <label for="validationDefault04" class="required">Confirm Password</label>
+      {{ profile_form.password2|add_class:"form-control input-md" }}
+    </div>
+
+    <div class="col-sm-8 mb-4">
+      <label for="phone-number" class="required">Phone Number</label>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <i class="fa fa-mobile-phone"></i>
+          </div>
+        </div>
+        {{ extended_profile_form.phone_number|add_class:"form-control input-md" }}
+      </div>
+    </div>
+  </div>
+
+    <div class="title-container">
+      <h1>Services</h1>
+    </div>
+  <div class="form-col">
+    <div class="card" id="form-card">
+      <div class="card-body">
+        <h5 class="card-title">Service 1</h5>
+        <p class="card-text">Service details.</p>
+        <a href="#" class="btn btn-primary">Select</a>
+      </div>
+    </div>
+    <div class="card" id="form-card">
+      <div class="card-body">
+        <h5 class="card-title">Service 2</h5>
+        <p class="card-text">Service details.</p>
+        <a href="#" class="btn btn-primary">Select</a>
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+  <div class="form-group row">
+    <div class="button-form">
+        <input type='submit' value='Save' class = 'submit__btn'onclick="alert('Appointment created successfully.');"/>
+        <a href='/appointments/'>
+            <input type="button" value='Back' class="submit__btn"/>
+        </a>
+    </div>
+  </div>
+</form>
+{% endblock content %}
