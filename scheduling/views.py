@@ -14,7 +14,6 @@ from customers.models import Customer
 from .models import *
 
 # Create your views here.
-# new appointment admin view
 
 @login_required
 def appointment_view(request):
@@ -54,6 +53,22 @@ def appointment_book_view(request):
         'customer': customer,
     }
     return render(request, 'createbooking.html', context)
+
+@transaction.atomic
+@admin_required
+def admin_appointment_book_view(request):
+    form = AdminCreateAppointmentForm(
+        request.POST or None,
+    )
+    if form.is_valid():
+        appointment = form.save(commit=False)
+        appointment.save()
+        return redirect('scheduling:admin-appointment-list')
+    context = {
+        'form': form,
+        'customer': customer,
+    }
+    return render(request, 'admin_createbooking.html', context)
 
 @method_decorator(login_required, name='dispatch')
 class AppointmentUpdateView(UpdateView):

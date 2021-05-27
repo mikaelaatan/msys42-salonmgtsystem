@@ -26,6 +26,25 @@ class CreateAppointmentForm(forms.ModelForm):
         # input_formats to parse HTML5 datetime-local input to datetime field
         self.fields['appdatetime'].input_formats = ('%Y-%m-%dT%H:%M',)
 
+class AdminCreateAppointmentForm(forms.ModelForm):
+    required_css_class = 'required'
+
+    service = forms.ModelChoiceField(Service.objects.all(), widget=forms.Select)
+    staff = forms.ModelChoiceField(StaffModel.objects.all(), widget=forms.Select)
+    customer = forms.ModelChoiceField(Customer.objects.all(), widget=forms.Select)
+
+    class Meta:
+        model = Appointment
+        fields = ('customer','appdatetime','staff', 'service')
+        widgets = {
+          'appdatetime': DateInput(attrs={'type': 'datetime-local'}, format='%Y-%m-%dT%H:%M'),
+         }
+
+    def __init__(self, *args, **kwargs):
+        super(CreateAppointmentForm, self).__init__(*args, **kwargs)
+        # input_formats to parse HTML5 datetime-local input to datetime field
+        self.fields['appdatetime'].input_formats = ('%Y-%m-%dT%H:%M',)
+
 class UpdateAppointmentForm(forms.ModelForm):
     required_css_class = 'required'
 

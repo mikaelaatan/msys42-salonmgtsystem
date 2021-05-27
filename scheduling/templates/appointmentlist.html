@@ -5,10 +5,14 @@
 {% block content %}
 <div class="col-md-12">
   <div class="table-responsive">
-    <h4>All Appointments</h4>
+    <h4 style="color:purple;">Welcome {{ user.username }}!</h4>
+    <h2>View Appointments</h2>
 
+    {% if 'admin.view_logentry' in user.get_user_permissions %}
+    <span><a href="/appointments/admin/new/" class="btn btn-primary">Create appointment</a></span><br>
+    {% else %}
     <span><a href="/appointments/new/" class="btn btn-primary">Add new appointment</a></span><br>
-
+    {% endif %}
     <table id="appointments_table" class="order-column table table-borderless table-hover" width="100%">
       <thead>
         <!-- <th><input type="checkbox" id="checkall" /></th> -->

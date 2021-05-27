@@ -8,4 +8,4 @@ def login_required_view(request):
     return render(request, 'login_required.html')
 
 def home_view(request):
-    return render(request, 'scheduling/templates/appointmentlist.html',{})
+    return render(request, 'home_template.html')

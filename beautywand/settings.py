@@ -42,7 +42,6 @@ INSTALLED_APPS = [
 
     'widget_tweaks',
     'django_toggle_switch_widget',
-    'easy_select2',
     'common',
 
     'Calendar.apps.CalendarConfig',
@@ -151,4 +150,4 @@ STATICFILES_DIRS = [
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'login'
