@@ -23,11 +23,11 @@ class StaffModelForm(UserCreationForm):
         return user
 
 class ExtendedStaffModelForm(forms.ModelForm):
-    services = forms.ModelMultipleChoiceField(queryset=Service.objects.all(), widget=forms.SelectMultiple)
+    # services = forms.ModelMultipleChoiceField(queryset=Service.objects.all(), widget=forms.CheckboxSelectMultiple)
 
     class Meta:
         model = StaffModel
-        fields = ('phone_number', 'services')
+        fields = ('phone_number','services')
 
     def clean_phone_number(self):
         phone_num = self.cleaned_data['phone_number']

@@ -10,10 +10,7 @@
     <form method="POST" class="post-form">
         {% csrf_token %}
         <br>
-        <div class="form-group row">
-          <label for="customer" class="required">Customer Info:</label>
-          <input id="customer" type="text" class="form-control input-md" value="{{ customer.user.first_name|add:' '|add:customer.user.last_name }}" readonly>
-        </div>
+        
         {% for field in form %}
         <div class="form-group row">
             <label for="{{ field.id_for_label }}" class="required">{{ field.label }}</label>

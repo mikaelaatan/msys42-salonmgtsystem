@@ -6,7 +6,7 @@ from django.urls import reverse
 class StaffModel(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='staff')
     about = models.TextField("About", max_length=300, null=True, blank=True)
-    phone_number = models.CharField(max_length=20)
+    phone_number = models.CharField(max_length=11)
     services = models.ManyToManyField(Service)
     is_active = models.BooleanField(default=True, blank=True)
 

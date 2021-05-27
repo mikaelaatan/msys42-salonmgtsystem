@@ -19,10 +19,25 @@
         <p class="card-text">Email: <b>{{ object.phone_number }}</b></p>
         <p class="card-text">Service skills: {% for service in object.services.all %} <b>{{ service }}; </b> {% endfor %}</p>
       </div>
+      </div>
+      <div class="title-container">
+        <h1>Services</h1>
+      </div>
+    <div class="form-col">
+      {% for service in object.services.all %}
+      <div class="card" id="form-card">
+        <div class="card-body">
+          <h5 class="card-title">{{ service.servicename }}</h5>
+          <p class="card-text">Type: {{ service.servicetype }}</p>
+          <p class="card-text">Php {{ service.serviceprice }}.00</p>
+      </div>
+      </div> {% endfor %}
     </div>
   </div>
 <br>
 <br>
   <!-- add a back to service list button -->
-  <span><a href="/staff/" class="btn btn-primary">Back to staff list</a></span><br>
-  {% endblock content %}
+  <span><a href="/staff/" class="btn btn-primary">Back to StaffList</a></span><br>
+  <span><a href="{{ staff.get_absolute_url }}" class="btn btn-primary">Edit Staff Details</a></span>
+</div>
+{% endblock content %}

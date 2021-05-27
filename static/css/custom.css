@@ -3,8 +3,15 @@
 
 body {
     font-family: "Poppins", sans-serif;
+    
+    
+}
 
-
+#services_table {
+    background: white;
+}
+#services-table {
+    background: white;
 }
 
 .appointments-table {
@@ -29,10 +36,6 @@ body {
     float:left;
 }
 
-label.required::after {
-    content: ' *';
-    color: red;
-}
 
 .table-responsive {
     border: 0.5px solid #dddddd;
@@ -50,13 +53,13 @@ label.required::after {
 h4 {
     margin: 2rem 0;
     font-weight: bold;
-
+    
 }
 
 h2 {
     margin: 2rem 0;
     font-weight: bold;
-
+    
 }
 
 th {
@@ -75,7 +78,7 @@ th {
 
 
 .form-group .submit__btn {
-  border-radius: 20px;
+    border-radius: 20px;
 	border: 1px solid #252525;
 	background-color: #252525;
 	color: #FFFFFF;
@@ -96,28 +99,6 @@ th {
 	outline: none;
 }
 
-.form-group .back__btn {
-  border-radius: 20px;
-	border: 1px solid #252525;
-	background-color: #252525;
-	color: #FFFFFF;
-	font-size: 12px;
-	font-weight: 300px;
-	padding: 12px 45px;
-	letter-spacing: 3px;
-	text-transform: uppercase;
-	margin: 10px 0px;
-}
-
-.form-group .back__btn:active {
-	transform: scale(0.95);
-	background-color: #8956F8;
-}
-
-.form-group .back__btn:focus {
-	outline: none;
-}
-
 
 tbody tr {
     border-bottom: 1px solid #dddddd;
@@ -126,12 +107,12 @@ tbody tr {
 }
 
  td .btn {
-
+    
     background-color: transparent;
     border: 0.5px solid transparent;
     color: #252525;
     font-size:large;
-
+    
 }
 
 td .btn:hover {
@@ -152,8 +133,8 @@ tbody tr td a {
 .form-row {
     padding: 10px;
     margin-top: 2rem;
-
-
+    
+    
 }
 
 .form-col {
@@ -224,4 +205,57 @@ tbody tr td a {
 
 #service-card .card-text {
     font-size: 18px;
+}
+
+.col-md-12 .dataTables_length {
+    margin: 20px 0px;
+    margin-left: 20px;
+}
+
+.col-md-12 .dataTables_wrapper .dataTables_filter {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    position: relative;
+    justify-content: flex-end;
+    margin: 20px 0px;
+    padding: 0px 4px;
+    /* margin-top: 10px;
+    margin-right: 10px;
+    float:right; */
+
+}
+
+.col-md-12 .dataTables_wrapper .dataTables_filter input {
+    border: 1px solid #e5e5e5;
+    border-radius: 50px;
+    margin-left: 8px;
+    height: 34px;
+    width: 75%;
+    padding: 0px 25px 0px 10px;
+    
+}
+
+.col-md-12 .dataTables_wrapper .dataTables_filter input:active {
+    border: 1px solid #8956F8;
+    border-radius: 50px;
+    margin-left: 8px;
+    height: 34px;
+    width: 75%;
+    padding: 0px 25px 0px 10px;
+}
+
+.col-md-12 .dataTables_wrapper .dataTables_filter label {
+    color: #767676;
+    font-weight: normal;
+    position: relative;
+}
+
+.col-md-12 .dataTables_wrapper .dataTables_filter:after {
+    font-family: 'FontAwesome';
+    color: #d4d4d4;
+    position: relative;
+    content: "\f002";
+    bottom: 4px;
+    right: 32px;
 }

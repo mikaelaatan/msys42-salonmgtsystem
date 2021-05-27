@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
-from .forms import CreateAppointmentForm, UpdateAppointmentForm
+from .forms import CreateAppointmentForm, UpdateAppointmentForm, AdminCreateAppointmentForm
 from django.views.generic import *
 from django.urls import reverse
 from django.db import transaction
@@ -63,10 +63,9 @@ def admin_appointment_book_view(request):
     if form.is_valid():
         appointment = form.save(commit=False)
         appointment.save()
-        return redirect('scheduling:admin-appointment-list')
+        return redirect('scheduling:appointment-list')
     context = {
         'form': form,
-        'customer': customer,
     }
     return render(request, 'admin_createbooking.html', context)
 

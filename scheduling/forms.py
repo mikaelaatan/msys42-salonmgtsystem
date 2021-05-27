@@ -28,6 +28,8 @@ class CreateAppointmentForm(forms.ModelForm):
 
 class AdminCreateAppointmentForm(forms.ModelForm):
     required_css_class = 'required'
+    children_ids = Staff.objects.filter(name__startswith='A').values_list('child', flat=True)
+    children = Service.objects.filter(pk__in=children_ids)
 
     service = forms.ModelChoiceField(Service.objects.all(), widget=forms.Select)
     staff = forms.ModelChoiceField(StaffModel.objects.all(), widget=forms.Select)
@@ -41,7 +43,7 @@ class AdminCreateAppointmentForm(forms.ModelForm):
          }
 
     def __init__(self, *args, **kwargs):
-        super(CreateAppointmentForm, self).__init__(*args, **kwargs)
+        super(AdminCreateAppointmentForm, self).__init__(*args, **kwargs)
         # input_formats to parse HTML5 datetime-local input to datetime field
         self.fields['appdatetime'].input_formats = ('%Y-%m-%dT%H:%M',)
 

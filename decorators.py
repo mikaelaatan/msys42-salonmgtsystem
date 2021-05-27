@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 from common import views
 
 admin_required = user_passes_test(
-    lambda user: hasattr(user, 'admin'), login_url=reverse_lazy('unauthorized')
+    lambda user: user.is_superuser, login_url=reverse_lazy('unauthorized')
 )
 
 staff_required = user_passes_test(

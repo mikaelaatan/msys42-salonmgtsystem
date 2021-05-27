@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'widget_tweaks',
-    'django_toggle_switch_widget',
     'common',
 
     'Calendar.apps.CalendarConfig',

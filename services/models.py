@@ -30,3 +30,9 @@ class Service(models.Model):
     def serviceduration_HHmm(self):
         sec = self.serviceduration.total_seconds()
         return '%02d:%02d' % (int((sec/3600)%3600), int((sec/60)%60))
+
+    def getservicename(self):
+        return servicename
+
+    def getserviceprice(self):
+        return serviceprice

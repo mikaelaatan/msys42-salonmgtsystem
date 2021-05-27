@@ -26,7 +26,7 @@
         {% for staff in object_list %}
           <tr>
               <td>{{ staff.id }}</td>
-              <td>{{ staff.user.username }}</td>
+              <td><a href="{{ staff.get_absolute_url }}">{{ staff.user.username }}</a></td>
               <td>{{ staff.user.first_name|add:' '|add:staff.user.last_name }}</td>
               <td>{{ staff.phone_number }}</td>
               <td>
