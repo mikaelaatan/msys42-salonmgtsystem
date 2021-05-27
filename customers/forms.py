@@ -6,6 +6,8 @@ from django.contrib.auth.forms import UserCreationForm
 from datetime import date
 
 class CustomerProfileForm(UserCreationForm):
+    required_css_class = 'required'
+
     class Meta:
         model = User
         fields = ('first_name', 'last_name', 'email', 'username', 'password1', 'password2')
@@ -20,6 +22,7 @@ class CustomerProfileForm(UserCreationForm):
 
 class ExtendedCustomerProfileForm(forms.ModelForm):
     birthday = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}, format='%m/%d/%Y'))
+    phone_number = forms.CharField(max_length=11)
 
     def clean_birthday(self):
         dob = self.cleaned_data['birthday']
@@ -28,6 +31,15 @@ class ExtendedCustomerProfileForm(forms.ModelForm):
             raise forms.ValidationError('You must be at least 18 years old to register')
         return dob
 
+    def clean_phone_number(self):
+        phone_num = self.cleaned_data['phone_number']
+        if (len(phone_num)) > 11:
+            raise forms.ValidationError('Enter correct phone number. Format is 09xxxxxxxxx')
+        return phone_num
+
     class Meta:
         model = Customer
         fields = ('birthday', 'phone_number')
+        help_texts = {
+            'phone_number': 'Enter in this format: 09xxxxxxxxx',
+        }

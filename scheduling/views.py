@@ -3,15 +3,32 @@ from django.http import HttpResponse
 from .forms import CreateAppointmentForm, UpdateAppointmentForm
 from django.views.generic import *
 from django.urls import reverse
-from datetime import datetime, timedelta
-
-from django.utils.safestring import mark_safe
-
+from django.db import transaction
+from datetime import date, timedelta
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from decorators import user_required, staff_required, admin_required
+from django.utils.decorators import method_decorator
+from django.views.generic import TemplateView
+from customers.models import Customer
 from .models import *
-from .utils import Calendar
 
 # Create your views here.
+# new appointment admin view
 
+@login_required
+def appointment_view(request):
+    if hasattr(request.user, 'staff'):
+        appointments = Appointment.objects.filter(staff__user=request.user)
+    elif hasattr(request.user, 'user'):
+        appointments = Appointment.objects.filter(customer__user=request.user)
+    else:
+        appointments=Appointment.objects.all()
+    appointments_today = appointments.order_by('appdatetime')
+    context = {
+        'todays': appointments_today,
+    }
+    return render(request, 'appointmentlist.html', context)
 
 def dynamic_lookup_view(request,id):
     obj = get_object_or_404(Appointment, id=id)
@@ -20,11 +37,25 @@ def dynamic_lookup_view(request,id):
     }
     return render(request, "booking_details.html", context)
 
-class AppointmentCreateView(CreateView):
-    template_name = 'createbooking.html'
-    form_class = CreateAppointmentForm
-    queryset = Appointment.objects.all()
+@transaction.atomic
+@user_required
+def appointment_book_view(request):
+    customer = Customer.objects.get(user=request.user)
+    form = CreateAppointmentForm(
+        request.POST or None,
+    )
+    if form.is_valid():
+        appointment = form.save(commit=False)
+        appointment.customer = customer
+        appointment.save()
+        return redirect('scheduling:appointment-list')
+    context = {
+        'form': form,
+        'customer': customer,
+    }
+    return render(request, 'createbooking.html', context)
 
+@method_decorator(login_required, name='dispatch')
 class AppointmentUpdateView(UpdateView):
     template_name = 'createbooking.html'
     form_class = UpdateAppointmentForm
@@ -34,7 +65,9 @@ class AppointmentUpdateView(UpdateView):
         id_ = self.kwargs.get("id")
         return get_object_or_404(Appointment, id=id_)
 
-class AppointmentListView(ListView):
-    model = Appointment
-    template_name = 'appointmentlist.html'
-    queryset = Appointment.objects.all()
+    def get_context_data(self, *args, **kwargs):
+        context = super(AppointmentUpdateView, self).get_context_data(*args, **kwargs)
+        customer = Customer.objects.get(user=self.request.user)
+        context['customer'] = customer
+        print (self.request.user)
+        return context

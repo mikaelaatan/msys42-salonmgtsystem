@@ -20,8 +20,9 @@ from .views import *
 
 app_name = 'scheduling'
 urlpatterns = [
-    path('new/', AppointmentCreateView.as_view(), name='appointment-new'),
-    path('', AppointmentListView.as_view(), name='appointment-list'),
+    # path('new/', AppointmentCreateView.as_view(), name='appointment-new'),
+    path('new/', appointment_book_view, name='appointment-new'),
+    path('', appointment_view, name='appointment-list'),
     path('<int:id>/', views.dynamic_lookup_view, name='booking-details'),
     path('edit/<int:id>/', AppointmentUpdateView.as_view(), name='appointment-edit'),
 ]

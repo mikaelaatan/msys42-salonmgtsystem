@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.models import Group
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, logout, authenticate
 from .forms import CustomerProfileForm, ExtendedCustomerProfileForm
@@ -14,6 +15,8 @@ def signup_view(request):
     valid = customer_profile_form.is_valid() * extended_customer_profile_form.is_valid()
     if valid:
         customer = customer_profile_form.save()
+        group = Group.objects.get(name='Customer')
+        customer.groups.add(group)
         extended_customer, created = Customer.objects.get_or_create(user=customer)
         for field in ['birthdate', 'phone_number']:
             setattr(extended_customer, field, extended_customer_profile_form.cleaned_data.get(field))

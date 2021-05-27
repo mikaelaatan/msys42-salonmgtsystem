@@ -11,7 +11,6 @@
         <h4 class="card-title">{{ object.user.first_name|add:' '|add:object.user.last_name }}</h4>
         <p class="card-text">Username: <b>{{ object.user.username }}</b></p>
         <p class="card-text">Email: <b>{{ object.user.email }}</b></p>
-        <p class="card-text">Description: {{ object.about }}</p>
         <p class="card-text">Service skills: {% for service in object.services.all %} <b>{{ service }}; </b> {% endfor %}</p>
         <p class="card-text">Status: {% if object.is_active == True %}
           <span class="mode mode_on">Active</span>

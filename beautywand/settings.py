@@ -41,6 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'widget_tweaks',
+    'django_toggle_switch_widget',
+    'easy_select2',
+    'common',
 
     'Calendar.apps.CalendarConfig',
     'scheduling.apps.SchedulingConfig',
@@ -148,4 +151,4 @@ STATICFILES_DIRS = [
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
-LOGIN_REDIRECT_URL = "/home"
+LOGOUT_REDIRECT_URL = 'home'

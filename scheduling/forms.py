@@ -10,12 +10,13 @@ from .models import Appointment
 
 class CreateAppointmentForm(forms.ModelForm):
     required_css_class = 'required'
+
     service = forms.ModelChoiceField(Service.objects.all(), widget=forms.Select)
-    staff = forms.ModelChoiceField(StaffModel.objects.all(), widget=forms.RadioSelect)
+    staff = forms.ModelChoiceField(StaffModel.objects.all(), widget=forms.Select)
 
     class Meta:
         model = Appointment
-        fields = ('appdatetime', 'customer','staff', 'service')
+        fields = ('appdatetime','staff', 'service')
         widgets = {
           'appdatetime': DateInput(attrs={'type': 'datetime-local'}, format='%Y-%m-%dT%H:%M'),
          }
@@ -27,12 +28,13 @@ class CreateAppointmentForm(forms.ModelForm):
 
 class UpdateAppointmentForm(forms.ModelForm):
     required_css_class = 'required'
+
     service = forms.ModelChoiceField(Service.objects.all(), widget=forms.Select)
-    staff = forms.ModelChoiceField(StaffModel.objects.all(), widget=forms.RadioSelect)
+    staff = forms.ModelChoiceField(StaffModel.objects.all(), widget=forms.Select)
 
     class Meta:
         model = Appointment
-        fields = ('appdatetime', 'iscancelled','staff', 'service')
+        fields = ('appdatetime','staff', 'service','iscancelled')
         widgets = {
           'appdatetime': DateInput(attrs={'type': 'datetime-local'}, format='%Y-%m-%dT%H:%M'),
          }

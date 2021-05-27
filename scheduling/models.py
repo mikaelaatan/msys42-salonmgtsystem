@@ -6,7 +6,7 @@ from customers.models import Customer
 from django.urls import reverse
 
 class Appointment(models.Model):
-    appdatetime = models.DateTimeField('Appointment Date Time', blank=True,null=True)
+    appdatetime = models.DateTimeField('Appointment Date Time', blank=True,null=False)
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
     staff = models.ForeignKey(StaffModel,  on_delete=models.CASCADE)
     # totalamount = models.DecimalField(db_column='TotalAmount', max_digits=10, decimal_places=2, blank=True, null=True)

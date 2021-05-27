@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from .forms import StaffModelForm, ExtendedStaffModelForm, StaffUpdateForm
 from .models import StaffModel
 from django.contrib.auth.models import User
+from django.contrib.auth.models import Group
 from django.http import HttpResponse
 from django.views.generic import *
 from django.urls import reverse
@@ -15,6 +16,8 @@ def signup_staff_view(request):
     valid = staff_profile_form.is_valid() * extended_staff_profile_form.is_valid()
     if valid:
         staff = staff_profile_form.save()
+        group = Group.objects.get(name='Staff')
+        staff.groups.add(group)
         extended_staff = StaffModel.objects.create(user=staff)
         for field in ['about', 'phone_number']:
             setattr(extended_staff, field,

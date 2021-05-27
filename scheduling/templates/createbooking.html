@@ -1,4 +1,5 @@
 {% extends 'common/base.html' %}
+{% load widget_tweaks %}
 
 {% block content %}
 
@@ -9,17 +10,31 @@
     <form method="POST" class="post-form">
         {% csrf_token %}
         <br>
-        <div class="form-group">
-            <label class="col-sm-1 col-form-label"></label>
-            <div class="form">
-            {{ form.as_p }}
+        <div class="form-group row">
+          <label for="customer" class="required">Customer Info:</label>
+          <input id="customer" type="text" class="form-control input-md" value="{{ customer.user.first_name|add:' '|add:customer.user.last_name }}" readonly>
+        </div>
+        {% for field in form %}
+        <div class="form-group row">
+            <label for="{{ field.id_for_label }}" class="required">{{ field.label }}</label>
+            {{ field|add_class:"form-control input-md" }}
+            {% if field.errors %}
+                <div class="alert alert-danger form-error">
+                {% for error in field.errors %}
+                <div style="margin:0;padding:0;"><small>{{ error }}</small></div>
+                {% endfor %}
+                </div>
+            {% endif %}
+          </div>
+          {% endfor %}
+          <div class="form-group row">
             <div class="button-form">
-                <input type='submit' value='Save' class = 'submit__btn'/>
+                <input type='submit' value='Save' class = 'submit__btn'onclick="alert('Appointment created successfully.');"/>
                 <a href='/appointments/'>
                     <input type="button" value='Back' class="submit__btn"/>
                 </a>
             </div>
-        </div>
+          </div>
     </form>
 </div>
 

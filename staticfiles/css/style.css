@@ -11,6 +11,10 @@ input {
 	font-family: "Poppins", sans-serif;
 }
 
+label.required::after {
+    content: ' *';
+    color: red;
+}
 
 h1 {
 	font-size: 45px;
@@ -146,7 +150,7 @@ input {
 		opacity: 0;
 		z-index: 1;
 	}
-	
+
 	50%, 100% {
 		opacity: 1;
 		z-index: 5;
@@ -174,7 +178,7 @@ input {
 	background-image: -webkit-linear-gradient(to left bottom, #8956f8, #9767f8, #a477f8, #b188f8, #bc98f8, #b593ed, #ae8ee1, #a789d6, #8d6ebd, #7353a4, #5a3a8c, #412174);
 	background-image: linear-gradient(to right bottom, #8956f8, #7a4be0, #6a3fc8, #5c35b1, #4d2a9b);
 	/*background: linear-gradient(to right, #8956F8, #6841BB);*/
-	
+
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: 0 0;

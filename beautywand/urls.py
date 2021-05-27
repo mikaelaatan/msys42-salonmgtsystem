@@ -27,10 +27,11 @@ admin.site.enable_nav_sidebar = False
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('appointments/', include('scheduling.urls')), ###change to scheduling para same name???
+    path('appointments/', include('scheduling.urls')),
     path('services/', include('services.urls')),
     path('staff/', include('staff.urls')),
     path('', include('django.contrib.auth.urls')),
-    path('', include('customers.urls')), ### i might need to change this into profile or account for clarity
+    path('', include('customers.urls')),
     path('', include('Calendar.urls')),
+    path('', include('common.urls')),
 ]

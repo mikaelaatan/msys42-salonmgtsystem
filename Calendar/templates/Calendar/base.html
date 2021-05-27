@@ -12,7 +12,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'Calendar/css/styles.css' %}">
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    
+
     <!-- ===== BOX ICONS ===== -->
     <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
@@ -21,17 +21,17 @@
     <link rel="stylesheet" href="{% static 'boot/css/custom.css' %}">
     <link rel="stylesheet" href="{% static 'boot/css/employees.css' %}">
     <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
-    
+
     <link rel="stylesheet" href="{% static 'boot/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static '/css/jquery-ui.css' %}">
-    
+
     <link rel="stylesheet" href="{% static '/css/bootstrap-datepicker.css' %}">
     <title>Calendar</title>
 </head>
 
 <body>
-    
-    {% include 'dashboard/sidebar.html' %}
+
+    {% include 'common/sidebar.html' %}
     <div class="container">
         <div class="row">
             {% block content %}{% endblock %}
@@ -46,13 +46,13 @@
             );
         });
     </script>
-    
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    
+
     {'% block script %}
     {'% endblock %}
 </body>
