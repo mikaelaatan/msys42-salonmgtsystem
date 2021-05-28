@@ -46,7 +46,7 @@
                 </div>
                 </div>
                 <div class="col">
-                  <input type="text" id="txtdisplay" name="service_list" value="{% for service in object.services.all %}{{ service.servicename }}, {% endfor %}" readonly>
+                  <input type="text" id="txtdisplay" name="service_list" value="{% for service in object.service.all %}{{ service.servicename }}, {% endfor %}" readonly>
                   </div>
               </div>
 

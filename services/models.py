@@ -18,6 +18,7 @@ class Service(models.Model):
     serviceprice = models.PositiveIntegerField("Price")
     servicedescription = models.TextField("Description", blank=True, null=True)
     serviceduration = models.DurationField("Duration",default=timedelta(minutes=20))
+    is_working = models.BooleanField('Active', default=True, null=False)
 
     def __str__(self):
         return str(self.servicetype).upper() + ": " + str(self.servicename)

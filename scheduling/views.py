@@ -15,7 +15,16 @@ from services.models import Service
 from staff.models import StaffModel
 from .models import *
 
+from django.contrib.messages.views import SuccessMessageMixin
+from django.views.generic.edit import CreateView
+from django.contrib import messages
+
 # Create your views here.
+
+def load_staff(request):
+    service_id = request.GET.get('service')
+    staffs = StaffModel.objects.filter(service=service_id).filter(is_active=True).order_by('id')
+    return render(request, 'staff_dropdown_list_options.html', {'staffs': staffs})
 
 @login_required
 def appointment_view(request):
@@ -49,6 +58,7 @@ def appointment_book_view(request):
         appointment = form.save(commit=False)
         appointment.customer = customer
         appointment.save()
+        messages.info(request, 'Appointment saved successfully!')
         return redirect('scheduling:appointment-list')
     context = {
         'form': form,
@@ -59,23 +69,26 @@ def appointment_book_view(request):
 @transaction.atomic
 @admin_required
 def admin_appointment_book_view(request):
-    form = AdminCreateAppointmentForm(
-        request.POST or None,
-    )
-    if form.is_valid():
-        appointment = form.save(commit=False)
-        appointment.save()
-        return redirect('scheduling:appointment-list')
+    if request.method == 'POST':
+        form = AdminCreateAppointmentForm(request.POST or None)
+        if form.is_valid():
+            appointment = form.save(commit=False)
+            appointment.save()
+            messages.info(request, 'Appointment saved successfully!')
+            return redirect('scheduling:appointment-list')
+    else:
+        form = AdminCreateAppointmentForm()
     context = {
         'form': form,
     }
     return render(request, 'admin_createbooking.html', context)
 
 @method_decorator(login_required, name='dispatch')
-class AppointmentUpdateView(UpdateView):
+class AppointmentUpdateView(SuccessMessageMixin,UpdateView):
     template_name = 'createbooking.html'
     form_class = UpdateAppointmentForm
     queryset = Appointment.objects.all()
+    success_message = 'Appointment has been edited successfully!'
 
     def get_object(self):
         id_ = self.kwargs.get("id")
@@ -89,10 +102,11 @@ class AppointmentUpdateView(UpdateView):
         return context
 
 @method_decorator(admin_required, name='dispatch')
-class AdminAppointmentUpdateView(UpdateView):
+class AdminAppointmentUpdateView(SuccessMessageMixin,UpdateView):
     template_name = 'admin_createbooking.html'
     form_class = AdminUpdateAppointmentForm
     queryset = Appointment.objects.all()
+    success_message = 'Appointment has been edited successfully!'
 
     def get_object(self):
         id_ = self.kwargs.get("id")

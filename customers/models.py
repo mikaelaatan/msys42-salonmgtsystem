@@ -10,3 +10,6 @@ class Customer(models.Model):
 
     def __str__(self, *args, **kwargs):
         return f'{self.user.username} - {self.user.first_name} {self.user.last_name} - {self.phone_number}'
+
+    def getCustomerName(self):
+        return f'{self.user.first_name} {self.user.last_name}'

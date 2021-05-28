@@ -14,6 +14,11 @@
     <div class="card" id="service-card">
       <div class="card-body">
         <h4 class="card-title">{{ object.servicename }}</h4>
+        <p class="card-text">Status: {% if object.is_working == True %}
+          <span class="mode mode_on">Active</span>
+        {% else %}
+          <span class="mode mode_off">Inactive</span>
+        {% endif %}</p>
         <p class="card-text">Service Type: <b>{{ object.servicetype }}</b></p>
         <p class="card-text">Price: <b>Php {{ object.serviceprice }}.00</b></p>
         <p class="card-text">Description: {{ object.servicedescription }}</p>
@@ -22,7 +27,7 @@
     </div>
 
   {% if 'admin.view_logentry' in user.get_user_permissions %}
-  <span><a href="/services/edit/{{object.id}}" class="btn btn-primary">Edit service details</a></span><br>
+  <span><a href="/services/edit/{{object.id}}" class="btn btn-primary">Edit service details</a></span>
   {% else %}
   {% endif %}
   <!-- add a back to service list button -->

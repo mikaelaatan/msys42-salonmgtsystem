@@ -27,7 +27,7 @@ class ExtendedStaffModelForm(forms.ModelForm):
 
     class Meta:
         model = StaffModel
-        fields = ('phone_number','services')
+        fields = ('phone_number','service')
 
     def clean_phone_number(self):
         phone_num = self.cleaned_data['phone_number']

@@ -22,6 +22,7 @@
         <th>Price</th>
         <th>Duration</th>
         {% if 'admin.view_logentry' in user.get_user_permissions %}
+        <th>Status</th>
         <th>Actions</th>
         {% else %}
         {% endif %}
@@ -36,6 +37,13 @@
           <td>Php {{ instance.serviceprice }}.00</td>
           <td>{{ instance.serviceduration_HHmm }}</td>
           {% if 'admin.view_logentry' in user.get_user_permissions %}
+          <td>
+            {% if instance.is_working == True %}
+              <span class="mode mode_on">Active</span>
+            {% else %}
+              <span class="mode mode_off">Inactive</span>
+            {% endif %}
+          </td>
           <td>
             <p data-placement="top" data-toggle="tooltip" title="Edit"><a href="edit/{{ instance.id }}"
                 button class="btn btn-default btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit">

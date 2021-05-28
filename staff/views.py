@@ -11,6 +11,7 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from decorators import user_required, staff_required, admin_required
 from django.utils.decorators import method_decorator
+from django.contrib import messages
 
 
 #============= SIGN UP STAFF ==================
@@ -28,7 +29,7 @@ def signup_staff_view(request):
         for field in ['about', 'phone_number','is_active']:
             setattr(extended_staff, field,
                     extended_staff_profile_form.cleaned_data.get(field))
-        # extended_staff.services.set(extended_staff_profile_form.cleaned_data.get('services'))
+        # extended_staff.service.set(extended_staff_profile_form.cleaned_data.get('service'))
         serv_list=request.POST.get('service_list')
         serv_list=serv_list[:-1]
         print(serv_list)
@@ -36,8 +37,9 @@ def signup_staff_view(request):
         print(s_list)
         for s in s_list:
             s2 = Service.objects.get(servicename=s)
-            extended_staff.services.add(s2.id)
+            extended_staff.service.add(s2.id)
         extended_staff.save()
+        messages.info(request, 'New staff record has been saved successfully!')
         return redirect('/staff/')
     context = {
         'profile_form': staff_profile_form,
@@ -70,15 +72,16 @@ def edit_staff_view(request, id):
             print(serv_list + "end")
             s_list = serv_list.split(", ")
             print(s_list)
-            obj.services.set("")
+            obj.service.set("")
             for field in ['about', 'phone_number','is_active']:
                 setattr(obj, field,
                         model_form.cleaned_data.get(field))
             for s in s_list:
                 s2 = Service.objects.get(servicename=s)
-                obj.services.add(s2.id)
+                obj.service.add(s2.id)
             obj.save()
-            return redirect('/staff/')
+            messages.info(request, 'Staff has been edited successfully!')
+            return redirect('/staff/'+str(obj.id))
         else:
             model_form = StaffUpdateForm()
     context = {

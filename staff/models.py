@@ -7,7 +7,7 @@ class StaffModel(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='staff')
     about = models.TextField("About", max_length=300, null=True, blank=True)
     phone_number = models.CharField(max_length=11)
-    services = models.ManyToManyField(Service)
+    service = models.ManyToManyField(Service)
     is_active = models.BooleanField(default=True, blank=True)
 
     def __str__(self, *args, **kwargs):
@@ -15,3 +15,6 @@ class StaffModel(models.Model):
 
     def get_absolute_url(self):
         return reverse("staff:staff-detail", kwargs={"id": self.id})
+
+    def getStaffName(self):
+        return f'{self.user.first_name} {self.user.last_name}'

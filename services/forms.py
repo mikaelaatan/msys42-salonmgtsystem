@@ -21,6 +21,7 @@ class ServiceForm(forms.ModelForm):
     serviceprice = forms.DecimalField(label="Price",decimal_places=2, help_text="Php", widget=forms.NumberInput(attrs={'class': 'form-control'}))
     serviceduration = forms.CharField(label='Duration',initial="00:00", help_text="Please use the following format: HH:MM.", widget=forms.TimeInput(attrs={'class': 'form-control'}))
     servicedescription = forms.CharField(required=False,label='Description',widget=forms.Textarea(attrs={'rows':3, 'class': 'form-control'}))
+    is_working = forms.BooleanField(widget=forms.RadioSelect(choices=[(True,"Active"),(False,"Inactive")]), initial=True, required=False)
 
 
     class Meta:

@@ -16,10 +16,21 @@ def dynamic_lookup_view(request,id):
     }
     return render(request, "service_detail.html", context)
 
-class ServiceListView(ListView):
-    model = Service
-    template_name = 'serviceslist.html'
-    queryset = Service.objects.all()
+# class ServiceListView(ListView):
+#     model = Service
+#     template_name = 'serviceslist.html'
+#     queryset = Service.objects.all()
+
+def servicelist_view(request):
+    if hasattr(request.user, 'user'):
+        services = Service.objects.filter(is_working=True)
+    else:
+        services = Service.objects.all()
+    service_now = services.order_by('servicetype')
+    context = {
+        'object_list': service_now,
+    }
+    return render(request, 'service_list.html', context)
 
 @method_decorator(admin_required, name='dispatch')
 class ServiceCreateView(CreateView):

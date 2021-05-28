@@ -88,7 +88,7 @@
     <div class="col-sm-8 mb-4">
       <div class="form-check">
         <label for="service" class="required">Service</label>
-        {{ extended_profile_form.services|add_class:"form-check-input" }}
+        {{ extended_profile_form.service|add_class:"form-check-input" }}
       </div>
     </div>
 
@@ -107,7 +107,7 @@
           </div>
           </div>
           <div class="col">
-            <input type="text" id="txtdisplay" name="service_list" value="{% for service in object.services.all %}{{ service.servicename }}, {% endfor %}" readonly>
+            <input type="text" id="txtdisplay" name="service_list" value="{% for service in object.service.all %}{{ service.servicename }}, {% endfor %}" readonly>
             </div>
         </div>
         <div class="col-sm-8 mb-4">
