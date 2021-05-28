@@ -25,4 +25,5 @@ urlpatterns = [
     path('', appointment_view, name='appointment-list'),
     path('<int:id>/', views.dynamic_lookup_view, name='booking-details'),
     path('edit/<int:id>/', AppointmentUpdateView.as_view(), name='appointment-edit'),
+    path('admin/edit/<int:id>/', AdminAppointmentUpdateView.as_view(), name='admin-appointment-edit'),
 ]

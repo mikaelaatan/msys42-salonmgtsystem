@@ -4,6 +4,9 @@ from .models import Service
 from .forms import ServiceForm
 from django.views.generic import *
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
+from decorators import user_required, staff_required, admin_required
+from django.utils.decorators import method_decorator
 
 # DETAILED VIEW
 def dynamic_lookup_view(request,id):
@@ -18,11 +21,13 @@ class ServiceListView(ListView):
     template_name = 'serviceslist.html'
     queryset = Service.objects.all()
 
+@method_decorator(admin_required, name='dispatch')
 class ServiceCreateView(CreateView):
     template_name = 'addservice.html'
     form_class = ServiceForm
     queryset = Service.objects.all()
 
+@method_decorator(admin_required, name='dispatch')
 class ServiceUpdateView(UpdateView):
     template_name = 'addservice.html'
     form_class = ServiceForm
@@ -32,6 +37,7 @@ class ServiceUpdateView(UpdateView):
         id_ = self.kwargs.get("id")
         return get_object_or_404(Service, id=id_)
 
+@method_decorator(admin_required, name='dispatch')
 class ServiceDeleteView(DeleteView):
     template_name = 'deleteservice.html'
 

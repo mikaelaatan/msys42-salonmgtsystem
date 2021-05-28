@@ -14,7 +14,9 @@ LOGIN_REDIRECT_URL
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
-    <title>Registration Page</title>
+    <title>Login and Registration Page</title>
+
+
 </head>
 
 <body>
@@ -70,7 +72,7 @@ LOGIN_REDIRECT_URL
                   {% endfor %}
                       </div>
                   {% elif field.label == "Birthdate" %}
-                      <!-- {% include 'common/date_picker.html' %} -->
+                      {% include 'common/date_picker.html' %}
                   {% else %}
                   {{ field|add_class:"form-control" }}
                   {% endif %}
@@ -86,7 +88,48 @@ LOGIN_REDIRECT_URL
               <button type="submit" value="signup" class="btn btn-success"> Sign Up </button>
             </form>
         </div>
+        <div class="form-container sign-in-container">
+          <form id="login-form" method="post">
+              {% csrf_token %}
+                <h1>Sign in</h1>
+                <div class="social-container">
+                    <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+                    <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+                <span>or use your account</span>
+                <input id="id_username" name="username" type="text" class="form-control" placeholder="Username">
+                <input type="password" name="password" id="password" placeholder="Password" />
+                <a href="#">Forgot your password?</a>
+
+                {% if form.errors %}
+                    <p class=" label label-danger">
+                        Your username and password didn't match.
+                        Please try again.
+                    </p>
+                {% endif %}
+
+                  <!-- <a href="/services"><button>Sign In</button></a> -->
+                <button type="submit" value="login" class="btn btn-success"> Login </button>
+            </form>
+        </div>
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1>Welcome back!</h1>
+                    <p>please login with your personal info to keep in touch</p>
+                    <button class="ghost" id="signIn">Sign In</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h1>Hey there!</h1>
+                    <p>create an account to start booking for our services</p>
+                    <button class="ghost" id="signUp">Sign Up</button>
+                </div>
+            </div>
+        </div>
     </div>
+
     <script src="{% static 'js/app.js' %}"></script>
+    <script src="{% static 'js/bootstrap-datepicker.min.js' %}"></script>
 </body>
 </html>

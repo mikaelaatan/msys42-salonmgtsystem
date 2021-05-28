@@ -15,13 +15,18 @@
       <div class="card-body">
         <h4 class="card-title">{{ object.servicename }}</h4>
         <p class="card-text">Service Type: <b>{{ object.servicetype }}</b></p>
-        <p class="card-text">Price: <b>Php{{ object.serviceprice }}</b></p>
+        <p class="card-text">Price: <b>Php {{ object.serviceprice }}.00</b></p>
         <p class="card-text">Description: {{ object.servicedescription }}</p>
         <p class="card-text">Duration: <b>{{ object.serviceduration_HHmm }}</b></p>
       </div>
     </div>
-  </div>
 
+  {% if 'admin.view_logentry' in user.get_user_permissions %}
+  <span><a href="/services/edit/{{object.id}}" class="btn btn-primary">Edit service details</a></span><br>
+  {% else %}
+  {% endif %}
   <!-- add a back to service list button -->
   <span><a href="/services/" class="btn btn-primary">Back to service list</a></span><br>
-  {% endblock content %}
+  </div>
+</div>
+{% endblock content %}

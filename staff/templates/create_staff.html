@@ -1,7 +1,31 @@
 {% extends 'common/base.html' %}
 {% load widget_tweaks %}
 
+{% block title%}Add Staff{% endblock %}
+
 {% block content %}
+
+<div class="form-group row">
+{% if extended_profile_form.errors %}
+    <div class="alert alert-danger form-error">
+    {% for key,value in extended_profile_form.errors.items %}
+    {% for error in value %}
+      <small>{{ error }}</small></div>
+    {% endfor %}
+    {% endfor %}
+{% endif %}
+{% if profile_form.errors %}
+    <div class="alert alert-danger form-error">
+    <ul>
+      {% for key,value in profile_form.errors.items %}
+      {% for error in value %}
+        <li><small>{{ error }}</small></li>
+      {% endfor %}
+      {% endfor %}
+    </ul>
+    </div>
+{% endif %}
+</div>
 
 <form method="POST" class="staff-form">
     {% csrf_token %}
@@ -121,18 +145,11 @@
 
   <div class="form-group row">
     <div class="button-form">
-        <input type='submit' value='Save' class = 'submit__btn'onclick="alert('Staff created successfully.');"/>
+        <input type='submit' value='Save' class = 'submit__btn' />
         <a href='/appointments/'>
             <input type="button" value='Back' class="submit__btn"/>
         </a>
     </div>
-    {% if extended_profile_form.errors %}
-        <div class="alert alert-danger form-error">
-        {% for error in extended_profile_form.phone_number.errors %}
-        <div style="margin:0;padding:0;"><small>{{ error }}</small></div>
-        {% endfor %}
-        </div>
-    {% endif %}
   </div>
 </form>
 {% endblock content %}

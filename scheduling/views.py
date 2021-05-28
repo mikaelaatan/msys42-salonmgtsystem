@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
-from .forms import CreateAppointmentForm, UpdateAppointmentForm, AdminCreateAppointmentForm
+from .forms import *
 from django.views.generic import *
 from django.urls import reverse
 from django.db import transaction
@@ -11,6 +11,8 @@ from decorators import user_required, staff_required, admin_required
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 from customers.models import Customer
+from services.models import Service
+from staff.models import StaffModel
 from .models import *
 
 # Create your views here.
@@ -32,7 +34,7 @@ def appointment_view(request):
 def dynamic_lookup_view(request,id):
     obj = get_object_or_404(Appointment, id=id)
     context = {
-        "object": obj
+        "object": obj,
     }
     return render(request, "booking_details.html", context)
 
@@ -85,3 +87,13 @@ class AppointmentUpdateView(UpdateView):
         context['customer'] = customer
         print (self.request.user)
         return context
+
+@method_decorator(admin_required, name='dispatch')
+class AdminAppointmentUpdateView(UpdateView):
+    template_name = 'admin_createbooking.html'
+    form_class = AdminUpdateAppointmentForm
+    queryset = Appointment.objects.all()
+
+    def get_object(self):
+        id_ = self.kwargs.get("id")
+        return get_object_or_404(Appointment, id=id_)

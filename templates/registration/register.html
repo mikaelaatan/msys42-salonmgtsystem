@@ -14,8 +14,8 @@ LOGIN_REDIRECT_URL
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}" />
     <title>Login Page</title>
-
 
 </head>
 
@@ -33,7 +33,7 @@ LOGIN_REDIRECT_URL
                 <span>or use your email for registration</span> -->
                 {% for field in profile_form %}
                 <div class="form-group">
-                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    <label for="{{ field.id_for_label }}" class="required">{{ field.label }}</label>
                     {{ field|add_class:"form-control" }}
                     {% if field.errors %}
                     <div class="alert alert-danger form-error">
@@ -46,7 +46,7 @@ LOGIN_REDIRECT_URL
                 {% endfor %}
                 {% for field in extended_profile_form %}
                 <div class="form-group">
-                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    <label for="{{ field.id_for_label }}" class="required">{{ field.label }}</label>
                     {% if field.label == 'Service type' %}
                     <div class="form-group">
                         {% for subfield in field %}
@@ -75,9 +75,8 @@ LOGIN_REDIRECT_URL
                 <div class="overlay-panel overlay-right">
                     <h1>Hey there!</h1>
                     <p>please login with your personal info to keep in touch</p>
-                    <button class="ghost" id="signIn">Sign In</button>
+                    <a href="/login/"><button class="ghost" id="signIn">Sign In</button></a>
                 </div>
             </div>
         </div>
     </div>
-    

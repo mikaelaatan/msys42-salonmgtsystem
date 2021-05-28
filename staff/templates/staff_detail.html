@@ -33,11 +33,14 @@
       </div>
       </div> {% endfor %}
     </div>
-  </div>
 <br>
 <br>
   <!-- add a back to service list button -->
+  {% if 'admin.view_logentry' in user.get_user_permissions %}
+  <span><a href="/staff/edit/{{ object.id }}/" class="btn btn-primary">Edit Staff Details</a></span>
+  {% else %}
+  {% endif %}
   <span><a href="/staff/" class="btn btn-primary">Back to StaffList</a></span><br>
-  <span><a href="{{ staff.get_absolute_url }}" class="btn btn-primary">Edit Staff Details</a></span>
+  </div>
 </div>
 {% endblock content %}

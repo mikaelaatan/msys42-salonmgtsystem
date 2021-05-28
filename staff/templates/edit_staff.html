@@ -60,13 +60,6 @@
                    <input type="number" name="phone_number" class="form-control input-md" maxlength="11" required="" id="id_phone_number" value="{{ object.phone_number }}"
                    oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
                    </input>
-                   {% if form.errors %}
-                       <div class="alert alert-danger form-error">
-                       {% for error in form.phone_number.errors %}
-                       <div style="margin:0;padding:0;"><small>{{ error }}</small></div>
-                       {% endfor %}
-                       </div>
-                   {% endif %}
               </div>
 
               <div class="form-group row">
@@ -81,9 +74,18 @@
             <div class="button-form">
                 <input type='submit' value='Save' class='submit__btn'/>
                 <a href='/staff/'>
-                    <input type="button" value='Back' class="back__btn"/>
+                    <input type="button" value='Back' class="submit__btn"/>
                 </a>
             </div>
+            {% if form.errors %}
+              {% for field in form %}
+                <div class="alert alert-danger form-error">
+                {% for error in form.field.errors %}
+                <div style="margin:0;padding:0;"><small>{{ error }}</small></div>
+                {% endfor %}
+                </div>
+                {% endfor %}
+            {% endif %}
           </div>
     </form>
 </div>

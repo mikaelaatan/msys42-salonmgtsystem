@@ -14,7 +14,7 @@ from django.utils.decorators import method_decorator
 
 
 #============= SIGN UP STAFF ==================
-@login_required
+@admin_required
 def signup_staff_view(request):
     s_obj = Service.objects.all()
     staff_profile_form = StaffModelForm(request.POST or None, request.FILES or None)
@@ -54,22 +54,26 @@ def dynamic_lookup_view(request,id):
     }
     return render(request, "staff_detail.html", context)
 
+@admin_required
 def edit_staff_view(request, id):
     obj = StaffModel.objects.get(id=id)
     print(obj.id)
     s_obj = Service.objects.all()
-    model_form = StaffUpdateForm(request.POST)
+    model_form = StaffUpdateForm(request.POST or None, request.FILES or None)
     if request.method=="POST":
         if model_form.is_valid():
             serv_list=request.POST.get('service_list')
-            p_num=request.POST.get('phone_number')
             print(serv_list)
+            if serv_list[-1] == " ":
+                serv_list=serv_list[:-1]
             serv_list=serv_list[:-1]
             print(serv_list + "end")
-            s_list = serv_list[:-1].split(", ")
+            s_list = serv_list.split(", ")
             print(s_list)
             obj.services.set("")
-            obj.phone_number = p_num
+            for field in ['about', 'phone_number','is_active']:
+                setattr(obj, field,
+                        model_form.cleaned_data.get(field))
             for s in s_list:
                 s2 = Service.objects.get(servicename=s)
                 obj.services.add(s2.id)
@@ -83,6 +87,7 @@ def edit_staff_view(request, id):
         's_obj': s_obj
     }
     return render(request, 'edit_staff.html', context)
+
 
 class StaffListView(ListView):
     model = StaffModel

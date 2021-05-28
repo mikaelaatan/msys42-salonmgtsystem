@@ -10,7 +10,7 @@
     <form method="POST" class="post-form">
         {% csrf_token %}
         <br>
-        
+
         {% for field in form %}
         <div class="form-group row">
             <label for="{{ field.id_for_label }}" class="required">{{ field.label }}</label>
@@ -26,7 +26,7 @@
           {% endfor %}
           <div class="form-group row">
             <div class="button-form">
-                <input type='submit' value='Save' class = 'submit__btn'onclick="alert('Appointment created successfully.');"/>
+                <input type='submit' value='Save' class = 'submit__btn'/>
                 <a href='/appointments/'>
                     <input type="button" value='Back' class="submit__btn"/>
                 </a>

@@ -3,8 +3,13 @@
 
 body {
     font-family: "Poppins", sans-serif;
-    
-    
+
+
+}
+
+label.required::after {
+    content: ' *';
+    color: red;
 }
 
 #services_table {
@@ -53,13 +58,13 @@ body {
 h4 {
     margin: 2rem 0;
     font-weight: bold;
-    
+
 }
 
 h2 {
     margin: 2rem 0;
     font-weight: bold;
-    
+
 }
 
 th {
@@ -107,12 +112,12 @@ tbody tr {
 }
 
  td .btn {
-    
+
     background-color: transparent;
     border: 0.5px solid transparent;
     color: #252525;
     font-size:large;
-    
+
 }
 
 td .btn:hover {
@@ -133,8 +138,8 @@ tbody tr td a {
 .form-row {
     padding: 10px;
     margin-top: 2rem;
-    
-    
+
+
 }
 
 .form-col {
@@ -233,7 +238,7 @@ tbody tr td a {
     height: 34px;
     width: 75%;
     padding: 0px 25px 0px 10px;
-    
+
 }
 
 .col-md-12 .dataTables_wrapper .dataTables_filter input:active {
