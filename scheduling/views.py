@@ -14,7 +14,7 @@ from customers.models import Customer
 from services.models import Service
 from staff.models import StaffModel
 from .models import *
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic.edit import CreateView
@@ -53,9 +53,7 @@ def dynamic_lookup_view(request,id):
 @user_required
 def appointment_book_view(request):
     customer = Customer.objects.get(user=request.user)
-    form = CreateAppointmentForm(
-        request.POST or None,
-    )
+    form = CreateAppointmentForm(request.POST or None,)
     if form.is_valid():
         start_time = request.POST.get('appdatetime')
         service_id = request.POST.get('service')
@@ -74,6 +72,8 @@ def appointment_book_view(request):
         appointment.save()
         messages.info(request, 'Appointment saved successfully!')
         return redirect('scheduling:appointment-list')
+    else:
+        form = CreateAppointmentForm(request.POST or None,)
     context = {
         'form': form,
         'customer': customer,

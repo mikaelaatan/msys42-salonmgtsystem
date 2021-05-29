@@ -10,7 +10,13 @@
     <form method="POST" id="AdminCreateAppointmentForm" class="post-form" data-staff-url="{% url 'scheduling:ajax_load_staff' %}" novalidate>
         {% csrf_token %}
         <br>
-
+        {% if form.non_field_errors %}
+              <div class="alert alert-danger form-error">
+              {% for error in form.non_field_errors %}
+                <div style="margin:0;padding:0;">{{ error }}</div>
+              {% endfor %}
+              </div>
+          {% endif %}
         {% for field in form %}
         <div class="form-group row">
             <label for="{{ field.id_for_label }}" class="required">{{ field.label }}</label>

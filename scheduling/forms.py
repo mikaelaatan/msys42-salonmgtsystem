@@ -8,6 +8,10 @@ from customers.models import Customer
 from .models import Appointment
 
 
+import datetime
+from datetime import datetime as dt, date, timedelta
+from django.utils import timezone
+
 class CreateAppointmentForm(forms.ModelForm):
     required_css_class = 'required'
 
@@ -33,6 +37,34 @@ class CreateAppointmentForm(forms.ModelForm):
                 pass  # invalid input from the client; ignore and fallback to empty staff queryset
         elif self.instance.pk:
             self.fields['staff'].queryset = self.instance.service.staff_set.order_by('name')
+
+    def check_overlap(self, fixed_start, fixed_end, new_start, new_end):
+        overlap = False
+        if new_start == fixed_end or new_end == fixed_start:    #edge case
+            overlap = False
+        elif (new_start >= fixed_start and new_start <= fixed_end) or (new_end >= fixed_start and new_end <= fixed_end): #innner limits
+            overlap = True
+        elif new_start <= fixed_start and new_end >= fixed_end: #outter limits
+            overlap = True
+        return overlap
+
+    def clean(self):
+        cleaned_data = super().clean()
+        date = cleaned_data.get('appdatetime')
+        staff = cleaned_data.get('staff')
+        service = cleaned_data.get('service')
+        now = timezone.now()
+        if date and staff:
+            if date < now:
+                raise forms.ValidationError('Cannot pick a past date for future appointment')
+            events = Appointment.objects.filter(staff=staff, iscancelled=False)
+            sec = service.serviceduration.total_seconds()
+            end_date = date + timedelta(seconds=sec+1800)
+            if events.exists():
+                for event in events:
+                    if self.check_overlap(event.appdatetime, event.enddatetime, date, end_date):
+                        raise forms.ValidationError('This date is already booked for this staff member')
+
 
 class AdminCreateAppointmentForm(forms.ModelForm):
     required_css_class = 'required'
@@ -64,6 +96,41 @@ class AdminCreateAppointmentForm(forms.ModelForm):
         elif self.instance.pk:
             self.fields['staff'].queryset = self.instance.service.staff_set.order_by('name')
 
+    def check_overlap(self, fixed_start, fixed_end, new_start, new_end):
+        overlap = False
+        if new_start == fixed_end or new_end == fixed_start:    #edge case
+            overlap = False
+        elif (new_start >= fixed_start and new_start <= fixed_end) or (new_end >= fixed_start and new_end <= fixed_end): #innner limits
+            overlap = True
+        elif new_start <= fixed_start and new_end >= fixed_end: #outter limits
+            overlap = True
+        return overlap
+
+    def clean(self):
+        cleaned_data = super().clean()
+        date = cleaned_data.get('appdatetime')
+        staff = cleaned_data.get('staff')
+        service = cleaned_data.get('service')
+        now = timezone.now()
+        if date and staff:
+            if date < now:
+                raise forms.ValidationError('Cannot pick a past date for future appointment')
+            events = Appointment.objects.filter(staff=staff, iscancelled=False)
+            sec = service.serviceduration.total_seconds()
+            end_date = date + timedelta(seconds=sec+1800)
+            if events.exists():
+                for event in events:
+                    if self.check_overlap(event.appdatetime, event.enddatetime, date, end_date):
+                        raise forms.ValidationError('This date is already booked for this staff member')
+            # booked_dates = Appointment.objects.filter(staff=staff,' iscancelled=False).values_list('appdatetime', flat=True)
+            # endbooked_dates = Appointment.objects.filter(staff=staff, iscancelled=False).values_list('enddatetime', flat=True)
+            # sec = service.serviceduration.total_seconds()
+            # for booked_date in booked_dates:
+            #     if date >= booked_date and date < (booked_date + timedelta(seconds=sec+1800)):
+            #         raise forms.ValidationError('This date is already booked for this staff member')
+
+
+
 
 class UpdateAppointmentForm(forms.ModelForm):
     required_css_class = 'required'
@@ -82,6 +149,33 @@ class UpdateAppointmentForm(forms.ModelForm):
         # input_formats to parse HTML5 datetime-local input to datetime field
         self.fields['appdatetime'].input_formats = ('%Y-%m-%dT%H:%M',)
 
+    def check_overlap(self, fixed_start, fixed_end, new_start, new_end):
+        overlap = False
+        if new_start == fixed_end or new_end == fixed_start:    #edge case
+            overlap = False
+        elif (new_start >= fixed_start and new_start <= fixed_end) or (new_end >= fixed_start and new_end <= fixed_end): #innner limits
+            overlap = True
+        elif new_start <= fixed_start and new_end >= fixed_end: #outter limits
+            overlap = True
+        return overlap
+
+    def clean(self):
+        cleaned_data = super().clean()
+        date = cleaned_data.get('appdatetime')
+        staff = cleaned_data.get('staff')
+        service = cleaned_data.get('service')
+        now = timezone.now()
+        if date and staff:
+            if date < now:
+                raise forms.ValidationError('Cannot pick a past date for future appointment')
+            events = Appointment.objects.filter(staff=staff, iscancelled=False)
+            sec = service.serviceduration.total_seconds()
+            end_date = date + timedelta(seconds=sec+1800)
+            if events.exists():
+                for event in events:
+                    if self.check_overlap(event.appdatetime, event.enddatetime, date, end_date):
+                        raise forms.ValidationError('This date is already booked for this staff member')
+
 class AdminUpdateAppointmentForm(forms.ModelForm):
     required_css_class = 'required'
     customer = forms.ModelChoiceField(Customer.objects.all(), widget=forms.Select)
@@ -99,6 +193,34 @@ class AdminUpdateAppointmentForm(forms.ModelForm):
         super(AdminUpdateAppointmentForm, self).__init__(*args, **kwargs)
         # input_formats to parse HTML5 datetime-local input to datetime field
         self.fields['appdatetime'].input_formats = ('%Y-%m-%dT%H:%M',)
+
+    def check_overlap(self, fixed_start, fixed_end, new_start, new_end):
+        overlap = False
+        if new_start == fixed_end or new_end == fixed_start:    #edge case
+            overlap = False
+        elif (new_start >= fixed_start and new_start <= fixed_end) or (new_end >= fixed_start and new_end <= fixed_end): #innner limits
+            overlap = True
+        elif new_start <= fixed_start and new_end >= fixed_end: #outter limits
+            overlap = True
+        return overlap
+
+    def clean(self):
+        cleaned_data = super().clean()
+        date = cleaned_data.get('appdatetime')
+        staff = cleaned_data.get('staff')
+        service = cleaned_data.get('service')
+        now = timezone.now()
+        if date and staff:
+            if date < now:
+                raise forms.ValidationError('Cannot pick a past date for future appointment')
+            events = Appointment.objects.filter(staff=staff, iscancelled=False)
+            sec = service.serviceduration.total_seconds()
+            end_date = date + timedelta(seconds=sec+1800)
+            if events.exists():
+                for event in events:
+                    if self.check_overlap(event.appdatetime, event.enddatetime, date, end_date):
+                        raise forms.ValidationError('This date is already booked for this staff member')
+
 
 
 # class AppointmentReviewForm(forms.ModelForm):
