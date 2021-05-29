@@ -17,9 +17,10 @@
     <div class="card" id="service-card">
       <div class="card-body">
           <p class="card-text"><b>Name :</b>&nbsp;&nbsp;{{ object.customer }}</p>
-          <p class="card-text"><b>Service :</b>&nbsp;&nbsp;{{ object.service.servicename }}</p>
+          <p class="card-text"><b>Service :</b>&nbsp;&nbsp;{{ object.service }}</p>
           <p class="card-text"><b>Stylist :</b>&nbsp;&nbsp;{{ object.staff.user.first_name|add:' '|add:object.staff.user.last_name }}</p>
-          <p class="card-text"><b>Date :</b>&nbsp;&nbsp;{{ object.appdatetime }}</p>
+          <p class="card-text"><b>Start :</b>&nbsp;&nbsp;{{ object.appdatetime }}</p>
+          <p class="card-text"><b>End :</b>&nbsp;&nbsp;{{ object.enddatetime }}</p>
           <p class="card-text"><b>Amount :</b>&nbsp;&nbsp;Php {{object.service.serviceprice }}.00 </p>
           <p class="card-text"><b>Status :</b>&nbsp;&nbsp; {% if object.is_cancelled == True %}
             <span class="mode mode_on">Confirmed</span>

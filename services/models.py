@@ -21,7 +21,9 @@ class Service(models.Model):
     is_working = models.BooleanField('Active', default=True, null=False)
 
     def __str__(self):
-        return str(self.servicetype).upper() + ": " + str(self.servicename)
+        sec = self.serviceduration.total_seconds()
+        dur = '%02d:%02d' % (int((sec/3600)%3600), int((sec/60)%60))
+        return str(self.servicename) + " (Duration: " + str(dur) + ")"
 
     def get_absolute_url(self):
         return reverse("services:service-detail", kwargs={"id": self.id})

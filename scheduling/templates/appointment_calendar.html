@@ -8,6 +8,7 @@
 <script src="{% static 'node_modules/fullcalendar/core/main.js'%}"></script>
 <script src="{% static 'node_modules/fullcalendar/daygrid/main.js'%}"></script>
 <script src="{% static 'node_modules/fullcalendar/timegrid/main.js'%}"></script>
+<script src="https://momentjs.com/downloads/moment.js"></script>
 <script>
 
     document.addEventListener('DOMContentLoaded', function() {
@@ -16,13 +17,13 @@
     var calendar = new FullCalendar.Calendar(calendarEl, {
       plugins: [ 'interaction', 'dayGrid', 'timeGrid' ],
       defaultView: 'dayGridMonth',
-      timeZone: 'Etc/GMT+8',
+      timeZone: 'UTC/GMT+8',
       aspectRatio: 2,
       defaultDate: '{{ today.year }}-{{ today.month }}-{{ today.day }}',
       header: {
         left: 'prev,next today',
         center: 'title',
-        right: 'dayGridMonth, timeGridWeek'
+        right: 'dayGridMonth, timeGridWeek,'
       },
       allDaySlot: false,
       events: [
@@ -33,7 +34,7 @@
           end: '{{ item.enddatetime|format_time }}',
         },
         {% endfor %}
-      ]
+      ],
     });
 
     calendar.render();

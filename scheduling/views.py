@@ -27,6 +27,7 @@ def load_staff(request):
     staffs = StaffModel.objects.filter(service=service_id).filter(is_active=True).order_by('id')
     return render(request, 'staff_dropdown_list_options.html', {'staffs': staffs})
 
+
 @login_required
 def appointment_view(request):
     if hasattr(request.user, 'staff'):
@@ -56,7 +57,19 @@ def appointment_book_view(request):
         request.POST or None,
     )
     if form.is_valid():
+        start_time = request.POST.get('appdatetime')
+        service_id = request.POST.get('service')
+        serv = Service.objects.get(id=service_id)
+        print(start_time)
+        print(serv.serviceduration)
+        start_time = datetime.strptime(start_time,'%Y-%m-%dT%H:%M')
+        print(start_time)
+        sec = serv.serviceduration.total_seconds()
+        endtime = start_time + timedelta(seconds=sec)
+        endtime = endtime.strftime('%Y-%m-%d %H:%M:%S')
+        print(endtime)
         appointment = form.save(commit=False)
+        appointment.enddatetime = endtime
         appointment.customer = customer
         appointment.save()
         messages.info(request, 'Appointment saved successfully!')
@@ -73,7 +86,19 @@ def admin_appointment_book_view(request):
     if request.method == 'POST':
         form = AdminCreateAppointmentForm(request.POST or None)
         if form.is_valid():
+            start_time = request.POST.get('appdatetime')
+            service_id = request.POST.get('service')
+            serv = Service.objects.get(id=service_id)
+            print(start_time)
+            print(serv.serviceduration)
+            start_time = datetime.strptime(start_time,'%Y-%m-%dT%H:%M')
+            print(start_time)
+            sec = serv.serviceduration.total_seconds()
+            endtime = start_time + timedelta(seconds=sec)
+            endtime = endtime.strftime('%Y-%m-%d %H:%M:%S')
+            print(endtime)
             appointment = form.save(commit=False)
+            appointment.enddatetime = endtime
             appointment.save()
             messages.info(request, 'Appointment saved successfully!')
             return redirect('scheduling:appointment-list')
@@ -84,34 +109,65 @@ def admin_appointment_book_view(request):
     }
     return render(request, 'admin_createbooking.html', context)
 
-@method_decorator(login_required, name='dispatch')
-class AppointmentUpdateView(SuccessMessageMixin,UpdateView):
-    template_name = 'createbooking.html'
-    form_class = UpdateAppointmentForm
-    queryset = Appointment.objects.all()
-    success_message = 'Appointment has been edited successfully!'
+@login_required
+def edit_appointment_view(request, id):
+    instance = get_object_or_404(Appointment, id=id)
+    customer = Customer.objects.get(user=self.request.user)
+    model_form = UpdateAppointmentForm(request.POST or None, request.FILES or None, instance=instance)
+    if request.method=="POST":
+        if model_form.is_valid():
+            start_time = request.POST.get('appdatetime')
+            service_id = request.POST.get('service')
+            serv = Service.objects.get(id=service_id)
+            print(start_time)
+            print(serv.serviceduration)
+            start_time = datetime.strptime(start_time,'%Y-%m-%dT%H:%M')
+            print(start_time)
+            sec = serv.serviceduration.total_seconds()
+            endtime = start_time + timedelta(seconds=sec)
+            endtime = endtime.strftime('%Y-%m-%d %H:%M:%S')
+            print(endtime)
+            instance = model_form.save(commit=False)
+            instance.enddatetime = endtime
+            instance.save()
+            messages.info(request, 'Appointment has been edited successfully!')
+            return redirect('/appointments/'+str(instance.id))
+        else:
+            model_form = UpdateAppointmentForm()
+    context = {
+        'form': model_form,
+        'customer': customer,
+    }
+    return render(request, 'admin_createbooking.html', context)
 
-    def get_object(self):
-        id_ = self.kwargs.get("id")
-        return get_object_or_404(Appointment, id=id_)
-
-    def get_context_data(self, *args, **kwargs):
-        context = super(AppointmentUpdateView, self).get_context_data(*args, **kwargs)
-        customer = Customer.objects.get(user=self.request.user)
-        context['customer'] = customer
-        print (self.request.user)
-        return context
-
-@method_decorator(admin_required, name='dispatch')
-class AdminAppointmentUpdateView(SuccessMessageMixin,UpdateView):
-    template_name = 'admin_createbooking.html'
-    form_class = AdminUpdateAppointmentForm
-    queryset = Appointment.objects.all()
-    success_message = 'Appointment has been edited successfully!'
-
-    def get_object(self):
-        id_ = self.kwargs.get("id")
-        return get_object_or_404(Appointment, id=id_)
+@admin_required
+def admin_edit_appointment_view(request, id):
+    instance = get_object_or_404(Appointment, id=id)
+    model_form = AdminUpdateAppointmentForm(request.POST or None, request.FILES or None, instance=instance)
+    if request.method=="POST":
+        if model_form.is_valid():
+            start_time = request.POST.get('appdatetime')
+            service_id = request.POST.get('service')
+            serv = Service.objects.get(id=service_id)
+            print(start_time)
+            print(serv.serviceduration)
+            start_time = datetime.strptime(start_time,'%Y-%m-%dT%H:%M')
+            print(start_time)
+            sec = serv.serviceduration.total_seconds()
+            endtime = start_time + timedelta(seconds=sec)
+            endtime = endtime.strftime('%Y-%m-%d %H:%M:%S')
+            print(endtime)
+            instance = model_form.save(commit=False)
+            instance.enddatetime = endtime
+            instance.save()
+            messages.info(request, 'Appointment has been edited successfully!')
+            return redirect('/appointments/'+str(instance.id))
+        else:
+            model_form = AdminUpdateAppointmentForm()
+    context = {
+        'form': model_form,
+    }
+    return render(request, 'admin_createbooking.html', context)
 
 def appointment_calendar_view(request):
     if hasattr(request.user, 'staff'):
@@ -124,3 +180,33 @@ def appointment_calendar_view(request):
         'today': today,
     }
     return render(request, 'appointment_calendar.html', context)
+
+
+# @method_decorator(login_required, name='dispatch')
+# class AppointmentUpdateView(SuccessMessageMixin,UpdateView):
+#     template_name = 'createbooking.html'
+#     form_class = UpdateAppointmentForm
+#     queryset = Appointment.objects.all()
+#     success_message = 'Appointment has been edited successfully!'
+#
+#     def get_object(self):
+#         id_ = self.kwargs.get("id")
+#         return get_object_or_404(Appointment, id=id_)
+#
+#     def get_context_data(self, *args, **kwargs):
+#         context = super(AppointmentUpdateView, self).get_context_data(*args, **kwargs)
+#         customer = Customer.objects.get(user=self.request.user)
+#         context['customer'] = customer
+#         print (self.request.user)
+#         return context
+#
+# @method_decorator(admin_required, name='dispatch')
+# class AdminAppointmentUpdateView(SuccessMessageMixin,UpdateView):
+#     template_name = 'admin_createbooking.html'
+#     form_class = AdminUpdateAppointmentForm
+#     queryset = Appointment.objects.all()
+#     success_message = 'Appointment has been edited successfully!'
+#
+#     def get_object(self):
+#         id_ = self.kwargs.get("id")
+#         return get_object_or_404(Appointment, id=id_)

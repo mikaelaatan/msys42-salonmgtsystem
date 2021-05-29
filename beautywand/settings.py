@@ -100,6 +100,7 @@ DATABASES = {
         'PORT': '3306',
         'USER': 'root', # change this to your sql username
         'PASSWORD': 'password', # change this to your sql password
+        'TIME_ZONE': 'Asia/Manila',
     }
 
 }
