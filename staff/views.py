@@ -91,8 +91,13 @@ def edit_staff_view(request, id):
     }
     return render(request, 'edit_staff.html', context)
 
-
-class StaffListView(ListView):
-    model = StaffModel
-    template_name = 'staff_list.html'
-    queryset = StaffModel.objects.all()
+def stafflist_view(request):
+    if hasattr(request.user, 'user'):
+        staff = StaffModel.objects.filter(is_active=True)
+    else:
+        staff = StaffModel.objects.all()
+    staff_now = staff.order_by('user_id')
+    context = {
+        'object_list': staff_now,
+    }
+    return render(request, 'staff_list.html', context)

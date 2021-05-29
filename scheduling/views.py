@@ -14,6 +14,7 @@ from customers.models import Customer
 from services.models import Service
 from staff.models import StaffModel
 from .models import *
+from datetime import datetime, date
 
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic.edit import CreateView
@@ -111,3 +112,15 @@ class AdminAppointmentUpdateView(SuccessMessageMixin,UpdateView):
     def get_object(self):
         id_ = self.kwargs.get("id")
         return get_object_or_404(Appointment, id=id_)
+
+def appointment_calendar_view(request):
+    if hasattr(request.user, 'staff'):
+        appointments = Appointment.objects.filter(iscancelled=False, staff__user=request.user)
+    else:
+        appointments = Appointment.objects.filter(iscancelled=False)
+    today = date.today()
+    context = {
+        'appointments': appointments,
+        'today': today,
+    }
+    return render(request, 'appointment_calendar.html', context)

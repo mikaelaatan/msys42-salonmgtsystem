@@ -26,5 +26,7 @@ urlpatterns = [
     path('<int:id>/', views.dynamic_lookup_view, name='booking-details'),
     path('edit/<int:id>/', AppointmentUpdateView.as_view(), name='appointment-edit'),
     path('admin/edit/<int:id>/', AdminAppointmentUpdateView.as_view(), name='admin-appointment-edit'),
-    path('ajax/load-staff/', views.load_staff, name='ajax_load_staff')
+    path('ajax/load-staff/', views.load_staff, name='ajax_load_staff'),
+    # path('ajax/load-time/', views.load_endtime, name='ajax_load_time'),
+    path('calendar/', appointment_calendar_view, name='appointment-calendar'),
 ]
