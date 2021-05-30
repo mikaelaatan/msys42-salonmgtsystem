@@ -18,6 +18,7 @@ def signup_view(request):
         for field in ['birthdate', 'phone_number']:
             setattr(extended_customer, field, extended_customer_profile_form.cleaned_data.get(field))
         extended_customer.save()
+        messages.info(request, 'Account successfully created!')
         return redirect('/appointments')
     context = {
         'profile_form': customer_profile_form,

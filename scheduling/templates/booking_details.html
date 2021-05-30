@@ -22,11 +22,15 @@
           <p class="card-text"><b>Start :</b>&nbsp;&nbsp;{{ object.appdatetime }}</p>
           <p class="card-text"><b>End :</b>&nbsp;&nbsp;{{ object.enddatetime }}</p>
           <p class="card-text"><b>Amount :</b>&nbsp;&nbsp;Php {{object.service.serviceprice }}.00 </p>
-          <p class="card-text"><b>Status :</b>&nbsp;&nbsp; {% if object.is_cancelled == True %}
-            <span class="mode mode_on">Confirmed</span>
+          <p class="card-text"><b>Status :</b>&nbsp;&nbsp;
+          {% if object.iscancelled == False and object.is_completed == False %}
+            <span class="mode mode_process">Pending</span>
+          {% elif object.is_completed == True %}
+            <span class="mode mode_on">Completed</span>
           {% else %}
-            <span class="mode mode_off">Cancelled</span>
-          {% endif %}</p>
+              <span class="mode mode_off">Cancelled</span>
+          {% endif %}
+          </p>
         </div>
       </div>
       {% if 'admin.view_logentry' in user.get_user_permissions %}

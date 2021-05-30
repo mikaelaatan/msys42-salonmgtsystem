@@ -5,7 +5,6 @@ from staff.models import StaffModel
 from customers.models import Customer
 from django.urls import reverse
 
-
 class Appointment(models.Model):
     appdatetime = models.DateTimeField('Start Date Time', blank=True,null=False)
     enddatetime = models.DateTimeField('End Date Time', blank=True,null=False)
@@ -15,6 +14,7 @@ class Appointment(models.Model):
     # paymentmethod = models.CharField(max_length=64, db_column='PaymentMethod')
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     iscancelled = models.BooleanField('Is it Cancelled', default=False, null=False)
+    is_completed = models.BooleanField('Is it Completed', default=False, null=False)
 
     def __str__(self, *args, **kwargs):
         return f'{self.customer.user.username} booked {self.service.servicename} for {self.appdatetime}'

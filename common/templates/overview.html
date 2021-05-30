@@ -38,12 +38,14 @@
           <td>{{ instance.service.servicename }}</td>
           <td>{{ instance.staff.user.first_name|add:' '|add:instance.staff.user.last_name }}</td>
           <td>
-            {% if instance.iscancelled == False %}
-              <span class="mode mode_on">Confirmed</span>
+            {% if object.iscancelled == False and object.is_completed == False %}
+              <span class="mode mode_process">Pending</span>
+            {% elif object.is_completed == True %}
+              <span class="mode mode_on">Completed</span>
             {% else %}
-              <span class="mode mode_off">Cancelled</span>
+                <span class="mode mode_off">Cancelled</span>
+            {% endif %}
           </td>
-          {% endif %}
           <td>
             {% if 'admin.view_logentry' in user.get_user_permissions %}
             <p data-placement="top" data-toggle="tooltip" title="Edit"><a href="/appointments/admin/edit/{{ instance.id }}"

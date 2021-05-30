@@ -14,14 +14,18 @@ def login_required_view(request):
 
 @login_required
 def home_view(request):
-    services=Service.objects.all()
-    staffs=StaffModel.objects.all()
     if hasattr(request.user, 'staff'):
         appointments = Appointment.objects.filter(staff__user=request.user)
+        services=Service.objects.filter(is_working=True)
+        staffs=StaffModel.objects.all()
     elif hasattr(request.user, 'user'):
         appointments = Appointment.objects.filter(customer__user=request.user)
+        services=Service.objects.all().filter(is_working=True)
+        staffs=StaffModel.objects.all().filter(is_active=True)
     else:
         appointments=Appointment.objects.all()
+        services=Service.objects.all()
+        staffs=StaffModel.objects.all()
     appointments_today = appointments.order_by('appdatetime')
     context = {
         'todays': appointments_today,

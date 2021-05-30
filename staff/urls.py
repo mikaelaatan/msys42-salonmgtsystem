@@ -4,7 +4,8 @@ from .views import *
 
 app_name = 'staff'
 urlpatterns = [
-    path('add/', signup_staff_view, name='signup-staff'),
+    path('add/', add_staff_view, name='signup-staff'),
+    path('signup/staff', signup_staff_view, name='signup-staff'),
     path('', stafflist_view, name='staff-list'),
     path('<int:id>/', views.dynamic_lookup_view, name='staff-detail'),
     # path('edit/<int:id>/', StaffUpdateView.as_view(), name='staff-edit'),
