@@ -46,6 +46,38 @@ def signup_staff_view(request):
         'extended_profile_form': extended_staff_profile_form,
         's_obj': s_obj,
     }
+    return render(request, 'registration/register.html', context)
+
+def add_staff_view(request):
+    s_obj = Service.objects.all()
+    staff_profile_form = StaffModelForm(request.POST or None, request.FILES or None)
+    extended_staff_profile_form = StaffUpdateForm(request.POST or None, request.FILES or None)
+    valid = staff_profile_form.is_valid() * extended_staff_profile_form.is_valid()
+    if valid:
+        staff = staff_profile_form.save()
+        group = Group.objects.get(name='Staff')
+        staff.groups.add(group)
+        extended_staff = StaffModel.objects.create(user=staff)
+        for field in ['about', 'phone_number','is_active']:
+            setattr(extended_staff, field,
+                    extended_staff_profile_form.cleaned_data.get(field))
+        # extended_staff.service.set(extended_staff_profile_form.cleaned_data.get('service'))
+        serv_list=request.POST.get('service_list')
+        serv_list=serv_list[:-1]
+        print(serv_list)
+        s_list = serv_list.split(", ")
+        print(s_list)
+        for s in s_list:
+            s2 = Service.objects.get(servicename=s)
+            extended_staff.service.add(s2.id)
+        extended_staff.save()
+        messages.info(request, 'New staff record has been saved successfully!')
+        return redirect('/staff/')
+    context = {
+        'profile_form': staff_profile_form,
+        'extended_profile_form': extended_staff_profile_form,
+        's_obj': s_obj,
+    }
     return render(request, 'create_staff.html', context)
 
 #=============== DETAILED VIEW ==================
