@@ -112,7 +112,7 @@ def admin_appointment_book_view(request):
 @login_required
 def edit_appointment_view(request, id):
     instance = get_object_or_404(Appointment, id=id)
-    customer = Customer.objects.get(user=self.request.user)
+    customer = Customer.objects.get(user=request.user)
     model_form = UpdateAppointmentForm(request.POST or None, request.FILES or None, instance=instance)
     if request.method=="POST":
         if model_form.is_valid():
@@ -132,13 +132,13 @@ def edit_appointment_view(request, id):
             instance.save()
             messages.info(request, 'Appointment has been edited successfully!')
             return redirect('/appointments/'+str(instance.id))
-        else:
-            model_form = UpdateAppointmentForm()
+    else:
+        model_form = UpdateAppointmentForm(instance=instance)
     context = {
         'form': model_form,
         'customer': customer,
     }
-    return render(request, 'admin_createbooking.html', context)
+    return render(request, 'createbooking.html', context)
 
 @admin_required
 def admin_edit_appointment_view(request, id):
@@ -162,8 +162,8 @@ def admin_edit_appointment_view(request, id):
             instance.save()
             messages.info(request, 'Appointment has been edited successfully!')
             return redirect('/appointments/'+str(instance.id))
-        else:
-            model_form = AdminUpdateAppointmentForm()
+    else:
+        model_form = AdminUpdateAppointmentForm(instance=instance)
     context = {
         'form': model_form,
     }
