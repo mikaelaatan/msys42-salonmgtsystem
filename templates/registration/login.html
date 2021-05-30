@@ -24,6 +24,14 @@ LOGIN_REDIRECT_URL
         <div class="form-container sign-in-container">
             <form id="login-form" method="post">
                 {% csrf_token %}
+                {% if messages %}
+                  {% for msg in messages %}
+                    <div class="alert alert-info alert-dismissable">
+                      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                      {{msg.message}}
+                    </div>
+                  {% endfor %}
+                {% endif %}
                   <h1>Sign in</h1>
                   <span>or use your account</span>
                   <input id="id_username" name="username" type="text" class="form-control" placeholder="Username">
