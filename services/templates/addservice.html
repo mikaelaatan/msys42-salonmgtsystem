@@ -11,6 +11,21 @@
     <div class="title-container">
         <h1>Add a service</h1>
     </div>
+    {% if form.non_field_errors %}
+          <div class="alert alert-danger form-error">
+          {% for error in form.non_field_errors %}
+            <div style="margin:0;padding:0;">{{ error }}</div>
+          {% endfor %}
+          </div>
+      {% endif %}
+      {% if form.errors %}
+          <div class="alert alert-danger form-error">
+          {% for key,value in form.errors.items %}
+          {% for error in value %}
+            <small>{{ error }}</small></div>
+          {% endfor %}
+          {% endfor %}
+      {% endif %}
     <br>
     <div class="form-row">
       <div class="col-md-4 mb-4">
