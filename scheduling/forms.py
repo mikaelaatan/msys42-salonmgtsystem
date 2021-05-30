@@ -57,6 +57,10 @@ class CreateAppointmentForm(forms.ModelForm):
         if date and staff:
             if date < now:
                 raise forms.ValidationError('Cannot pick a past date for future appointment')
+            opening = dt(date.year, date.month, date.day, hour=10, minute=0, second=0)
+            closing = dt(date.year, date.month, date.day, hour=19, minute=0, second=0)
+            if date.replace(tzinfo=None).replace(tzinfo=None) < opening.replace(tzinfo=None) or date.replace(tzinfo=None) > closing.replace(tzinfo=None):
+                raise forms.ValidationError('Appointment must be within operating hours: 10AM to 8PM.')
             events = Appointment.objects.filter(staff=staff, iscancelled=False)
             sec = service.serviceduration.total_seconds()
             end_date = date + timedelta(seconds=sec+1800)
@@ -73,7 +77,7 @@ class AdminCreateAppointmentForm(forms.ModelForm):
 
     class Meta:
         model = Appointment
-        fields = ('customer','appdatetime','service','staff',)
+        fields = ('customer','appdatetime','service','staff')
         widgets = {
           'appdatetime': DateInput(attrs={'type': 'datetime-local'}, format='%Y-%m-%dT%H:%M'),
           'service': forms.Select,
@@ -115,6 +119,10 @@ class AdminCreateAppointmentForm(forms.ModelForm):
         if date and staff:
             if date < now:
                 raise forms.ValidationError('Cannot pick a past date for future appointment')
+            opening = dt(date.year, date.month, date.day, hour=10, minute=0, second=0)
+            closing = dt(date.year, date.month, date.day, hour=19, minute=0, second=0)
+            if date.replace(tzinfo=None).replace(tzinfo=None) < opening.replace(tzinfo=None) or date.replace(tzinfo=None) > closing.replace(tzinfo=None):
+                raise forms.ValidationError('Appointment must be within operating hours: 10AM to 8PM.')
             events = Appointment.objects.filter(staff=staff, iscancelled=False)
             sec = service.serviceduration.total_seconds()
             end_date = date + timedelta(seconds=sec+1800)
@@ -168,7 +176,11 @@ class UpdateAppointmentForm(forms.ModelForm):
         if date and staff:
             if date < now:
                 raise forms.ValidationError('Cannot pick a past date for future appointment')
-            events = Appointment.objects.filter(staff=staff, iscancelled=False)
+            opening = dt(date.year, date.month, date.day, hour=10, minute=0, second=0)
+            closing = dt(date.year, date.month, date.day, hour=19, minute=0, second=0)
+            if date.replace(tzinfo=None).replace(tzinfo=None) < opening.replace(tzinfo=None) or date.replace(tzinfo=None) > closing.replace(tzinfo=None):
+                raise forms.ValidationError('Appointment must be within operating hours: 10AM to 8PM.')
+            events = Appointment.objects.filter(staff=staff, iscancelled=False).exclude(id=self.instance.id)
             sec = service.serviceduration.total_seconds()
             end_date = date + timedelta(seconds=sec+1800)
             if events.exists():
@@ -184,7 +196,7 @@ class AdminUpdateAppointmentForm(forms.ModelForm):
 
     class Meta:
         model = Appointment
-        fields = ('customer','appdatetime','service','staff','iscancelled')
+        fields = ('customer','appdatetime','service','staff','iscancelled','is_completed')
         widgets = {
           'appdatetime': DateInput(attrs={'type': 'datetime-local'}, format='%Y-%m-%dT%H:%M'),
          }
@@ -213,14 +225,17 @@ class AdminUpdateAppointmentForm(forms.ModelForm):
         if date and staff:
             if date < now:
                 raise forms.ValidationError('Cannot pick a past date for future appointment')
-            events = Appointment.objects.filter(staff=staff, iscancelled=False)
+            opening = dt(date.year, date.month, date.day, hour=10, minute=0, second=0)
+            closing = dt(date.year, date.month, date.day, hour=19, minute=0, second=0)
+            if date.replace(tzinfo=None).replace(tzinfo=None) < opening.replace(tzinfo=None) or date.replace(tzinfo=None) > closing.replace(tzinfo=None):
+                raise forms.ValidationError('Appointment must be within operating hours: 10AM to 8PM.')
+            events = Appointment.objects.filter(staff=staff, iscancelled=False).exclude(id=self.instance.id)
             sec = service.serviceduration.total_seconds()
             end_date = date + timedelta(seconds=sec+1800)
             if events.exists():
                 for event in events:
                     if self.check_overlap(event.appdatetime, event.enddatetime, date, end_date):
                         raise forms.ValidationError('This date is already booked for this staff member')
-
 
 
 # class AppointmentReviewForm(forms.ModelForm):
