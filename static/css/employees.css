@@ -83,6 +83,7 @@ body{
     cursor: pointer;
     font-weight: 600;
     margin-bottom: 20px;
+    margin-top: 20px;
 } 
 .createSegment a { 
     margin-bottom: 0px;

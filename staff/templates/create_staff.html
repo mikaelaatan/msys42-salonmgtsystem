@@ -1,0 +1,176 @@
+{% extends 'common/base.html' %}
+{% load widget_tweaks %}
+
+{% block title%}Add Staff{% endblock %}
+
+{% block content %}
+
+<div class="form-group row">
+{% if extended_profile_form.errors %}
+    <div class="alert alert-danger form-error">
+    {% for key,value in extended_profile_form.errors.items %}
+    {% for error in value %}
+      <small>{{ error }}</small></div>
+    {% endfor %}
+    {% endfor %}
+{% endif %}
+{% if profile_form.errors %}
+    <div class="alert alert-danger form-error">
+    <ul>
+      {% for key,value in profile_form.errors.items %}
+      {% for error in value %}
+        <li><small>{{ error }}</small></li>
+      {% endfor %}
+      {% endfor %}
+    </ul>
+    </div>
+{% endif %}
+</div>
+
+<form method="POST" class="staff-form">
+    {% csrf_token %}
+    <div class="title-container">
+      <h1>Add a staff</h1>
+    </div>
+    <div class="form-row">
+      <div class="col-md-4 mb-4">
+        <label for="form-fname" class="required">First name</label>
+        {{ profile_form.first_name|add_class:"form-control input-md" }}
+      </div>
+
+      <div class="col-md-4 mb-4">
+        <label for="form-lname" class="required">Last name</label>
+        {{ profile_form.last_name|add_class:"form-control input-md" }}
+      </div>
+
+    <div class="col-sm-8 mb-4">
+      <label for="form-username" class="required">Username</label>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroupPrepend2">@</span>
+        </div>
+        {{ profile_form.username|add_class:"form-control input-md" }}
+      </div>
+    </div>
+
+    <div class="col-sm-8 mb-4">
+      <label for="form-email" class="required">Email</label>
+      {{ profile_form.email|add_class:"form-control input-md" }}
+    </div>
+
+    <div class="col-sm-8 mb-4">
+      <label for="validationDefault03" class="required">Password</label>
+      {{ profile_form.password1|add_class:"form-control input-md" }}
+    </div>
+
+    <div class="col-sm-8 mb-4">
+      <label for="validationDefault04" class="required">Confirm Password</label>
+      {{ profile_form.password2|add_class:"form-control input-md" }}
+    </div>
+
+    <div class="col-sm-8 mb-4">
+      <label for="phone-number" class="required">Phone Number</label>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            <i class="fa fa-mobile-phone"></i>
+          </div>
+        </div>
+        {{ extended_profile_form.phone_number|add_class:"form-control input-md" }}
+      </div>
+    </div>
+
+    <div class="col-sm-8 mb-4">
+        <label for="id_about" class="required">About</label>
+        {{ extended_profile_form.about|add_class:"form-control input-md" }}
+    </div>
+
+    <div class="col-sm-8 mb-4">
+      <div class="form-check">
+        <label for="service" class="required">Service</label>
+        {{ extended_profile_form.service|add_class:"form-check-input" }}
+      </div>
+    </div>
+
+    <!-- SERVICES Select Multiple -->
+    <div class="form-group row">
+      <div class="col">
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+              Select Service(s)
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              {% for s in s_obj %}
+                <input type="checkbox" class="chkvalues" value="{{ s.servicename }}"> {{ s }} </input><br/>
+              {% endfor %}
+            </div>
+          </div>
+          </div>
+          <div class="col">
+            <input type="text" id="txtdisplay" name="service_list" value="{% for service in object.service.all %}{{ service.servicename }}, {% endfor %}" readonly>
+            </div>
+        </div>
+        <div class="col-sm-8 mb-4">
+          <label for="id_is_active" class="required">Staff Status:</label>
+          <div class="form-check form-check-inline">
+            {{ extended_profile_form.is_active|add_class:"form-check-input"}}
+            </div>
+        </div>
+
+  </div> <!-- end form -->
+
+
+
+    <!-- <div class="title-container">
+      <h1>Services</h1>
+    </div>
+  <div class="form-col">
+    <div class="card" id="form-card">
+      <div class="card-body">
+        <h5 class="card-title">Service 1</h5>
+        <p class="card-text">Service details.</p>
+        <a href="#" class="btn btn-primary">Select</a>
+      </div>
+    </div>
+    <div class="card" id="form-card">
+      <div class="card-body">
+        <h5 class="card-title">Service 2</h5>
+        <p class="card-text">Service details.</p>
+        <a href="#" class="btn btn-primary">Select</a>
+      </div>
+    </div>
+
+  </div> -->
+
+
+  <div class="form-group row">
+    <div class="button-form">
+        <input type='submit' value='Save' class = 'submit__btn' />
+        <a href='/appointments/'>
+            <input type="button" value='Back' class="submit__btn"/>
+        </a>
+    </div>
+  </div>
+</form>
+{% endblock content %}
+
+{% block datatables %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+  $(document).ready(function()
+  {
+    $('.chkvalues').click(function()
+    {
+      var txt=""
+      $('.chkvalues:checked').each(function()
+      {
+        txt+=$(this).val()+", "
+      })
+        txt=txt.substring(0,txt.length-1)
+        $('#txtdisplay').val(txt)
+    });
+  });
+</script>
+
+{% endblock datatables %}

@@ -1,70 +1,76 @@
 {% extends 'common/base.html' %}
 
-{% block title %} Employees {% endblock title %}
+{% block title %} Beautywand Staff List {% endblock title %}
 
 {% block content %}
 
-    <div class="container p-30">
-        <div class="row">
-            <div class="col-md-12 main-datatable">
-                <div class="card_body">
-                    <div class="row d-flex">
-                        <div class="col-sm-4 createSegment">
-                         <a href = "/staff/signup/" class="btn dim_button create_new"> <span class="glyphicon glyphicon-plus"></span> Create New</a>
-                        </div>
-                        <div class="col-sm-8 add_flex">
-                            <div class="form-group searchInput">
-                                <label for="email">Search:</label>
-                                <input type="search" class="form-control" id="filterbox" placeholder=" ">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="overflow-x">
-                        <table style="width:100%;" id="staff_table" class="display">
-                            <thead>
-                                <tr>
-                                    <th style="min-width:50px;">ID</th>
-                                    <th style="min-width:50px;">Username</th>
-                                    <th style="min-width:150px;">Name</th>
-                                    <th style="min-width:150px;">Phone Number</th>
-                                    <th style="min-width:100px;">Services</th>
-                                    <th style="min-width:150px;">Status</th>
-                                    <th style="min-width:100px;">Action</th>
-                                    <!-- <th style="min-width:150px;">Action</th> hm it's nice to add number of appointments a staff has -->
-                                </tr>
-                            </thead>
-                            <tbody>
-                              {% for staff in object_list %}
-                                <tr>
-                                    <td>{{ staff.id }}</td>
-                                    <td>{{ staff.user.username }}</td>
-                                    <td>{{ staff.user.first_name|add:' '|add:staff.user.last_name }}</td>
-                                    <td>{{ staff.phone_number }}</td>
-                                    <td>
-                                      {% for service in staff.services.all %}
-                                          <p class='m-0 p-0'>{{ service }}</p>
-                                      {% endfor %}
-                                    </td>
-                                    <td>
-                                      {% if staff.is_active == True %}
-                                        <span class="mode mode_on">Active</span>
-                                      {% else %}
-                                        <span class="mode mode_off">Inactive</span>
-                                      {% endif %}
-                                    </td>
-                                    <td>
-                                      <p data-placement="top" data-toggle="tooltip" title="Edit"><a href="edit/{{ staff.id }}" button class="btn btn-default btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit">
-                                          <i class="fa fa-edit"></i></a></p>
-                                    </td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="col-md-12">
+  {% if messages %}
+    {% for msg in messages %}
+      <div class="alert alert-info alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        {{msg.message}}
+      </div>
+    {% endfor %}
+  {% endif %}
+  <div class="table-responsive">
+    <h2>BeautyWand Staff List</h2>
+    {% if 'admin.view_logentry' in user.get_user_permissions %}
+    <span><a href="/staff/add/" class="btn btn-primary btn-sm">New Record</a></span><br>
+    {% else %}
+    {% endif %}
+    <br>
+    <table id="staff_table" class="display" width="100%">
+      <thead>
+          <tr>
+              <th>ID</th>
+              <th>Username</th>
+              <th>Name</th>
+              <th>Phone Number</th>
+              <th>Services</th>
+              <th>Status</th>
+              {% if 'admin.view_logentry' in user.get_user_permissions %}
+              <th>Action</th>
+              {% else %}
+              {% endif %}
+              <!-- <th style="min-width:150px;">Action</th> hm it's nice to add number of appointments a staff has -->
+          </tr>
+      </thead>
+      <tbody>
+        {% for staff in object_list %}
+          <tr>
+              <td>{{ staff.id }}</td>
+              <td><a href="{{ staff.get_absolute_url }}">{{ staff.user.username }}</a></td>
+              <td>{{ staff.user.first_name|add:' '|add:staff.user.last_name }}</td>
+              <td>{{ staff.phone_number }}</td>
+              <td>
+                <ul>
+                {% for service in staff.service.all %}
+                    <p class='m-0 p-0'><li>{{ service.servicename }}</li></p>
+                {% endfor %}
+                </ul>
+              </td>
+              <td>
+                {% if staff.is_active == True %}
+                  <span class="mode mode_on">Active</span>
+                {% else %}
+                  <span class="mode mode_off">Inactive</span>
+                {% endif %}
+              </td>
+              {% if 'admin.view_logentry' in user.get_user_permissions %}
+              <td>
+                <p data-placement="top" data-toggle="tooltip" title="Edit"><a href="edit/{{ staff.id }}"
+                    button class="btn btn-default btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit">
+                    <i class="fa fa-edit"></i></a></p>
+              </td>
+              {% else %}
+              {% endif %}
+          </tr>
+          {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
 {% endblock %}
 
 {% block datatables %}

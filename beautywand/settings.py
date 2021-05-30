@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'widget_tweaks',
+    'common',
 
     'Calendar.apps.CalendarConfig',
     'scheduling.apps.SchedulingConfig',
@@ -99,6 +100,7 @@ DATABASES = {
         'PORT': '3306',
         'USER': 'root', # change this to your sql username
         'PASSWORD': 'password', # change this to your sql password
+        'TIME_ZONE': 'Asia/Manila',
     }
 
 }
@@ -148,4 +150,4 @@ STATICFILES_DIRS = [
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
-LOGIN_REDIRECT_URL = "/home"
+LOGOUT_REDIRECT_URL = 'login'

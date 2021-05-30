@@ -1,16 +1,39 @@
 {% extends 'common/base.html' %}
 
 {% block content %}
-<div class="card b-0">
-    <h3 class="heading">Booking Details</h3>
-      <div class="form-card">
-          <p><b>Name :</b>&nbsp;&nbsp;{{ object.customer.user.first_name|add:' '|add:object.user.last_name }}</p>
-          <p><b>Email :</b>&nbsp;&nbsp;{{ object.customer.user.email }}</p>
-          <p><b>Service :</b>&nbsp;&nbsp;{{ object.service.servicename }}</p>
-          <p><b>Stylist :</b>&nbsp;&nbsp;{{ object.staff.user.first_name|add:' '|add:object.staff.user.last_name }}</p>
-          <p><b>Date :</b>&nbsp;&nbsp;{{ object.appdatetime }}</p>
-          <p><b>Amount :</b>&nbsp;&nbsp;{{object.service.serviceprice }} </p>
-          <span><a href="/appointments/" class="btn btn-primary">Back to Appointment list</a></span><br>
+<div class="col-md-12">
+  <div class="container">
+    <div class="title-container">
+      <h1>Appointment Details</h1>
+    </div>
+    {% if messages %}
+      {% for msg in messages %}
+        <div class="alert alert-info alert-dismissable">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          {{msg.message}}
+        </div>
+      {% endfor %}
+    {% endif %}
+    <div class="card" id="service-card">
+      <div class="card-body">
+          <p class="card-text"><b>Name :</b>&nbsp;&nbsp;{{ object.customer }}</p>
+          <p class="card-text"><b>Service :</b>&nbsp;&nbsp;{{ object.service }}</p>
+          <p class="card-text"><b>Stylist :</b>&nbsp;&nbsp;{{ object.staff.user.first_name|add:' '|add:object.staff.user.last_name }}</p>
+          <p class="card-text"><b>Start :</b>&nbsp;&nbsp;{{ object.appdatetime }}</p>
+          <p class="card-text"><b>End :</b>&nbsp;&nbsp;{{ object.enddatetime }}</p>
+          <p class="card-text"><b>Amount :</b>&nbsp;&nbsp;Php {{object.service.serviceprice }}.00 </p>
+          <p class="card-text"><b>Status :</b>&nbsp;&nbsp; {% if object.is_cancelled == True %}
+            <span class="mode mode_on">Confirmed</span>
+          {% else %}
+            <span class="mode mode_off">Cancelled</span>
+          {% endif %}</p>
+        </div>
       </div>
+      {% if 'admin.view_logentry' in user.get_user_permissions %}
+      <span><a href="/appointments/admin/edit/{{ object.id }}/" class="btn btn-primary">Edit Appointment</a></span>
+      {% else %}
+      {% endif %}
+      <span><a href="/appointments/" class="btn btn-primary">Back to Appointment list</a></span><br>
+    </div>
 </div>
 {% endblock %}

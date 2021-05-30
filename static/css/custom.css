@@ -3,8 +3,20 @@
 
 body {
     font-family: "Poppins", sans-serif;
-    
-    
+
+
+}
+
+label.required::after {
+    content: ' *';
+    color: red;
+}
+
+#services_table {
+    background: white;
+}
+#services-table {
+    background: white;
 }
 
 .appointments-table {
@@ -46,13 +58,13 @@ body {
 h4 {
     margin: 2rem 0;
     font-weight: bold;
-    
+
 }
 
 h2 {
     margin: 2rem 0;
     font-weight: bold;
-    
+
 }
 
 th {
@@ -100,12 +112,12 @@ tbody tr {
 }
 
  td .btn {
-    
+
     background-color: transparent;
     border: 0.5px solid transparent;
     color: #252525;
     font-size:large;
-    
+
 }
 
 td .btn:hover {
@@ -126,8 +138,8 @@ tbody tr td a {
 .form-row {
     padding: 10px;
     margin-top: 2rem;
-    
-    
+
+
 }
 
 .form-col {
@@ -200,3 +212,55 @@ tbody tr td a {
     font-size: 18px;
 }
 
+.col-md-12 .dataTables_length {
+    margin: 20px 0px;
+    margin-left: 20px;
+}
+
+.col-md-12 .dataTables_wrapper .dataTables_filter {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    position: relative;
+    justify-content: flex-end;
+    margin: 20px 0px;
+    padding: 0px 4px;
+    /* margin-top: 10px;
+    margin-right: 10px;
+    float:right; */
+
+}
+
+.col-md-12 .dataTables_wrapper .dataTables_filter input {
+    border: 1px solid #e5e5e5;
+    border-radius: 50px;
+    margin-left: 8px;
+    height: 34px;
+    width: 75%;
+    padding: 0px 25px 0px 10px;
+
+}
+
+.col-md-12 .dataTables_wrapper .dataTables_filter input:active {
+    border: 1px solid #8956F8;
+    border-radius: 50px;
+    margin-left: 8px;
+    height: 34px;
+    width: 75%;
+    padding: 0px 25px 0px 10px;
+}
+
+.col-md-12 .dataTables_wrapper .dataTables_filter label {
+    color: #767676;
+    font-weight: normal;
+    position: relative;
+}
+
+.col-md-12 .dataTables_wrapper .dataTables_filter:after {
+    font-family: 'FontAwesome';
+    color: #d4d4d4;
+    position: relative;
+    content: "\f002";
+    bottom: 4px;
+    right: 32px;
+}

@@ -1,5 +1,7 @@
 {% extends 'common/base.html' %}
 
+{% block title %} BeautyWand List of Services {% endblock title %}
+
 {% block content %}
 <div class="col-md-12">
     <div class="row">
@@ -8,7 +10,7 @@
          <form action '.' method="POST"> {% csrf_token %}
            <h3> Are you sure you want to delete the service: {{ object.servicename }}? </h3>
            <p> Service Type: {{ object.servicetype }} </p>
-           <p> Price: {{ object.serviceprice }} </p>
+           <p> Price: Php {{ object.serviceprice }}.00 </p>
            <p> Description: {{ object.servicedescription }} </p>
            <p> Duration: {{ object.serviceduration_HHmm }} </p>
            <p><input type="submit" name="Yes" value="Yes" onclick="alert('{{ object.servicename}} deleted successfully.');">
