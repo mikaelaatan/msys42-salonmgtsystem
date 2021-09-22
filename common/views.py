@@ -16,12 +16,12 @@ def login_required_view(request):
 def home_view(request):
     if hasattr(request.user, 'staff'):
         appointments = Appointment.objects.filter(staff__user=request.user)
-        services=Service.objects.filter(is_working=True)
+        services=Service.objects.all()
         staffs=StaffModel.objects.all()
     elif hasattr(request.user, 'user'):
         appointments = Appointment.objects.filter(customer__user=request.user)
-        services=Service.objects.all().filter(is_working=True)
-        staffs=StaffModel.objects.all().filter(is_active=True)
+        services=Service.objects.filter(is_working=True)
+        staffs=StaffModel.objects.filter(is_active=True)
     else:
         appointments=Appointment.objects.all()
         services=Service.objects.all()

@@ -7,8 +7,8 @@ class StaffModel(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='staff')
     about = models.TextField("About", max_length=300, null=True, blank=True)
     phone_number = models.CharField(max_length=11)
-    service = models.ManyToManyField(Service)
-    is_active = models.BooleanField(default=True, blank=True)
+    service = models.ManyToManyField(Service, blank=False)
+    is_active = models.BooleanField(default=True, null=True, blank=True)
 
     def __str__(self, *args, **kwargs):
             return f'{self.user.first_name} {self.user.last_name}'

@@ -26,7 +26,7 @@
         {% endif %}</p>
         <p class="card-text">Username: <b>{{ object.user.username }}</b></p>
         <p class="card-text">Email: <b>{{ object.user.email }}</b></p>
-        <p class="card-text">Email: <b>{{ object.phone_number }}</b></p>
+        <p class="card-text">Phone Number: <b>{{ object.phone_number }}</b></p>
       </div>
       </div>
       <div class="title-container">
@@ -46,7 +46,7 @@
 <br>
 
   <!-- add a back to service list button -->
-  {% if 'admin.view_logentry' in user.get_user_permissions %}
+  {% if user.is_superuser == True %}
   <span><a href="/staff/edit/{{ object.id }}/" class="btn btn-primary">Edit Staff Details</a></span>
   {% else %}
   {% endif %}

@@ -15,7 +15,7 @@
   <div class="table-responsive">
     <h2>View Appointments</h2>
 
-    {% if 'admin.view_logentry' in user.get_user_permissions %}
+    {% if user.is_superuser == True %}
     <span><a href="/appointments/admin/new/" class="btn btn-primary">Create appointment</a></span><br>
     {% else %}
     <span><a href="/appointments/new/" class="btn btn-primary">Add new appointment</a></span><br>
@@ -29,7 +29,10 @@
         <th>Service</th>
         <th>Staff</th>
         <th>Status</th>
+        {% if user.is_staff == False or user.is_superuser == True %}
         <th>Edit</th>
+        {% else %}
+        {% endif %}
       </thead>
       <tbody>
         {% for instance in todays %}
@@ -49,15 +52,12 @@
               <span class="mode mode_off">Cancelled</span>
           </td>
           {% endif %}
+          {% if user.is_superuser == True %}
           <td>
-            {% if 'admin.view_logentry' in user.get_user_permissions %}
-             <p data-placement="top" data-toggle="tooltip" title="Edit"><a href="/appointments/admin/edit/{{ instance.id }}">
-                <i class="fa fa-edit"></i></a></p>
-            {% elif user.is_staff == True %}
-            <p data-placement="top" data-toggle="tooltip" title="Edit"><a href="#"
-                button class="btn btn-default btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit">
-                <i class="fa fa-edit"></i></a></p>
+             <p data-placement="top" data-toggle="tooltip" title="Edit"><a href="/appointments/admin/edit/{{ instance.id }}"><i class="fa fa-edit"></i></a></p>
+             {% elif user.is_staff == True %}
             {% else %}
+            <td>
             <a href="edit/{{ instance.id }}"><i class="fa fa-edit"></i></a>
           </td> {% endif %}
         </tr>

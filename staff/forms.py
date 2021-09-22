@@ -23,7 +23,7 @@ class StaffModelForm(UserCreationForm):
         return user
 
 class ExtendedStaffModelForm(forms.ModelForm):
-    # services = forms.ModelMultipleChoiceField(queryset=Service.objects.all(), widget=forms.CheckboxSelectMultiple)
+    service = forms.ModelMultipleChoiceField(queryset=Service.objects.all(), widget=forms.SelectMultiple(attrs={'class': 'form-control input-md'}), required=True)
 
     class Meta:
         model = StaffModel
@@ -34,6 +34,7 @@ class ExtendedStaffModelForm(forms.ModelForm):
         if (len(phone_num)) > 11:
             raise forms.ValidationError('Enter correct phone number. Format is 09xxxxxxxxx')
         return phone_num
+
 
 class StaffUpdateForm(forms.ModelForm):
     # services = forms.ModelMultipleChoiceField(queryset=Service.objects.all(), widget=forms.SelectMultiple, help_text = "Choose multiple.")

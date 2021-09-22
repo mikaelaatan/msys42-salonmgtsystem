@@ -13,3 +13,6 @@ class Customer(models.Model):
 
     def getCustomerName(self):
         return f'{self.user.first_name} {self.user.last_name}'
+
+    # def get_absolute_url(self):
+    #     return reverse("customer-profile", kwargs={"id": self.id})
