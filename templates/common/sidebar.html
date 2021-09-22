@@ -4,10 +4,13 @@
         <nav class="nav">
             <div>
                 <a href="/" class="nav__logo">
-                    <i class='bx bx-layer nav__logo-icon'></i>
-                    <span class="nav__logo-name">BeautyWand</span>
+                    <i class='bx bxs-magic-wand nav__logo-icon'></i>
+                    <span class="nav__logo-name">BeautyWand<br>
+                    Salon</span>
                 </a>
-
+                <span class="nav__link">
+                      <i class='bx bx-user-circle nav__icon'></i>
+                      <span class="nav__profile-name">{{user.username}}</span></span>
                 <div class="nav__list">
                     <a href="/appointments/calendar/" class="nav__link">
                         <i class='bx bx-grid-alt nav__icon'></i>
@@ -42,10 +45,10 @@
                 </div>
             </div>
 
-            <a href="{% url 'logout' %}" class="nav__link">
-                <i class='bx bx-log-out nav__icon'></i>
-                <span class="nav__name">Log Out</span>
-            </a>
+                <a href="{% url 'logout' %}" class="nav__link">
+                    <i class='bx bx-log-out nav__icon'></i>
+                    <span class="nav__name">Log Out</span>
+                </a>
         </nav>
     </div>
 

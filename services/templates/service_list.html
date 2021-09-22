@@ -8,11 +8,10 @@
 <div class="col-md-12">
   <div class="table-responsive">
     <h2>BeautyWand Service List</h2>
-    {% if 'admin.view_logentry' in user.get_user_permissions %}
-    <span><a href="/services/add/" class="btn btn-primary btn-sm">New Record</a></span><br>
+    {% if user.is_superuser == True %}
+    <span><a href="/services/add/" class="btn btn-primary">Add New Service</a></span><br>
     {% else %}
     {% endif %}
-    <br>
     <table id="services_table" class="order-column table table-borderless table-hover" width="100%">
       <thead>
         <!-- <th><input type="checkbox" id="checkall" /></th> -->
@@ -21,8 +20,11 @@
         <th>Name</th>
         <th>Price</th>
         <th>Duration</th>
-        {% if 'admin.view_logentry' in user.get_user_permissions %}
+        {% if user.is_superuser == True or user.is_staff == True %}
         <th>Status</th>
+        {% else %}
+        {% endif %}
+        {% if user.is_superuser == True %}
         <th>Action</th>
         {% else %}
         {% endif %}
@@ -36,14 +38,17 @@
           <td><a href="{{ instance.get_absolute_url }}"> {{ instance.servicename }}</a></td>
           <td>Php {{ instance.serviceprice }}.00</td>
           <td>{{ instance.serviceduration_HHmm }}</td>
-          {% if 'admin.view_logentry' in user.get_user_permissions %}
+          {% if user.is_superuser == True or user.is_staff == True %}
           <td>
             {% if instance.is_working == True %}
               <span class="mode mode_on">Active</span>
             {% else %}
               <span class="mode mode_off">Inactive</span>
             {% endif %}
+            {% else %}
+          {% endif %}
           </td>
+          {% if user.is_superuser == True %}
           <td>
             <p data-placement="top" data-toggle="tooltip" title="Edit"><a href="edit/{{ instance.id }}">
                 <i class="fa fa-edit"></i></a>

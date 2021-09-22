@@ -15,7 +15,7 @@
   /*===== Font and typography =====*/
   --body-font: 'Poppins', sans-serif;
   --normal-font-size: 1rem;
-  
+
   /*===== z index =====*/
   --z-fixed: 100;
 }
@@ -153,7 +153,7 @@ a{
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  height: 40px; 
+  height: 40px;
   width: 40px;
   /* background: #ef7575; */
   border-radius: 50%;
@@ -212,6 +212,12 @@ a{
 .nav__logo-name{
   color: var(--white-color);
   font-weight: 700;
+}
+
+.nav__profile-name{
+  position: relative;
+  color: var(--white-color);
+  margin-bottom: 1.5rem;
 }
 
 .nav__link{
@@ -278,7 +284,7 @@ a{
     left: 0;
     padding: 1rem 1rem 0 0;
   }
-  
+
   /*Show navbar desktop*/
   .show{
     width: calc(var(--nav-width) + 156px);
@@ -289,6 +295,3 @@ a{
     padding-left: calc(var(--nav-width) + 188px);
   }
 }
-
-
-

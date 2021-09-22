@@ -33,7 +33,7 @@
           </p>
         </div>
       </div>
-      {% if 'admin.view_logentry' in user.get_user_permissions %}
+      {% if user.is_superuser == True %}
       <span><a href="/appointments/admin/edit/{{ object.id }}/" class="btn btn-primary">Edit Appointment</a></span>
       {% else %}
       {% endif %}

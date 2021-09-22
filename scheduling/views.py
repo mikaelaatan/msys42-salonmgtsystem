@@ -109,7 +109,7 @@ def admin_appointment_book_view(request):
     }
     return render(request, 'admin_createbooking.html', context)
 
-@login_required
+@user_required
 def edit_appointment_view(request, id):
     instance = get_object_or_404(Appointment, id=id)
     customer = Customer.objects.get(user=request.user)
