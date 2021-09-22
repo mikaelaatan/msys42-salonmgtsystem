@@ -9,7 +9,8 @@ Salon Scheduling System- A project in MSYS 42 Business Applications Development 
 5. Go to your environment and activate `cd env/Scripts/Activate`
 6. Return to project directory  `cd ..`
 7. Install Requirements Package `pip install -r requirements.txt`
-8. Create Migration `python manage.py makemigrations`
-9. Migrate Database `python manage.py migrate`
-10. Create Super User `python manage.py createsuperuser`
-11. Finally Run The Project `python manage.py runserver`
+8. Change mySQL DB credentials (beautywand folder > settings.py > line 101, 102)
+9. Create Migration `python manage.py makemigrations`
+10. Migrate Database `python manage.py migrate`
+11. Create Super User `python manage.py createsuperuser`
+12. Finally Run The Project `python manage.py runserver`
