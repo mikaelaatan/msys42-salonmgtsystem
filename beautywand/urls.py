@@ -27,8 +27,6 @@ admin.site.enable_nav_sidebar = False
 # -------------------------------------
 
 urlpatterns = [
-    # url(r'^calendar/', include(('happenings.urls','happenings'), namespace='calendar')),
-    # path('calendar/', include(('happenings.urls','happenings'), namespace='calendar')),
     path('admin/', admin.site.urls),
     path('appointments/', include('scheduling.urls')),
     path('services/', include('services.urls')),

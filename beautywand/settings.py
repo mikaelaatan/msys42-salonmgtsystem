@@ -95,12 +95,11 @@ WSGI_APPLICATION = 'beautywand.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'beautywand_DB',
-        'HOST': '127.0.0.1',
+        'NAME': 'beautywand_db',
+        'HOST': 'db',
         'PORT': '3306',
         'USER': 'root', # change this to your sql username
         'PASSWORD': 'password', # change this to your sql password
-        'TIME_ZONE': 'Asia/Manila',
     }
 
 }
@@ -130,7 +129,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'HongKong'
+TIME_ZONE = 'Asia/Hong_Kong'
 
 USE_I18N = True
 
