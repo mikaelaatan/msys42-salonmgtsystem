@@ -1,38 +1,29 @@
 # syntax=docker/dockerfile:1
 
-FROM python:3.8-slim-buster AS build-base
-
+# install dependencies
+FROM python:3.8.10-alpine3.13 AS build-base
 RUN pip install --upgrade pip pipenv
-
 WORKDIR /tmp
 COPY requirements.txt requirements.txt
 RUN pip install --prefix="/install" -r requirements.txt
 
+# install mysqlclient
+FROM python:3.8.10-alpine3.13
+RUN apk add --no-cache mariadb-connector-c-dev ;\
+    apk add --no-cache --virtual .build-deps \
+        build-base \
+        mariadb-dev ;\
+    pip install mysqlclient;\
+    apk del .build-deps 
 
-FROM python:3.8-slim-buster AS builder
-RUN apt-get update \
- && apt-get install -y --no-install-recommends default-libmysqlclient-dev gcc \
- && apt-get clean \
- && rm -rf /var/lib/apt/lists/*
-RUN pip download mysqlclient==2.0.1 \
- && tar xzf mysqlclient-2.0.1.tar.gz
-WORKDIR /mysqlclient-2.0.1
-RUN python setup.py bdist_wheel
+# set official working directory
+WORKDIR /usr/src/app
 
-FROM python:3.8-slim-buster
-RUN apt-get update \
- && apt-get install -y --no-install-recommends libmariadb3 \
- && apt-get clean \
- && rm -rf /var/lib/apt/lists/*
-COPY --from=builder /mysqlclient-2.0.1/dist/mysqlclient-2.0.1-cp38-cp38-linux_x86_64.whl /
-RUN pip install /mysqlclient-2.0.1-cp38-cp38-linux_x86_64.whl
+COPY --from=build-base /install usr/src/app/install/
+COPY --from=build-base /tmp/requirements.txt usr/src/app/requirements.txt
 
-WORKDIR /app
+COPY . /usr/src/app/
 
-COPY --from=build-base /install /usr/local
-COPY --from=build-base /tmp/requirements.txt /app/
-
-COPY . /app/
-COPY docker-entrypoint.sh /docker-entrypoint.sh
-ENTRYPOINT ["sh","/docker-entrypoint.sh"]
-CMD ["python3","manage.py","runserver","0.0.0.0:8000"]
+COPY ./entrypoint.sh /usr/src/app/entrypoint.sh
+RUN chmod +x entrypoint.sh
+ENTRYPOINT ["sh","/usr/src/app/entrypoint.sh"]
