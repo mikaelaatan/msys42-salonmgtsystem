@@ -18,13 +18,15 @@ A simple appointment management project for the class "MSYS 42: Business Applica
    ```powershell
    cd msys42-salonmgtsystem
    python -m venv env
-   cd env/Scripts/Activate
+   cd env/Scripts/Activate #linux: source env/bin/activate
    ```
 4. Return to project directory and install requirements
    
    ```powershell
-   cd ..
+   cd app/
    pip install -r requirements.txt
+   # linux only: sudo apt-get install python3-dev default-libmysqlclient-dev build-essential
+   pip install mysqlclient
    ```
 5. Change mySQL DB credentials 
    * Located at **Beautywand folder > settings.py > line 101, 102**

@@ -99,7 +99,7 @@ DATABASES = {
         'HOST': 'db',
         'PORT': '3306',
         'USER': 'root', # change this to your sql username
-        'PASSWORD': 'password', # change this to your sql password
+        'PASSWORD': 'admin', # change this to your sql password
     }
 
 }
