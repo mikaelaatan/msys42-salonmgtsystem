@@ -1,0 +1,94 @@
+{% extends 'common/base.html' %}
+{% load widget_tweaks %}
+
+{% block title%}Add Service{% endblock %}
+
+{% block content %}
+
+
+<form method="POST" class="post-form">
+    {% csrf_token %}
+    <div class="title-container">
+        <h1>Add a service</h1>
+    </div>
+    {% if form.non_field_errors %}
+          <div class="alert alert-danger form-error">
+          {% for error in form.non_field_errors %}
+            <div style="margin:0;padding:0;">{{ error }}</div>
+          {% endfor %}
+          </div>
+      {% endif %}
+      {% if form.errors %}
+          <div class="alert alert-danger form-error">
+          {% for key,value in form.errors.items %}
+          {% for error in value %}
+            <small>{{ error }}</small></div>
+          {% endfor %}
+          {% endfor %}
+      {% endif %}
+    <br>
+    <div class="form-row">
+      <div class="col-md-4 mb-4">
+        <label for="form-name" class="required">Name</label>
+        {{ form.servicename|add_class:"form-control input-md" }}
+      </div>
+
+      <div class="col-md-4 mb-4">
+        <label for="form-typename" class="required">Service Type</label>
+        {{ form.servicetype|add_class:"form-control input-md" }}
+      </div>
+
+      <div class="col-sm-8 mb-4">
+        <label for="form-description">Description</label>
+        {{ form.servicedescription|add_class:"form-control input-md" }}
+      </div>
+
+      <div class="col-sm-8 mb-4">
+        <label for="form-price" class="required">Price</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroupPrepend2">Php</span>
+          </div>
+          {{ form.serviceprice|add_class:"form-control input-md" }}
+        </div>
+      </div>
+
+      <div class="col-sm-8 mb-4">
+        <label for="form-price" class="required">Duration</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="inputGroupPrepend2">HH:MM</span>
+          </div>
+          {{ form.serviceduration|add_class:"form-control input-md" }}
+      </div>
+      </div>
+      <div class="col-sm-8 mb-4">
+            <label for="id_is_working" class="required">Status:</label>
+            <div class="form-check form-check-inline">
+              {{ form.is_working|add_class:"form-check-input"}}
+              </div>
+          </div>
+      </div>
+    <div class="form-row">
+    <div class="form-group row">
+        <div class="button-form">
+            <input type='submit' value='Save' class = 'submit__btn'/>
+            <a href='/services/'>
+                <input type="button" value='Back' class="submit__btn"/>
+            </a>
+        </div>
+        {% if extended_profile_form.errors %}
+          {% for field in extended_profile_form %}
+            <div class="alert alert-danger form-error">
+            {% for error in extended_profile_form.field.errors %}
+            <div style="margin:0;padding:0;"><small>{{ error }}</small></div>
+            {% endfor %}
+            </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    </div>
+</form>
+
+
+{% endblock content %}

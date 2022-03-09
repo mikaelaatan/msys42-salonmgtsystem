@@ -1,0 +1,4 @@
+<option value="">---------</option>
+{% for staff in staffs %}
+<option value="{{ staff.pk }}">{{ staff.getStaffName }}</option>
+{% endfor %}

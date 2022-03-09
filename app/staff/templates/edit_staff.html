@@ -1,0 +1,158 @@
+{% extends 'common/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %} Staff details {% endblock title %}
+
+
+
+{% block content %}
+<div class="justify-content-center container-m">
+    <div class="title-container">
+        <h1> Update staff information </h1>
+    </div>
+    <form method="POST" class="post-form">
+        {% csrf_token %}
+        {% if extended_profile_form.errors %}
+            <div class="alert alert-danger form-error">
+            {% for key,value in extended_profile_form.errors.items %}
+            {% for error in value %}
+              <small>{{ error }}</small></div>
+            {% endfor %}
+            {% endfor %}
+        {% endif %}
+        {% if profile_form.errors %}
+            <div class="alert alert-danger form-error">
+            <ul>
+              {% for key,value in profile_form.errors.items %}
+              {% for error in value %}
+                <li><small>{{ error }}</small></li>
+              {% endfor %}
+              {% endfor %}
+            </ul>
+            </div>
+        {% endif %}
+        {% if messages %}
+          {% for msg in messages %}
+            <div class="alert alert-danger alert-dismissable">
+              <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+              {{msg.message}}
+            </div>
+          {% endfor %}
+        {% endif %}
+        <br>
+      <div class="form-group row">
+        <div class="col">
+          <!-- name -->
+            <label class="form-label required" for="staffname">Name:</label>
+            <input id="staffname" name="staffname" type="text" class="form-control input-md" value="{{ object.user.first_name|add:' '|add:object.user.last_name }}" readonly>
+          </div>
+          <!-- username -->
+          <div class="col">
+            <label class="form-label required" for="staffusername">Username: </label>
+            <input id="username" name="username" type="text" max_digits=11 class="form-control input-md" value="{{ object.user.username }}" readonly>
+          </div>
+          <div class="col">
+          <label class="form-label required" for="staffemail">Email: </label>
+          <input id="staff_email" name="email" type="text" class="form-control input-md" value="{{ object.user.email }}" readonly>
+          </div>
+        </div>
+
+        <div class="form-group row">
+        <label class="col-md-8 required" for="buttondropdown">Services</label>
+        <div class="col-md-12">
+          <div class="input-group">
+            <input id="txtdisplay" class="form-control" name="service_list" value="{% for service in object.service.all %}{{ service.servicename }}, {% endfor %}" readonly></input>
+            <div class="btn-group">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                Select Service(s)
+                <span class="caret"></span>
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                {% for s in s_obj %}
+                  <input type="checkbox" class="chkvalues" value="{{ s.servicename }}"> {{ s.servicename }} </input><br/>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-md-12">
+            <label for="id_about">About</label>
+             <textarea name="about" cols="40" rows="10" maxlength="300" class="form-control input-md" id="id_about" value="{{ object.about }}"></textarea>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-md-12">
+            <label for="id_phone_number" class="required">Phone number</label>
+             <input type="number" name="phone_number" class="form-control input-md" maxlength="11" required="" id="id_phone_number" value="{{ object.phone_number }}"
+             oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);">
+             </input>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-md-12">
+          <label for="id_is_active" class="required">Staff Status:</label>
+          <div class="form-check form-check-inline">
+            {{ form.is_active|add_class:"form-check-input"}}
+            </div>
+          </div>
+        </div>
+
+
+          <div class="form-group row">
+            <div class="button-form">
+                <input type='submit' value='Save' class='submit__btn'/>
+                <a href='/staff/'>
+                    <input type="button" value='Back' class="submit__btn"/>
+                </a>
+            </div>
+            {% if form.errors %}
+              {% for field in form %}
+                <div class="alert alert-danger form-error">
+                {% for error in form.field.errors %}
+                <div style="margin:0;padding:0;"><small>{{ error }}</small></div>
+                {% endfor %}
+                </div>
+                {% endfor %}
+            {% endif %}
+          </div>
+    </form>
+</div>
+{% endblock content %}
+
+{% block datatables %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+  $(document).ready(function()
+  {
+    $('.chkvalues').click(function()
+    {
+      var txt=""
+      $('.chkvalues:checked').each(function()
+      {
+        txt+=$(this).val()+", "
+      })
+        txt=txt.substring(0,txt.length-1)
+        $('#txtdisplay').val(txt)
+    });
+    // $('.submit__btn').click(function() {
+    //   var status = $("input[name='options-outlined']:checked").val();
+    //   var p_number = document.getElementById("staff_number");.val();
+    //   if (p_number.length > 11) {
+    //     alert('ERROR: Cannot add 0 order quantity.');
+    //     return false;
+    //   } else
+    //     { $('#radiodisplay').val(status)
+    //     alert('Thank you. Order Successful.');
+    //   }
+    // });
+  });
+</script>
+
+{% endblock datatables %}

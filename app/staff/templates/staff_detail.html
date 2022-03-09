@@ -1,0 +1,56 @@
+{% extends 'common/base.html' %}
+
+{% block title %} Staff Details {% endblock title %}
+
+{% block content %}
+<div class="col-md-12">
+  <div class="container">
+    <div class="title-container">
+      <h1>Staff Details</h1>
+    </div>
+    {% if messages %}
+      {% for msg in messages %}
+        <div class="alert alert-info alert-dismissable">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          {{msg.message}}
+        </div>
+      {% endfor %}
+    {% endif %}
+    <div class="card" id="service-card">
+      <div class="card-body">
+        <h4 class="card-title">{{ object.user.first_name|add:' '|add:object.user.last_name }}</h4>
+        <p class="card-text">Status: {% if object.is_active == True %}
+          <span class="mode mode_on">Active</span>
+        {% else %}
+          <span class="mode mode_off">Inactive</span>
+        {% endif %}</p>
+        <p class="card-text">Username: <b>{{ object.user.username }}</b></p>
+        <p class="card-text">Email: <b>{{ object.user.email }}</b></p>
+        <p class="card-text">Phone Number: <b>{{ object.phone_number }}</b></p>
+      </div>
+      </div>
+      <div class="title-container">
+        <h1>Services</h1>
+      </div>
+    <div class="form-col">
+      {% for service in object.service.all %}
+      <div class="card" id="form-card">
+        <div class="card-body">
+          <h5 class="card-title">{{ service.servicename }}</h5>
+          <p class="card-text">Type: {{ service.servicetype }}</p>
+          <p class="card-text">Php {{ service.serviceprice }}.00</p>
+      </div>
+      </div> {% endfor %}
+    </div>
+<br>
+<br>
+
+  <!-- add a back to service list button -->
+  {% if user.is_superuser == True %}
+  <span><a href="/staff/edit/{{ object.id }}/" class="btn btn-primary">Edit Staff Details</a></span>
+  {% else %}
+  {% endif %}
+  <span><a href="/staff/" class="btn btn-primary">Back to StaffList</a></span><br>
+  </div>
+</div>
+{% endblock content %}
