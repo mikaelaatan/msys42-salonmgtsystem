@@ -2,9 +2,10 @@ version: '3.8'
 
 services:
     backend:
-          build: ./app
+          build: 
+            context: ./app
+            dockerfile: Dockerfile
           command: python manage.py runserver 0.0.0.0:8000
-          dockerfile: ./app/Dockerfile
           ports:
             - 8000:8000
           volumes:
@@ -19,7 +20,8 @@ services:
 
     db:
       image: mysql:5.7
-      volumes: mysql_data:/var/lib/mysql
+      volumes: 
+        - mysql_data:/var/lib/mysql/
       environment:
         MYSQL_HOST: localhost
         MYSQL_PORT: 3306
@@ -30,4 +32,3 @@ volumes:
   mysql_data:
 
     
-

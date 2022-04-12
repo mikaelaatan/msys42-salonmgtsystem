@@ -1,14 +1,20 @@
 # syntax=docker/dockerfile:1
 
-# install dependencies
-FROM python:3.8.10-alpine3.13 AS build-base
+FROM python:3.9.0-alpine3.12 AS build-base
+
+# set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
 RUN pip install --upgrade pip pipenv
+
+# install dependencies
 WORKDIR /tmp
 COPY requirements.txt requirements.txt
 RUN pip install --prefix="/install" -r requirements.txt
 
 # install mysqlclient
-FROM python:3.8.10-alpine3.13
+FROM python:3.9.0-alpine3.12
 RUN apk add --no-cache mariadb-connector-c-dev ;\
     apk add --no-cache --virtual .build-deps \
         build-base \
@@ -19,8 +25,10 @@ RUN apk add --no-cache mariadb-connector-c-dev ;\
 # set official working directory
 WORKDIR /usr/src/app
 
-COPY --from=build-base /install usr/src/app/install/
+# copies dependencies to local
+COPY --from=build-base /install /usr/local
 COPY --from=build-base /tmp/requirements.txt usr/src/app/requirements.txt
+
 
 COPY . /usr/src/app/
 

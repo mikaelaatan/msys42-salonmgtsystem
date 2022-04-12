@@ -96,10 +96,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'beautywand_db',
-        'HOST': 'localhost', # change to db for docker
+        'HOST': 'db', # change to db for docker
         'PORT': '3306',
         'USER': 'root', # change this to your sql username
-        'PASSWORD': 'admin', # change this to your sql password
+        'PASSWORD': 'password', # change this to your sql password
     }
 
 }
