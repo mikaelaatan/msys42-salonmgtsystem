@@ -98,8 +98,8 @@ DATABASES = {
         'NAME': 'beautywand_db',
         'HOST': 'localhost', # change to db for docker
         'PORT': '3306',
-        'USER': 'mikaela', # change this to your sql username
-        'PASSWORD': 'admin12345', # change this to your sql password
+        'USER': 'root', # change this to your sql username
+        'PASSWORD': 'admin', # change this to your sql password
     }
 
 }

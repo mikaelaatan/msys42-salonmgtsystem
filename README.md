@@ -26,7 +26,7 @@ A simple appointment management project for the class "MSYS 42: Business Applica
    cd app/
    pip install -r requirements.txt
    # linux only: sudo apt-get install python3-dev default-libmysqlclient-dev build-essential
-   pip install mysqlclient
+   # pip install mysqlclient
    ```
 5. Change mySQL DB credentials 
    * Located at **Beautywand folder > settings.py > line 101, 102**
@@ -42,3 +42,7 @@ A simple appointment management project for the class "MSYS 42: Business Applica
    ```powershell
    python manage.py runserver
    ```
+8. Check the deployed project
+- `localhost:8000` 
+- username: iscs
+- password: admin12345
