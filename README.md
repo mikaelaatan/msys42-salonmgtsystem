@@ -2,9 +2,10 @@
 
 A simple appointment management project for the class "MSYS 42: Business Applications Development Class," built using Django, Bootstrap, and MySQL. This allows the customers to schedule their appointment in advance. 
 
-## 
+## GitLab CI/CD Deployment
+[ci/cd deployment to heroku site](https://gitlab.com/admu-cicd-zaavedra-2021-2022-2nd-sem/tan-tish-quisido-arnaiz/cicd-salonappointmentsystem)
 
-## How To Setup Application
+## How to setup locally hosted application
 
 * Instructions are written for Windows OS. Directory and file commands may vary in other OS. 
 1. Install git from [https://git-scm.com/downloads]()
