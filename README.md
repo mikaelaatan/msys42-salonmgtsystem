@@ -2,8 +2,10 @@
 
 A simple salon scheduling (appointment management) system-- a project for the class "Business Applications Development." Built using Python, Django, Bootstrap, and MySQL. The main value that the project delivers is that it allows the customers to schedule their appointment in advance, especially since this app was made during the height of the COVID-19 pandemic. 
 
-### Deployed Application (Active as of 06/2022)
-[Salon Scheduling System](https://django-salon-system.herokuapp.com/)
+### Project Details
+✅ [View the Deployed Application (Active as of 06/2022)](https://django-salon-system.herokuapp.com/)
+✅ [Read the Business Case](Project%20Background%20-%20Business%20Case.md)
+✅ [Setup the project locally](Readme-Setup.md)
 
 ### Screenshots of the Application
 
