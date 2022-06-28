@@ -1,49 +1,31 @@
 # Salon Scheduling System
 
-A simple appointment management project for the class "MSYS 42: Business Applications Development Class," built using Django, Bootstrap, and MySQL. This allows the customers to schedule their appointment in advance. 
+A simple salon scheduling (appointment management) system-- a project for the class "Business Applications Development." Built using Python, Django, Bootstrap, and MySQL. The main value that the project delivers is that it allows the customers to schedule their appointment in advance, especially since this app was made during the height of the COVID-19 pandemic. 
 
-## GitLab CI/CD Deployment
-[ci/cd deployment to heroku site](https://gitlab.com/admu-cicd-zaavedra-2021-2022-2nd-sem/tan-tish-quisido-arnaiz/cicd-salonappointmentsystem)
+### Deployed Application (Active as of 06/2022)
+[Salon Scheduling System](https://django-salon-system.herokuapp.com/)
 
-## How to setup locally hosted application
+### Screenshots of the Application
 
-* Instructions are written for Windows OS. Directory and file commands may vary in other OS. 
-1. Install git from [https://git-scm.com/downloads]()
-2. Open command prompt to clone this project:
-   
-   ```powershell
-   git clone https://github.com/mikaelaatan/msys42-salonmgtsystem.git
-   ```
-3. Go to Project Directory and activate the virtual environment:
-   
-   ```powershell
-   cd msys42-salonmgtsystem
-   python -m venv env
-   cd env/Scripts/Activate #linux: source env/bin/activate
-   ```
-4. Return to project directory and install requirements
-   
-   ```powershell
-   cd app/
-   pip install -r requirements.txt
-   # linux only: sudo apt-get install python3-dev default-libmysqlclient-dev build-essential
-   # pip install mysqlclient
-   ```
-5. Change mySQL DB credentials 
-   * Located at **Beautywand folder > settings.py > line 101, 102**
-6. Create migrations, migrate the database, and create superuser account in Django
-   
-   ```powershell
-   python manage.py makemigrations
-   python manage.py migrate
-   python manage.py createsuperuser
-   ```
-7. Finally Run The Project
-   
-   ```powershell
-   python manage.py runserver
-   ```
-8. Check the deployed project
-- `localhost:8000` 
-- username: iscs
-- password: admin12345
+**DASHBOARD OVERVIEW**
+![image](/media/0-dashboard.png)
+
+**LOGIN/REGISTER**
+![image](/media/0-login.png)
+![image](/media/0-register.png)
+
+**MANAGE SERVICE DETAILS**
+![image](/media/1-service-view-all.png)
+![image](/media/1-service-add-edit.png)
+![image](/media/1-service-view-detail.png)
+
+**MANAGE STAFF DETAILS**
+![image](/media/2-staff-view-all.png)
+![image](/media/2-staff-add-edit.png)
+![image](/media/2-staff-view-detail.png)
+
+**MANAGE CALENDAR AND APPOINTMENTS**
+![image](/media/3-appointment-view-all.png)
+![image](/media/3-appointment-add.png)
+![image](/media/3-appointment-edit.png)
+![image](/media/3-appointment-view-detail.png)
